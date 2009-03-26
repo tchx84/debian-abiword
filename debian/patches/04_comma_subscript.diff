@@ -1,0 +1,13 @@
+Index: abiword-2.6.8/src/wp/ap/xp/ap_LB_Default.cpp
+===================================================================
+--- abiword-2.6.8.orig/src/wp/ap/xp/ap_LB_Default.cpp	2009-03-25 14:15:57.000000000 +0900
++++ abiword-2.6.8/src/wp/ap/xp/ap_LB_Default.cpp	2009-03-25 14:16:15.000000000 +0900
+@@ -478,7 +478,7 @@
+ 	{0x29, /* )      */ { "insertClosingParenthesis","",			"",				""					}},
+ 	{0x2a, /* *      */ { "insertData",			"viewPara",			"",				""					}},
+ 	{0x2b, /* +      */ { "insertData",			"zoomIn",			"",				""					}},
+-	{0x2c, /* ,      */ { "insertData",			"",					"",				""					}},
++	{0x2c, /* ,      */ { "insertData",			"toggleSub",					"",				""					}},
+ 	{0x2d, /* -      */ { "insertData",			"zoomOut",			"",				""					}},
+ 	{0x2e, /* .      */ { "insertData",			"pasteSpecial",		"",				""					}},
+ 	{0x2f, /* /      */ { "insertData",			"",					"",				""					}},

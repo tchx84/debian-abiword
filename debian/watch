@@ -1,0 +1,2 @@
+version=3
+http://www.abisource.com/downloads/abiword/([\d\.]+)/source/abiword-([\d\.]+)\.tar\.gz

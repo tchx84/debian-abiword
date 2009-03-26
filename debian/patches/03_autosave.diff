@@ -1,0 +1,13 @@
+Index: abiword-2.6.8/src/af/xap/xp/xap_Prefs_SchemeIds.h
+===================================================================
+--- abiword-2.6.8.orig/src/af/xap/xp/xap_Prefs_SchemeIds.h	2009-03-24 18:19:36.000000000 +0900
++++ abiword-2.6.8/src/af/xap/xp/xap_Prefs_SchemeIds.h	2009-03-24 18:19:48.000000000 +0900
+@@ -68,7 +68,7 @@
+ #define XAP_PREF_DEFAULT_LatinLigatures 	         "0"
+ 
+ #define XAP_PREF_KEY_AutoSaveFile					"AutoSaveFile"
+-#define XAP_PREF_DEFAULT_AutoSaveFile				"0" 						/* Auto save files by default */
++#define XAP_PREF_DEFAULT_AutoSaveFile				"1" 						/* Auto save files by default */
+ 
+ #define XAP_PREF_KEY_AutoSaveFilePeriod 				"AutoSaveFilePeriod"
+ #define XAP_PREF_DEFAULT_AutoSaveFilePeriod 			"5" 						/* Auto save files by default */

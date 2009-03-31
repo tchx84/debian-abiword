@@ -1,0 +1,20 @@
+SUBDIRS = 
+
+if EMBEDDED_HILDON
+SUBDIRS += maemo
+endif
+
+DIST_SUBDIRS = maemo
+
+EXTRA_DIST = \
+	aix \
+	cygwin \
+	hpux \
+	irix \
+	qnx \
+	win
+
+dist-hook:
+	for dir in $(EXTRA_DIST); do \
+		rm -rf `find $(distdir)/$$dir -name .svn`; \
+	done

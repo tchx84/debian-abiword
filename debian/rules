@@ -7,6 +7,16 @@ include /usr/share/cdbs/1/rules/patchsys-quilt.mk
 DEB_CONFIGURE_EXTRA_FLAGS := --disable-gnomeui --disable-gnomevfs #--enable-libabiword
 DEB_INSTALL_DOCS_ALL := CREDITS.TXT
 
+upstreamtmpfiles = src/pkg/maemo/abiword.desktop src/pkg/maemo/com.abisource.abiword.service src/wp/main/win/abi_ver.cpp
+
+# Put aside upstream cruft during build
+pre-build:: debian/stamp-upstreamtmpstuff
+debian/stamp-upstreamtmpstuff:
+	for file in $(upstreamtmpfiles); do \
+		[ ! -e $$file ] || [ -e $$file.upstream ] || mv $$file $$file.upstream; \
+	done
+	touch $@
+
 binary-install/abiword::
 	# Install /usr/share/mime-info/abiword.mime
 	install -m 644 $(CURDIR)/debian/misc/abiword.mime \
@@ -22,3 +32,10 @@ binary-install/abiword::
 clean::
 	rm -rf $(CURDIR)/.pc
 	rm -f $(CURDIR)/*.cdbs-config_list
+
+# Revert upstream stuff put aside during build
+clean::
+	for file in $(upstreamtmpfiles); do \
+		[ ! -e $$file.upstream ] || mv -f $$file.upstream $$file; \
+	done
+	rm -f debian/stamp-upstreamtmpstuff

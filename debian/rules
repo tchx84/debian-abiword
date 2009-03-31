@@ -29,10 +29,6 @@ binary-install/abiword::
 	  $(CURDIR)/debian/$(cdbs_curpkg)/usr/share/pixmaps
 	rm -rf $(CURDIR)/debian/$(cdbs_curpkg)/usr/share/icons
 
-clean::
-	rm -rf $(CURDIR)/.pc
-	rm -f $(CURDIR)/*.cdbs-config_list
-
 # Revert upstream stuff put aside during build
 clean::
 	for file in $(upstreamtmpfiles); do \

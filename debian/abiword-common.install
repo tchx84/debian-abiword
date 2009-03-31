@@ -1,13 +1,6 @@
-usr/share/abiword-2.6/clipart
-usr/share/abiword-2.6/dictionary
 usr/share/abiword-2.6/glade
 usr/share/abiword-2.6/strings
 usr/share/abiword-2.6/templates
-usr/share/abiword-2.6/*.xml
-usr/share/abiword-2.6/*.abw
-usr/share/abiword-2.6/*.txt
-usr/share/abiword-2.6/system.*
-
-
-
-
+usr/share/abiword-2.6/readme.abw
+usr/share/abiword-2.6/readme.txt
+usr/share/abiword-2.6/system.profile*

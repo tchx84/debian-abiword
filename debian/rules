@@ -1,64 +1,13 @@
 #!/usr/bin/make -f
 
-# Change these when the new upstream version is out
-version := 2.6.8
-series := 2.6
-
-DEB_TAR_SRCDIR := abiword-$(version)
-
-include /usr/share/cdbs/1/rules/tarball.mk
 include /usr/share/cdbs/1/rules/debhelper.mk
 include /usr/share/cdbs/1/class/gnome.mk
 include /usr/share/cdbs/1/rules/patchsys-quilt.mk
 
-# Add here any variable or target overrides you need.
-
 DEB_CONFIGURE_EXTRA_FLAGS := --disable-gnomeui --disable-gnomevfs #--enable-libabiword
-DEB_INSTALL_DOCS_ALL := $(CURDIR)/build-tree/abiword-$(version)/CREDITS.TXT
-
-configure/abiword::
-	# Pre-build abiword-2.x.pc
-	cd $(CURDIR)/build-tree/abiword-$(version) && $(MAKE) abiword-$(series).pc
-	# Configure -plugins, too
-	cd $(CURDIR)/build-tree/abiword-plugins-$(version) && \
-	  ./configure --prefix=/usr --with-abiword=../abiword-$(version)
-
-build/abiword::
-	# Build -plugins, too
-	cd $(CURDIR)/build-tree/abiword-plugins-$(version) && \
-	  $(MAKE)
-
-install/abiword-common::
-	# Install -plugins at this point
-	cd $(CURDIR)/build-tree/abiword-plugins-$(version) && \
-	  $(MAKE) install DESTDIR=$(CURDIR)/debian/tmp
-
-	# Now we run these auxiliary configures & installs. 
-	# To generate HTMLs from ABWs, etc, we have to prepare an abiword
-	# binary somewhere beforehand. 
-	cd $(CURDIR)/build-tree/abiword-docs-$(version) && \
-	  PKG_CONFIG_PATH=$(CURDIR)/build-tree/abiword-$(version) ABIWORD=$(CURDIR)/build-tree/abiword-$(version)/src/wp/main/unix/abiword ./configure --prefix=/usr
-	cd $(CURDIR)/build-tree/abiword-extras-$(version) && \
-	  PKG_CONFIG_PATH=$(CURDIR)/build-tree/abiword-$(version) ABIWORD=$(CURDIR)/build-tree/abiword-$(version)/src/wp/main/unix/abiword ./configure --prefix=/usr
-
-	cd $(CURDIR)/build-tree/abiword-docs-$(version) && \
-	  $(MAKE) install DESTDIR=$(CURDIR)/debian/tmp
-	cd $(CURDIR)/build-tree/abiword-extras-$(version) && \
-	  $(MAKE) install DESTDIR=$(CURDIR)/debian/tmp
-
-install/abiword::
-	# FIXME: Obviously this is a redundancy, but somehow needed
-	# for buildd.  pbuilder does fine without this...why?
-	# Install -plugins at this point, again
-	cd $(CURDIR)/build-tree/abiword-plugins-$(version) && \
-	  $(MAKE) install DESTDIR=$(CURDIR)/debian/tmp
+DEB_INSTALL_DOCS_ALL := CREDITS.TXT
 
 binary-install/abiword::
-	# Those should have been moved into separate packages
-	rm -f $(CURDIR)/debian/$(cdbs_curpkg)/usr/lib/abiword-$(series)/plugins/libAbiGOffice.so
-	rm -f $(CURDIR)/debian/$(cdbs_curpkg)/usr/lib/abiword-$(series)/plugins/libAbiGrammar.so
-	rm -f $(CURDIR)/debian/$(cdbs_curpkg)/usr/lib/abiword-$(series)/plugins/libAbiMathView.so
-
 	# Install /usr/share/mime-info/abiword.mime
 	install -m 644 $(CURDIR)/debian/misc/abiword.mime \
 	  $(CURDIR)/debian/$(cdbs_curpkg)/usr/share/mime-info

@@ -61,7 +61,7 @@ debian/stamp-upstreamtmpstuff:
 	done
 	touch $@
 reverse-config:: revert-upstreamtmpstuff
-revert-upstreamtmpstuff:
+revert-upstreamtmpstuff: makefile-clean
 	for file in $(upstreamtmpfiles); do \
 		[ ! -e $$file.upstream ] || mv -f $$file.upstream $$file; \
 	done

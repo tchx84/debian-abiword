@@ -7,6 +7,9 @@ include /usr/share/cdbs/1/rules/patchsys-quilt.mk
 DEB_CONFIGURE_EXTRA_FLAGS := --disable-gnomeui --disable-gnomevfs --enable-libabiword
 DEB_INSTALL_DOCS_ALL := CREDITS.TXT
 
+# avoid superfluous linking
+LDFLAGS += -Wl,-z,defs -Wl,--as-needed -Wl,--no-undefined
+
 upstreamtmpfiles = src/pkg/maemo/abiword.desktop src/pkg/maemo/com.abisource.abiword.service src/wp/main/win/abi_ver.cpp
 
 # use dynamically linked binary

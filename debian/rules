@@ -17,7 +17,7 @@ common-binary-arch::
 #  and handle shared library install
 install/libabiword-2.6-0-dev:: debian/install-libabiword-stamp
 debian/install-libabiword-stamp:
-	d-shlibmove --commit \
+	bash debian/d-shlibmove --commit \
 		--override s/libart_lgpl_2-2-dev/libart-2.0-dev/ \
 		--override s/libenchant1-dev/libenchant-dev/ \
 		--override s/libfribidi0-dev/libfribidi-dev/ \

@@ -6,7 +6,7 @@ diff --git a/src/wp/main/unix/GNUmakefile.in b/src/wp/main/unix/GNUmakefile.in
  @ENABLE_SPELL_TRUE@am__append_5 = $(top_builddir)/src/other/spell/xp/libSpell.a
  bin_PROGRAMS = abiword$(EXEEXT)
 -@WITH_LIBABIWORD_TRUE@am__append_6 = $(ABIWORD_DYNBINARY) $(ABIWORD_LIBRARY)
-+@WITH_LIBABIWORD_TRUE@am__append_6 = $(ABIWORD_DYNBINARY) $(ABIWORD_LIBRARY).0 $(ABIWORD_LIBRARY)
++@WITH_LIBABIWORD_TRUE@am__append_6 = $(ABIWORD_DYNBINARY) $(ABIWORD_LIBRARY).0.0.0 $(ABIWORD_LIBRARY).0 $(ABIWORD_LIBRARY)
  @WITH_LIBABIWORD_TRUE@am__append_7 = $(ABIWORD_DYNBINARY)
  @WITH_LIBABIWORD_TRUE@am__append_8 = install-libabiword
  subdir = src/wp/main/unix
@@ -19,13 +19,14 @@ diff --git a/src/wp/main/unix/GNUmakefile.in b/src/wp/main/unix/GNUmakefile.in
  @WITH_LIBABIWORD_TRUE@		$(CPPFLAGS) $(CXXFLAGS) $(INCLUDES)			\
  @WITH_LIBABIWORD_TRUE@		-DPACKAGE="\"$(PACKAGE)\""				\
  @WITH_LIBABIWORD_TRUE@		$(srcdir)/../xp/abi_ver.cpp				\
-@@ -761,7 +761,8 @@ uninstall-am: uninstall-binPROGRAMS uninstall-headersDATA
+@@ -761,7 +761,9 @@ uninstall-am: uninstall-binPROGRAMS uninstall-headersDATA
  
  @WITH_LIBABIWORD_TRUE@install-libabiword: 
  @WITH_LIBABIWORD_TRUE@	@mkdir -p $(DESTDIR)/$(libdir)
 -@WITH_LIBABIWORD_TRUE@	cp $(ABIWORD_LIBRARY) $(DESTDIR)/$(libdir)/$(ABIWORD_LIBRARY)
-+@WITH_LIBABIWORD_TRUE@	install -T $(ABIWORD_LIBRARY) $(DESTDIR)/$(libdir)/$(ABIWORD_LIBRARY).0
-+@WITH_LIBABIWORD_TRUE@	ln -sf $(ABIWORD_LIBRARY).0 $(DESTDIR)/$(libdir)/$(ABIWORD_LIBRARY)
++@WITH_LIBABIWORD_TRUE@	install -T $(ABIWORD_LIBRARY) $(DESTDIR)/$(libdir)/$(ABIWORD_LIBRARY).0.0.0
++@WITH_LIBABIWORD_TRUE@	ln -sf $(ABIWORD_LIBRARY).0.0.0 $(DESTDIR)/$(libdir)/$(ABIWORD_LIBRARY).0
++@WITH_LIBABIWORD_TRUE@	ln -sf $(ABIWORD_LIBRARY).0.0.0 $(DESTDIR)/$(libdir)/$(ABIWORD_LIBRARY)
  
  ###
  

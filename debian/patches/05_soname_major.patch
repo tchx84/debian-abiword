@@ -10,20 +10,21 @@ diff --git a/src/wp/main/unix/GNUmakefile.am b/src/wp/main/unix/GNUmakefile.am
  		$(CPPFLAGS) $(CXXFLAGS) $(INCLUDES)			\
  		-DPACKAGE="\"$(PACKAGE)\""				\
  		$(srcdir)/../xp/abi_ver.cpp				\
-@@ -69,13 +69,14 @@ $(ABIWORD_DYNBINARY): $(ABIWORD_LIBRARY) $(srcdir)/UnixMain.cpp
+@@ -69,13 +69,15 @@ $(ABIWORD_DYNBINARY): $(ABIWORD_LIBRARY) $(srcdir)/UnixMain.cpp
  		$(PLATFORM_LIBS) $(OTHER_LIBS) 		\
  		-L$(ABIWORD_SODIR) -labiword-$(ABIWORD_SERIES)
  
 -CLEANFILES += $(ABIWORD_DYNBINARY) $(ABIWORD_LIBRARY)
-+CLEANFILES += $(ABIWORD_DYNBINARY) $(ABIWORD_LIBRARY).0 $(ABIWORD_LIBRARY)
++CLEANFILES += $(ABIWORD_DYNBINARY) $(ABIWORD_LIBRARY).0.0.0 $(ABIWORD_LIBRARY).0 $(ABIWORD_LIBRARY)
  ALL_LOCAL_DEPS += $(ABIWORD_DYNBINARY)
  INSTALL_EXEC_LOCAL_DEPS += install-libabiword
  
  install-libabiword: 
  	@mkdir -p $(DESTDIR)/$(libdir)
 -	cp $(ABIWORD_LIBRARY) $(DESTDIR)/$(libdir)/$(ABIWORD_LIBRARY)
-+	install -T $(ABIWORD_LIBRARY) $(DESTDIR)/$(libdir)/$(ABIWORD_LIBRARY).0
-+	ln -sf $(ABIWORD_LIBRARY).0 $(DESTDIR)/$(libdir)/$(ABIWORD_LIBRARY)
++	install -T $(ABIWORD_LIBRARY) $(DESTDIR)/$(libdir)/$(ABIWORD_LIBRARY).0.0.0
++	ln -sf $(ABIWORD_LIBRARY).0.0.0 $(DESTDIR)/$(libdir)/$(ABIWORD_LIBRARY).0
++	ln -sf $(ABIWORD_LIBRARY).0.0.0 $(DESTDIR)/$(libdir)/$(ABIWORD_LIBRARY)
  
  endif
  

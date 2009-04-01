@@ -3,7 +3,7 @@ Section: gnome
 Priority: optional
 Maintainer: Masayuki Hatta (mhatta) <mhatta@debian.org>
 Uploaders: Patrik Fimml <patrik@fimml.at>, Joshua Kwan <joshk@triplehelix.org>
-Build-Depends: cdbs, debhelper (>= 7), quilt, libaiksaurus-1.2-dev (>= 1.2.1+dev-0.12-1.1), libaiksaurusgtk-1.2-dev (>= 1.2.1+dev-0.12-1.1), libasio-dev (>= 0.3.8~rc1), libenchant-dev (>= 1.1.6), libfreetype6-dev, libfribidi-dev, libglade2-dev, libglib2.0-dev, libgnomeprintui2.2-dev, libgoffice-0-dev, libgsf-1-dev (>= 1.13.2), libgtk2.0-dev, libgtkmathview-dev (>= 0.7.5), liblink-grammar4-dev, libloudmouth1-dev, libots-dev, libpng-dev, libpopt-dev, libreadline5-dev | libreadline-dev, librsvg2-dev (>= 2.9.5-5), libwmf-dev, libwpd-dev, libwpg-dev (>= 0.1.0), libwps-dev, libwv-dev (>= 1.2)
+Build-Depends: cdbs, debhelper (>= 7), quilt, d-shlibs, libaiksaurus-1.2-dev (>= 1.2.1+dev-0.12-1.1), libaiksaurusgtk-1.2-dev (>= 1.2.1+dev-0.12-1.1), libasio-dev (>= 0.3.8~rc1), libenchant-dev (>= 1.1.6), libfreetype6-dev, libfribidi-dev, libglade2-dev, libglib2.0-dev, libgnomeprintui2.2-dev, libgoffice-0-dev, libgsf-1-dev (>= 1.13.2), libgtk2.0-dev, libgtkmathview-dev (>= 0.7.5), liblink-grammar4-dev, libloudmouth1-dev, libots-dev, libpng-dev, libpopt-dev, libreadline5-dev | libreadline-dev, librsvg2-dev (>= 2.9.5-5), libwmf-dev, libwpd-dev, libwpg-dev (>= 0.1.0), libwps-dev, libwv-dev (>= 1.2)
 Standards-Version: 3.8.1
 Homepage: http://www.abisource.com/
 
@@ -42,3 +42,27 @@ Description: efficient, featureful word processor with collaboration
  .
  Additional plugins that require significant amounts of extra software to
  function are in the various abiword-plugin-* packages.
+
+Package: libabiword-2.6-0-dev
+Section: libdevel
+Architecture: any
+Depends: libabiword-2.6-0 (= ${binary:Version}), ${devlibs:Depends}, ${misc:Depends}
+Provides: libabiword-2.6-dev
+Conflicts: libabiword-2.6-dev
+Description: efficient, featureful word processor - development files
+ AbiWord is a full-featured, efficient word processing application.
+ It is suitable for a wide variety of word processing tasks, and
+ is extensible with a variety of plugins.
+ .
+ This package contains the development headers.
+
+Package: libabiword-2.6-0
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: efficient, featureful word processor - shared library
+ AbiWord is a full-featured, efficient word processing application.
+ It is suitable for a wide variety of word processing tasks, and
+ is extensible with a variety of plugins.
+ .
+ This package contains the shared library.

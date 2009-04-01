@@ -4,10 +4,42 @@ include /usr/share/cdbs/1/rules/debhelper.mk
 include /usr/share/cdbs/1/class/gnome.mk
 include /usr/share/cdbs/1/rules/patchsys-quilt.mk
 
-DEB_CONFIGURE_EXTRA_FLAGS := --disable-gnomeui --disable-gnomevfs #--enable-libabiword
+DEB_CONFIGURE_EXTRA_FLAGS := --disable-gnomeui --disable-gnomevfs --enable-libabiword
 DEB_INSTALL_DOCS_ALL := CREDITS.TXT
 
 upstreamtmpfiles = src/pkg/maemo/abiword.desktop src/pkg/maemo/com.abisource.abiword.service src/wp/main/win/abi_ver.cpp
+
+# use dynamically linked binary
+common-binary-arch::
+	install -T src/wp/main/unix/abiword-dynamic debian/tmp/usr/bin/abiword
+
+# let d-shlibs calculate development package dependencies
+#  and handle shared library install
+install/libabiword-2.6-0-dev:: debian/install-libabiword-stamp
+debian/install-libabiword-stamp:
+	d-shlibmove --commit \
+		--override s/libart_lgpl_2-2-dev/libart-2.0-dev/ \
+		--override s/libenchant1-dev/libenchant-dev/ \
+		--override s/libfribidi0-dev/libfribidi-dev/ \
+		--override s/libgio-2.0-0-dev/libglib2.0-dev/ \
+		--override s/libglade-2.0-0-dev/libglade2-dev/ \
+		--override s/libgnomecanvas-2-0-dev/libgnomecanvas2-dev/ \
+		--override s/libgnomeprint-2-2-0-dev/libgnomeprint2.2-dev/ \
+		--override s/libgnomeprintui-2-2-0-dev/libgnomeprintui2.2-dev/ \
+		--override s/libgoffice-0-4-dev/libgoffice-0-dev/ \
+		--override s/libgsf-1-114-dev/libgsf-1-dev/ \
+		--override s/libpangoft2-1.0-0-dev/libpango1.0-dev/ \
+		--override s/libpangoxft-1.0-0-dev/libpango1.0-dev/ \
+		--override s/libpopt0-dev/libpopt-dev/ \
+		--override s/libwmf-0.2-7-dev/libwmf-dev/ \
+		--override s/libwmflite-0.2-7-dev/libwmf-dev/ \
+		--override s/libwv-1.2-3-dev/libwv-dev/ \
+		--movedev "debian/tmp/usr/include" usr/ \
+		--movedev "debian/tmp/usr/lib/pkgconfig" usr/lib/ \
+		"debian/tmp/usr/lib/libabiword-2.6.so"
+	touch $@
+clean::
+	rm -f debian/install-libabiword-stamp
 
 binary-install/abiword::
 	# Install /usr/share/mime-info/abiword.mime

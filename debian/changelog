@@ -2,6 +2,7 @@ abiword (2.6.8.0-1) UNRELEASED; urgency=low
 
   * Re-release of 2.6.8, repackaged to not use tarball-in-tarball.
     Plugins, docs and extras are now in separate source packages.
+    Closes: bug#538559.
 
  -- Jonas Smedegaard <dr@jones.dk>  Tue, 31 Mar 2009 19:46:32 +0200
 

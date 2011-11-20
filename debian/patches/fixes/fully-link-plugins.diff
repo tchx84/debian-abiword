@@ -1,0 +1,656 @@
+From: Patrik Fimml <patrik@fimml.at>
+Subject: [PATCH] fixes/fully-link-plugins
+
+Ensure plugins are fully linked against all libraries from which they use
+functions, instead of indirectly expecting them to be linked due to their use
+of libabiword.
+
+This should
+* ensure plugins work with pyabiword (since python isn't linked against all
+  these libs)
+* let us properly determine shlibs dependencies of plugins.
+
+Signed-off-by: Patrik Fimml <patrik@fimml.at>
+
+---
+ plugins/aiksaurus/Makefile.am       |    1 +
+ plugins/applix/Makefile.am          |    1 +
+ plugins/babelfish/Makefile.am       |    1 +
+ plugins/bmp/Makefile.am             |    1 +
+ plugins/clarisworks/Makefile.am     |    1 +
+ plugins/collab/Makefile.am          |    1 +
+ plugins/command/Makefile.am         |    1 +
+ plugins/docbook/Makefile.am         |    1 +
+ plugins/eml/Makefile.am             |    1 +
+ plugins/freetranslation/Makefile.am |    1 +
+ plugins/garble/Makefile.am          |    1 +
+ plugins/gda/Makefile.am             |    1 +
+ plugins/gdict/Makefile.am           |    1 +
+ plugins/gimp/Makefile.am            |    1 +
+ plugins/goffice/Makefile.am         |    1 +
+ plugins/google/Makefile.am          |    1 +
+ plugins/grammar/Makefile.am         |    1 +
+ plugins/hancom/Makefile.am          |    1 +
+ plugins/hrtext/Makefile.am          |    1 +
+ plugins/iscii/Makefile.am           |    1 +
+ plugins/kword/Makefile.am           |    1 +
+ plugins/latex/Makefile.am           |    1 +
+ plugins/loadbindings/Makefile.am    |    1 +
+ plugins/mathview/Makefile.am        |    1 +
+ plugins/mht/Makefile.am             |    1 +
+ plugins/mif/Makefile.am             |    1 +
+ plugins/mswrite/Makefile.am         |    1 +
+ plugins/opendocument/Makefile.am    |    1 +
+ plugins/openwriter/Makefile.am      |    1 +
+ plugins/openxml/Makefile.am         |    1 +
+ plugins/opml/Makefile.am            |    1 +
+ plugins/ots/Makefile.am             |    1 +
+ plugins/paint/Makefile.am           |    1 +
+ plugins/passepartout/Makefile.am    |    1 +
+ plugins/pdb/Makefile.am             |    1 +
+ plugins/pdf/Makefile.am             |    1 +
+ plugins/presentation/Makefile.am    |    1 +
+ plugins/psion/Makefile.am           |    1 +
+ plugins/rsvg/Makefile.am            |    1 +
+ plugins/s5/Makefile.am              |    1 +
+ plugins/sdw/Makefile.am             |    1 +
+ plugins/t602/Makefile.am            |    1 +
+ plugins/urldict/Makefile.am         |    1 +
+ plugins/wikipedia/Makefile.am       |    1 +
+ plugins/wmf/Makefile.am             |    1 +
+ plugins/wml/Makefile.am             |    1 +
+ plugins/wordperfect/Makefile.am     |    1 +
+ plugins/wpg/Makefile.am             |    1 +
+ plugins/xslfo/Makefile.am           |    1 +
+ 49 files changed, 49 insertions(+), 0 deletions(-)
+
+diff --git a/plugins/aiksaurus/Makefile.am b/plugins/aiksaurus/Makefile.am
+index f739141..892c1a7 100644
+--- a/plugins/aiksaurus/Makefile.am
++++ b/plugins/aiksaurus/Makefile.am
+@@ -15,6 +15,7 @@ aiksaurus_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ aiksaurus_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(AIKSAURUS_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/applix/Makefile.am b/plugins/applix/Makefile.am
+index f3eb591..2845c11 100644
+--- a/plugins/applix/Makefile.am
++++ b/plugins/applix/Makefile.am
+@@ -15,6 +15,7 @@ applix_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ applix_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(APPLIX_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/babelfish/Makefile.am b/plugins/babelfish/Makefile.am
+index e8ddaa3..140b779 100644
+--- a/plugins/babelfish/Makefile.am
++++ b/plugins/babelfish/Makefile.am
+@@ -15,6 +15,7 @@ babelfish_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ babelfish_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(BABELFISH_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/bmp/Makefile.am b/plugins/bmp/Makefile.am
+index be0e593..7a47588 100644
+--- a/plugins/bmp/Makefile.am
++++ b/plugins/bmp/Makefile.am
+@@ -15,6 +15,7 @@ bmp_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ bmp_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(BMP_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/clarisworks/Makefile.am b/plugins/clarisworks/Makefile.am
+index befd9b5..71cbb92 100644
+--- a/plugins/clarisworks/Makefile.am
++++ b/plugins/clarisworks/Makefile.am
+@@ -15,6 +15,7 @@ clarisworks_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ clarisworks_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(CLARISWORKS_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/collab/Makefile.am b/plugins/collab/Makefile.am
+index 1e988b3..02dba9d 100644
+--- a/plugins/collab/Makefile.am
++++ b/plugins/collab/Makefile.am
+@@ -18,6 +18,7 @@ collab_la_LIBADD = \
+ 	core/libcore.la
+ 
+ collab_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(COLLAB_LIBS) \
+ 	$(SYSTEM_LIBS) \
+ 	-avoid-version \
+diff --git a/plugins/command/Makefile.am b/plugins/command/Makefile.am
+index 6605228..0f22f0e 100644
+--- a/plugins/command/Makefile.am
++++ b/plugins/command/Makefile.am
+@@ -10,6 +10,7 @@ command_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ command_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(COMMAND_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/docbook/Makefile.am b/plugins/docbook/Makefile.am
+index 679a6ce..1cea42b 100644
+--- a/plugins/docbook/Makefile.am
++++ b/plugins/docbook/Makefile.am
+@@ -15,6 +15,7 @@ docbook_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ docbook_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(DOCBOOK_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/eml/Makefile.am b/plugins/eml/Makefile.am
+index 0e8dcc8..7e038a7 100644
+--- a/plugins/eml/Makefile.am
++++ b/plugins/eml/Makefile.am
+@@ -15,6 +15,7 @@ eml_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ eml_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(EML_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/freetranslation/Makefile.am b/plugins/freetranslation/Makefile.am
+index 73446bc..ccadde2 100644
+--- a/plugins/freetranslation/Makefile.am
++++ b/plugins/freetranslation/Makefile.am
+@@ -15,6 +15,7 @@ freetranslation_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ freetranslation_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(FREETRANSLATION_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/garble/Makefile.am b/plugins/garble/Makefile.am
+index 585e76e..ca7c154 100644
+--- a/plugins/garble/Makefile.am
++++ b/plugins/garble/Makefile.am
+@@ -11,6 +11,7 @@ garble_la_LIBADD = \
+ 	$(GARBLE_LIBS) $(PNG_LIBS) -ljpeg
+ 
+ garble_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(GARBLE_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/gda/Makefile.am b/plugins/gda/Makefile.am
+index 2050e7b..c84c7fc 100644
+--- a/plugins/gda/Makefile.am
++++ b/plugins/gda/Makefile.am
+@@ -8,6 +8,7 @@ gda_la_LIBADD = \
+ 	unix/libunix.la
+ 
+ gda_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(GDA_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/gdict/Makefile.am b/plugins/gdict/Makefile.am
+index 13d6945..26dc68f 100644
+--- a/plugins/gdict/Makefile.am
++++ b/plugins/gdict/Makefile.am
+@@ -15,6 +15,7 @@ gdict_la_LIBADD = \
+ 	unix/libunix.la
+ 
+ gdict_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(GDICT_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/gimp/Makefile.am b/plugins/gimp/Makefile.am
+index 7b5362b..cc5f768 100644
+--- a/plugins/gimp/Makefile.am
++++ b/plugins/gimp/Makefile.am
+@@ -15,6 +15,7 @@ gimp_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ gimp_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(GIMP_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/goffice/Makefile.am b/plugins/goffice/Makefile.am
+index 98547de..4ec7f7b 100644
+--- a/plugins/goffice/Makefile.am
++++ b/plugins/goffice/Makefile.am
+@@ -8,6 +8,7 @@ goffice_la_LIBADD = \
+ 	unix/libunix.la
+ 
+ goffice_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(GOFFICE_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/google/Makefile.am b/plugins/google/Makefile.am
+index 6692889..9441af7 100644
+--- a/plugins/google/Makefile.am
++++ b/plugins/google/Makefile.am
+@@ -15,6 +15,7 @@ google_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ google_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(GOOGLE_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/grammar/Makefile.am b/plugins/grammar/Makefile.am
+index 72a7a66..7c2ee03 100644
+--- a/plugins/grammar/Makefile.am
++++ b/plugins/grammar/Makefile.am
+@@ -9,6 +9,7 @@ grammar_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ grammar_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(GRAMMAR_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/hancom/Makefile.am b/plugins/hancom/Makefile.am
+index a28571c..122b31a 100644
+--- a/plugins/hancom/Makefile.am
++++ b/plugins/hancom/Makefile.am
+@@ -15,6 +15,7 @@ hancom_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ hancom_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(HANCOM_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/hrtext/Makefile.am b/plugins/hrtext/Makefile.am
+index 7886bcd..3cbf974 100644
+--- a/plugins/hrtext/Makefile.am
++++ b/plugins/hrtext/Makefile.am
+@@ -15,6 +15,7 @@ hrtext_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ hrtext_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(HRTEXT_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/iscii/Makefile.am b/plugins/iscii/Makefile.am
+index 2ae355c..fb92eb6 100644
+--- a/plugins/iscii/Makefile.am
++++ b/plugins/iscii/Makefile.am
+@@ -15,6 +15,7 @@ iscii_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ iscii_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(ISCII_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/kword/Makefile.am b/plugins/kword/Makefile.am
+index 45cc30d..0491f61 100644
+--- a/plugins/kword/Makefile.am
++++ b/plugins/kword/Makefile.am
+@@ -15,6 +15,7 @@ kword_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ kword_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(KWORD_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/latex/Makefile.am b/plugins/latex/Makefile.am
+index b983816..9948495 100644
+--- a/plugins/latex/Makefile.am
++++ b/plugins/latex/Makefile.am
+@@ -19,6 +19,7 @@ latex_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ latex_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(LATEX_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/loadbindings/Makefile.am b/plugins/loadbindings/Makefile.am
+index dacd70b..2ddaf76 100644
+--- a/plugins/loadbindings/Makefile.am
++++ b/plugins/loadbindings/Makefile.am
+@@ -15,6 +15,7 @@ loadbindings_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ loadbindings_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(LOADBINDINGS_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/mathview/Makefile.am b/plugins/mathview/Makefile.am
+index 6af423f..b5f580b 100644
+--- a/plugins/mathview/Makefile.am
++++ b/plugins/mathview/Makefile.am
+@@ -9,6 +9,7 @@ mathview_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ mathview_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(MATHVIEW_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/mht/Makefile.am b/plugins/mht/Makefile.am
+index 8a99530..d5c94fc 100644
+--- a/plugins/mht/Makefile.am
++++ b/plugins/mht/Makefile.am
+@@ -8,6 +8,7 @@ mht_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ mht_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(MHT_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/mif/Makefile.am b/plugins/mif/Makefile.am
+index 121b844..a1660df 100644
+--- a/plugins/mif/Makefile.am
++++ b/plugins/mif/Makefile.am
+@@ -15,6 +15,7 @@ mif_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ mif_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(MIF_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/mswrite/Makefile.am b/plugins/mswrite/Makefile.am
+index 3e26152..afe529e 100644
+--- a/plugins/mswrite/Makefile.am
++++ b/plugins/mswrite/Makefile.am
+@@ -15,6 +15,7 @@ mswrite_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ mswrite_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(MSWRITE_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/opendocument/Makefile.am b/plugins/opendocument/Makefile.am
+index e90136f..907d40d 100644
+--- a/plugins/opendocument/Makefile.am
++++ b/plugins/opendocument/Makefile.am
+@@ -17,6 +17,7 @@ opendocument_la_LIBADD = \
+ 	imp/libimp.la
+ 
+ opendocument_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(OPENDOCUMENT_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/openwriter/Makefile.am b/plugins/openwriter/Makefile.am
+index 198209b..81a65ea 100644
+--- a/plugins/openwriter/Makefile.am
++++ b/plugins/openwriter/Makefile.am
+@@ -15,6 +15,7 @@ openwriter_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ openwriter_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(OPENWRITER_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/openxml/Makefile.am b/plugins/openxml/Makefile.am
+index 9fe934a..1fba8d0 100644
+--- a/plugins/openxml/Makefile.am
++++ b/plugins/openxml/Makefile.am
+@@ -17,6 +17,7 @@ openxml_la_LIBADD = \
+ 	exp/libexp.la
+ 
+ openxml_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(OPENXML_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/opml/Makefile.am b/plugins/opml/Makefile.am
+index 048ce2d..92ceb5b 100644
+--- a/plugins/opml/Makefile.am
++++ b/plugins/opml/Makefile.am
+@@ -15,6 +15,7 @@ opml_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ opml_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(OPML_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/ots/Makefile.am b/plugins/ots/Makefile.am
+index d8a165c..1d9c438 100644
+--- a/plugins/ots/Makefile.am
++++ b/plugins/ots/Makefile.am
+@@ -8,6 +8,7 @@ ots_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ ots_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(OTS_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/paint/Makefile.am b/plugins/paint/Makefile.am
+index b3da60a..5346b06 100644
+--- a/plugins/paint/Makefile.am
++++ b/plugins/paint/Makefile.am
+@@ -17,6 +17,7 @@ paint_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ paint_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(PAINT_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/passepartout/Makefile.am b/plugins/passepartout/Makefile.am
+index 1646347..c0c496d 100644
+--- a/plugins/passepartout/Makefile.am
++++ b/plugins/passepartout/Makefile.am
+@@ -15,6 +15,7 @@ passepartout_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ passepartout_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(PASSEPARTOUT_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/pdb/Makefile.am b/plugins/pdb/Makefile.am
+index 46a5760..04fd4dd 100644
+--- a/plugins/pdb/Makefile.am
++++ b/plugins/pdb/Makefile.am
+@@ -15,6 +15,7 @@ pdb_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ pdb_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(PDB_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/pdf/Makefile.am b/plugins/pdf/Makefile.am
+index 9f1ff89..8dc5866 100644
+--- a/plugins/pdf/Makefile.am
++++ b/plugins/pdf/Makefile.am
+@@ -15,6 +15,7 @@ pdf_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ pdf_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(PDF_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/presentation/Makefile.am b/plugins/presentation/Makefile.am
+index b4c170b..8bea087 100644
+--- a/plugins/presentation/Makefile.am
++++ b/plugins/presentation/Makefile.am
+@@ -15,6 +15,7 @@ presentation_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ presentation_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(PRESENTATION_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/psion/Makefile.am b/plugins/psion/Makefile.am
+index cee6b01..a216aba 100644
+--- a/plugins/psion/Makefile.am
++++ b/plugins/psion/Makefile.am
+@@ -8,6 +8,7 @@ psion_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ psion_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(PSION_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/rsvg/Makefile.am b/plugins/rsvg/Makefile.am
+index 4c6c5b9..cf01870 100644
+--- a/plugins/rsvg/Makefile.am
++++ b/plugins/rsvg/Makefile.am
+@@ -9,6 +9,7 @@ rsvg_la_LIBADD = \
+ 	$(RSVG_LIBS) $(PNG_LIBS)
+ 
+ rsvg_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	-avoid-version \
+ 	-module \
+ 	-no-undefined
+diff --git a/plugins/s5/Makefile.am b/plugins/s5/Makefile.am
+index e1a580f..1aae683 100644
+--- a/plugins/s5/Makefile.am
++++ b/plugins/s5/Makefile.am
+@@ -15,6 +15,7 @@ s5_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ s5_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(S5_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/sdw/Makefile.am b/plugins/sdw/Makefile.am
+index 0d2da27..d7c096f 100644
+--- a/plugins/sdw/Makefile.am
++++ b/plugins/sdw/Makefile.am
+@@ -15,6 +15,7 @@ sdw_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ sdw_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(SDW_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/t602/Makefile.am b/plugins/t602/Makefile.am
+index a67de03..023dca8 100644
+--- a/plugins/t602/Makefile.am
++++ b/plugins/t602/Makefile.am
+@@ -15,6 +15,7 @@ t602_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ t602_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(T602_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/urldict/Makefile.am b/plugins/urldict/Makefile.am
+index 7a26645..1834e6f 100644
+--- a/plugins/urldict/Makefile.am
++++ b/plugins/urldict/Makefile.am
+@@ -15,6 +15,7 @@ urldict_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ urldict_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(URLDICT_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/wikipedia/Makefile.am b/plugins/wikipedia/Makefile.am
+index de83733..c8c5e2b 100644
+--- a/plugins/wikipedia/Makefile.am
++++ b/plugins/wikipedia/Makefile.am
+@@ -15,6 +15,7 @@ wikipedia_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ wikipedia_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(WIKIPEDIA_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/wmf/Makefile.am b/plugins/wmf/Makefile.am
+index b98f084..c44c7c8 100644
+--- a/plugins/wmf/Makefile.am
++++ b/plugins/wmf/Makefile.am
+@@ -8,6 +8,7 @@ wmf_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ wmf_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(WMF_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/wml/Makefile.am b/plugins/wml/Makefile.am
+index 7287af5..c086996 100644
+--- a/plugins/wml/Makefile.am
++++ b/plugins/wml/Makefile.am
+@@ -15,6 +15,7 @@ wml_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ wml_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(WML_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/wordperfect/Makefile.am b/plugins/wordperfect/Makefile.am
+index ad9f1c1..73e64aa 100644
+--- a/plugins/wordperfect/Makefile.am
++++ b/plugins/wordperfect/Makefile.am
+@@ -8,6 +8,7 @@ wordperfect_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ wordperfect_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(WORDPERFECT_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/wpg/Makefile.am b/plugins/wpg/Makefile.am
+index d1480be..99cf980 100644
+--- a/plugins/wpg/Makefile.am
++++ b/plugins/wpg/Makefile.am
+@@ -8,6 +8,7 @@ wpg_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ wpg_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(WPG_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/xslfo/Makefile.am b/plugins/xslfo/Makefile.am
+index 0b2b7f3..9c410cc 100644
+--- a/plugins/xslfo/Makefile.am
++++ b/plugins/xslfo/Makefile.am
+@@ -15,6 +15,7 @@ xslfo_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ xslfo_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(XSLFO_LIBS) \
+ 	-avoid-version \
+ 	-module \
+-- 
+tg: (a60ef3b..) fixes/fully-link-plugins (depends on: master)

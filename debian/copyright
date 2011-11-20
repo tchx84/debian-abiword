@@ -10,7 +10,7 @@ Upstream Authors:
 
     AbiSource, Inc, along with many volunteers
 
-    See CREDITS.TXT for (almost) complete list of contributors.
+    See AUTHORS for (almost) complete list of contributors.
 
 Copyright:
 
@@ -39,6 +39,7 @@ in `/usr/share/common-licenses/GPL-3'.
 The Debian packaging is:
 
     Copyright (C) 2009 Masayuki Hatta (mhatta) <mhatta@debian.org>
+    Copyright (C) 2009 Patrik Fimml <patrik@fimml.at>
 
 and is licensed under the GPL version 3, see above.
 

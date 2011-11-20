@@ -1,0 +1,6 @@
+This package uses quilt at build-time to apply patches. See
+/usr/share/doc/quilt/README.source for information on how to use quilt.
+
+This package is maintained in a Git repository, and TopGit is used to generate
+the quilt series from git branches. For more information on TopGit, see
+/usr/share/doc/topgit/HOWTO-tg2quilt.gz .

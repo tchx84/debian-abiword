@@ -1,4 +1,4 @@
 usr/bin
+usr/lib/abiword-2.9/plugins/*.so
 usr/share/applications
-usr/share/icons
-usr/share/mime-info
+abiword_48.png usr/share/pixmaps

@@ -1,6 +1,11 @@
-04_comma_subscript.diff
-02_keys.diff
-01_desktop.diff
-03_autosave.diff
-05_soname_major.patch
-06_soname_major_automade.patch
+debian/autosave.diff -p1
+debian/libtool-as-needed.diff -p1
+debian/rerun-automake.diff -p1
+fixes/ctrl-comma-subscript.diff -p1
+fixes/fully-link-plugins.diff -p1
+fixes/link-plugins-with-cxx.diff -p1
+fixes/mime-types-desktop.diff -p1
+fixes/mime-types.diff -p1
+#libwpd-0.9.diff -p0
+fix_no_undefined.diff
+fix-format-security.patch

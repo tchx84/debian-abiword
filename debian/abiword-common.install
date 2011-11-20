@@ -1,6 +1,7 @@
-usr/share/abiword-2.6/glade
-usr/share/abiword-2.6/strings
-usr/share/abiword-2.6/templates
-usr/share/abiword-2.6/readme.abw
-usr/share/abiword-2.6/readme.txt
-usr/share/abiword-2.6/system.profile*
+usr/share/abiword-2.9/certs
+usr/share/abiword-2.9/clipart
+usr/share/abiword-2.9/strings
+usr/share/abiword-2.9/system.*
+usr/share/abiword-2.9/templates
+usr/share/abiword-2.9/ui
+usr/share/abiword-2.9/xsltml

@@ -1,0 +1,29 @@
+From 29ed705879829d8cbc5d0a6a53d82ee00bc7de79 Mon Sep 17 00:00:00 2001
+From: Jari Aalto <jari.aalto@cante.net>
+Date: Wed, 5 May 2010 14:26:48 +0300
+Subject: [PATCH] abiword.desktop: Add to the end application/vnd.palm...
+Organization: Private
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Jari Aalto <jari.aalto@cante.net>
+---
+ abiword.desktop |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/abiword.desktop b/abiword.desktop
+index badb794..8ebc4cc 100644
+--- a/abiword.desktop
++++ b/abiword.desktop
+@@ -6,7 +6,7 @@ Type=Application
+ Categories=Office;WordProcessor;GNOME;GTK;X-Red-Hat-Base;
+ StartupNotify=true
+ X-Desktop-File-Install-Version=0.9
+-MimeType=application/x-abiword;text/x-abiword;text/x-xml-abiword;text/plain;application/msword;application/rtf;application/vnd.plain;application/xhtml+xml;text/html;application/x-crossmark;application/docbook+xml;application/x-t602;application/vnd.oasis.opendocument.text;application/vnd.oasis.opendocument.text-template;application/vnd.oasis.opendocument.text-web;application/vnd.sun.xml.writer;application/vnd.stardivision.writer;text/vnd.wap.wml;application/wordperfect6;application/wordperfect5.1;application/vnd.wordperfect;application/x-abicollab;
++MimeType=application/x-abiword;text/x-abiword;text/x-xml-abiword;text/plain;application/msword;application/rtf;application/vnd.plain;application/xhtml+xml;text/html;application/x-crossmark;application/docbook+xml;application/x-t602;application/vnd.oasis.opendocument.text;application/vnd.oasis.opendocument.text-template;application/vnd.oasis.opendocument.text-web;application/vnd.sun.xml.writer;application/vnd.stardivision.writer;text/vnd.wap.wml;application/wordperfect6;application/wordperfect5.1;application/vnd.wordperfect;application/x-abicollab;application/vnd.palm;application/x-applix-word;application/x-kword;application/x-mif;application/x-mswrite;application/x-palm-database;text/abiword;text/richtext;text/rtf;application/x-abicollab
+ Name=AbiWord
+ GenericName=Word Processor
+ Comment=Compose, edit, and view documents
+-- 
+1.7.0
+

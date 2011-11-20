@@ -1,0 +1,22 @@
+Index: abiword-2.9.1/src/Makefile.in
+===================================================================
+--- abiword-2.9.1.orig/src/Makefile.in	2011-07-07 19:24:14.000000000 +0000
++++ abiword-2.9.1/src/Makefile.in	2011-10-20 01:00:43.000000000 +0000
+@@ -513,7 +513,7 @@
+ 	$(WP_CPPFLAGS) \
+ 	-DABIWORD_DATADIR="\"$(ABIWORD_DATADIR)\""
+ 
+-libabiword_@ABIWORD_SERIES@_la_LDFLAGS = $(DEPS_LIBS) -no-undefined \
++libabiword_@ABIWORD_SERIES@_la_LDFLAGS = $(DEPS_LIBS) -Wl,--no-undefined \
+ 	-avoid-version -export-dynamic $(am__append_6)
+ libabiword_@ABIWORD_SERIES@_la_LIBADD = $(opt_libs) \
+ 	plugins/libplugins.la text/fmt/xp/libxp.la \
+@@ -548,7 +548,7 @@
+ 
+ @TOOLKIT_COCOA_TRUE@AbiWord_LDFLAGS = \
+ @TOOLKIT_COCOA_TRUE@	$(DEPS_LIBS) \
+-@TOOLKIT_COCOA_TRUE@	-no-undefined \
++@TOOLKIT_COCOA_TRUE@	-Wl,--no-undefined \
+ @TOOLKIT_COCOA_TRUE@	-avoid-version \
+ @TOOLKIT_COCOA_TRUE@	-export-dynamic \
+ @TOOLKIT_COCOA_TRUE@	-headerpad_max_install_names 

@@ -1,0 +1,1294 @@
+From: Patrik Fimml <patrik@fimml.at>
+Subject: [PATCH] debian/rerun-automake
+
+Re-run automake to make Makefile.in's reflect modifications in Makefile.am's.
+
+Signed-off-by: Patrik Fimml <patrik@fimml.at>
+
+---
+ Makefile.in                         |    4 ---
+ plugins/aiksaurus/Makefile.in       |   49 ++++++++++++++++++++++++++++------
+ plugins/applix/Makefile.in          |    1 +
+ plugins/babelfish/Makefile.in       |    1 +
+ plugins/bmp/Makefile.in             |    1 +
+ plugins/clarisworks/Makefile.in     |    1 +
+ plugins/collab/Makefile.in          |    1 +
+ plugins/command/Makefile.in         |   49 ++++++++++++++++++++++++++++------
+ plugins/docbook/Makefile.in         |    1 +
+ plugins/eml/Makefile.in             |    1 +
+ plugins/freetranslation/Makefile.in |    1 +
+ plugins/garble/Makefile.in          |    1 +
+ plugins/gda/Makefile.in             |   49 ++++++++++++++++++++++++++++------
+ plugins/gdict/Makefile.in           |   49 ++++++++++++++++++++++++++++------
+ plugins/gimp/Makefile.in            |    1 +
+ plugins/goffice/Makefile.in         |   49 ++++++++++++++++++++++++++++------
+ plugins/google/Makefile.in          |    1 +
+ plugins/grammar/Makefile.in         |    1 +
+ plugins/hancom/Makefile.in          |    1 +
+ plugins/hrtext/Makefile.in          |    1 +
+ plugins/iscii/Makefile.in           |    1 +
+ plugins/kword/Makefile.in           |    1 +
+ plugins/latex/Makefile.in           |    1 +
+ plugins/loadbindings/Makefile.in    |    1 +
+ plugins/mathview/Makefile.in        |    1 +
+ plugins/mht/Makefile.in             |    1 +
+ plugins/mif/Makefile.in             |    1 +
+ plugins/mswrite/Makefile.in         |    1 +
+ plugins/opendocument/Makefile.in    |    1 +
+ plugins/openwriter/Makefile.in      |    1 +
+ plugins/openxml/Makefile.in         |    1 +
+ plugins/opml/Makefile.in            |    1 +
+ plugins/ots/Makefile.in             |   49 ++++++++++++++++++++++++++++------
+ plugins/paint/Makefile.in           |    1 +
+ plugins/passepartout/Makefile.in    |    1 +
+ plugins/pdb/Makefile.in             |    1 +
+ plugins/pdf/Makefile.in             |    1 +
+ plugins/presentation/Makefile.in    |    1 +
+ plugins/psion/Makefile.in           |   49 ++++++++++++++++++++++++++++------
+ plugins/rsvg/Makefile.in            |    1 +
+ plugins/s5/Makefile.in              |    1 +
+ plugins/sdw/Makefile.in             |    1 +
+ plugins/t602/Makefile.in            |    1 +
+ plugins/urldict/Makefile.in         |    1 +
+ plugins/wikipedia/Makefile.in       |    1 +
+ plugins/wmf/Makefile.in             |    1 +
+ plugins/wml/Makefile.in             |    1 +
+ plugins/wordperfect/Makefile.in     |    1 +
+ plugins/wpg/Makefile.in             |    1 +
+ plugins/xslfo/Makefile.in           |    1 +
+ 50 files changed, 322 insertions(+), 67 deletions(-)
+
+diff --git a/Makefile.in b/Makefile.in
+index ecf5703..24e88ad 100644
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -459,10 +459,6 @@ EXTRA_DIST = \
+ 
+ DISTCLEANFILES = \
+ 	abiword-$(ABIWORD_SERIES).pc \
+-	plugin-builtin.m4 \
+-	plugin-configure.m4 \
+-	plugin-list.m4 \
+-	plugin-makefiles.m4 \
+ 	doltcompile \
+ 	doltlibtool
+ 
+diff --git a/plugins/aiksaurus/Makefile.in b/plugins/aiksaurus/Makefile.in
+index 90339be..6a184f8 100644
+--- a/plugins/aiksaurus/Makefile.in
++++ b/plugins/aiksaurus/Makefile.in
+@@ -78,17 +78,20 @@ LTLIBRARIES = $(plugin_LTLIBRARIES)
+ aiksaurus_la_DEPENDENCIES = $(platform_lib) xp/libxp.la
+ am_aiksaurus_la_OBJECTS =
+ aiksaurus_la_OBJECTS = $(am_aiksaurus_la_OBJECTS)
+-aiksaurus_la_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
+-	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
+-	$(aiksaurus_la_LDFLAGS) $(LDFLAGS) -o $@
++aiksaurus_la_LINK = $(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) \
++	$(LIBTOOLFLAGS) --mode=link $(CXXLD) $(AM_CXXFLAGS) \
++	$(CXXFLAGS) $(aiksaurus_la_LDFLAGS) $(LDFLAGS) -o $@
+ DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
+-COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
+-	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
+-CCLD = $(CC)
+-LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
+-	--mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
++depcomp = $(SHELL) $(top_srcdir)/depcomp
++am__depfiles_maybe = depfiles
++am__mv = mv -f
++CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
++	$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS)
++CXXLD = $(CXX)
++CXXLINK = $(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
++	--mode=link $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(AM_LDFLAGS) \
+ 	$(LDFLAGS) -o $@
+-SOURCES = $(aiksaurus_la_SOURCES)
++SOURCES = $(aiksaurus_la_SOURCES) $(nodist_EXTRA_aiksaurus_la_SOURCES)
+ DIST_SOURCES = $(aiksaurus_la_SOURCES)
+ RECURSIVE_TARGETS = all-recursive check-recursive dvi-recursive \
+ 	html-recursive info-recursive install-data-recursive \
+@@ -422,15 +425,18 @@ aiksaurus_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ aiksaurus_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(AIKSAURUS_LIBS) \
+ 	-avoid-version \
+ 	-module \
+ 	-no-undefined
+ 
+ aiksaurus_la_SOURCES = 
++nodist_EXTRA_aiksaurus_la_SOURCES = dummy.cpp
+ all: all-recursive
+ 
+ .SUFFIXES:
++.SUFFIXES: .cpp .lo .o .obj
+ $(srcdir)/Makefile.in: @MAINTAINER_MODE_TRUE@ $(srcdir)/Makefile.am  $(am__configure_deps)
+ 	@for dep in $?; do \
+ 	  case '$(am__configure_deps)' in \
+@@ -501,6 +507,29 @@ mostlyclean-compile:
+ distclean-compile:
+ 	-rm -f *.tab.c
+ 
++@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dummy.Plo@am__quote@
++
++.cpp.o:
++@am__fastdepCXX_TRUE@	$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
++@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
++@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
++@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
++@am__fastdepCXX_FALSE@	$(CXXCOMPILE) -c -o $@ $<
++
++.cpp.obj:
++@am__fastdepCXX_TRUE@	$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ `$(CYGPATH_W) '$<'`
++@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
++@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
++@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
++@am__fastdepCXX_FALSE@	$(CXXCOMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
++
++.cpp.lo:
++@am__fastdepCXX_TRUE@	$(LTCXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
++@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Plo
++@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$<' object='$@' libtool=yes @AMDEPBACKSLASH@
++@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
++@am__fastdepCXX_FALSE@	$(LTCXXCOMPILE) -c -o $@ $<
++
+ mostlyclean-libtool:
+ 	-rm -f *.lo
+ 
+@@ -739,6 +768,7 @@ clean-am: clean-generic clean-libtool clean-pluginLTLIBRARIES \
+ 	mostlyclean-am
+ 
+ distclean: distclean-recursive
++	-rm -rf ./$(DEPDIR)
+ 	-rm -f Makefile
+ distclean-am: clean-am distclean-compile distclean-generic \
+ 	distclean-tags
+@@ -784,6 +814,7 @@ install-ps-am:
+ installcheck-am:
+ 
+ maintainer-clean: maintainer-clean-recursive
++	-rm -rf ./$(DEPDIR)
+ 	-rm -f Makefile
+ maintainer-clean-am: distclean-am maintainer-clean-generic
+ 
+diff --git a/plugins/applix/Makefile.in b/plugins/applix/Makefile.in
+index 3954c77..c3166e1 100644
+--- a/plugins/applix/Makefile.in
++++ b/plugins/applix/Makefile.in
+@@ -425,6 +425,7 @@ applix_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ applix_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(APPLIX_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/babelfish/Makefile.in b/plugins/babelfish/Makefile.in
+index d935d63..6490e7c 100644
+--- a/plugins/babelfish/Makefile.in
++++ b/plugins/babelfish/Makefile.in
+@@ -425,6 +425,7 @@ babelfish_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ babelfish_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(BABELFISH_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/bmp/Makefile.in b/plugins/bmp/Makefile.in
+index d0dc581..e3ae95e 100644
+--- a/plugins/bmp/Makefile.in
++++ b/plugins/bmp/Makefile.in
+@@ -425,6 +425,7 @@ bmp_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ bmp_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(BMP_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/clarisworks/Makefile.in b/plugins/clarisworks/Makefile.in
+index 0da4819..a632264 100644
+--- a/plugins/clarisworks/Makefile.in
++++ b/plugins/clarisworks/Makefile.in
+@@ -427,6 +427,7 @@ clarisworks_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ clarisworks_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(CLARISWORKS_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/collab/Makefile.in b/plugins/collab/Makefile.in
+index c5ecfcf..bfc24c2 100644
+--- a/plugins/collab/Makefile.in
++++ b/plugins/collab/Makefile.in
+@@ -428,6 +428,7 @@ top_srcdir = @top_srcdir@
+ @TOOLKIT_COCOA_FALSE@	core/libcore.la
+ 
+ @TOOLKIT_COCOA_FALSE@collab_la_LDFLAGS = \
++@TOOLKIT_COCOA_FALSE@	$(DEPS_LIBS) \
+ @TOOLKIT_COCOA_FALSE@	$(COLLAB_LIBS) \
+ @TOOLKIT_COCOA_FALSE@	$(SYSTEM_LIBS) \
+ @TOOLKIT_COCOA_FALSE@	-avoid-version \
+diff --git a/plugins/command/Makefile.in b/plugins/command/Makefile.in
+index 8febd46..371f1a4 100644
+--- a/plugins/command/Makefile.in
++++ b/plugins/command/Makefile.in
+@@ -77,18 +77,21 @@ LTLIBRARIES = $(plugin_LTLIBRARIES)
+ @TOOLKIT_COCOA_FALSE@command_la_DEPENDENCIES = xp/libxp.la
+ am_command_la_OBJECTS =
+ command_la_OBJECTS = $(am_command_la_OBJECTS)
+-command_la_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
+-	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
+-	$(command_la_LDFLAGS) $(LDFLAGS) -o $@
++command_la_LINK = $(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) \
++	$(LIBTOOLFLAGS) --mode=link $(CXXLD) $(AM_CXXFLAGS) \
++	$(CXXFLAGS) $(command_la_LDFLAGS) $(LDFLAGS) -o $@
+ @TOOLKIT_COCOA_FALSE@am_command_la_rpath = -rpath $(plugindir)
+ DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
+-COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
+-	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
+-CCLD = $(CC)
+-LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
+-	--mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
++depcomp = $(SHELL) $(top_srcdir)/depcomp
++am__depfiles_maybe = depfiles
++am__mv = mv -f
++CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
++	$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS)
++CXXLD = $(CXX)
++CXXLINK = $(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
++	--mode=link $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(AM_LDFLAGS) \
+ 	$(LDFLAGS) -o $@
+-SOURCES = $(command_la_SOURCES)
++SOURCES = $(command_la_SOURCES) $(nodist_EXTRA_command_la_SOURCES)
+ DIST_SOURCES = $(command_la_SOURCES)
+ RECURSIVE_TARGETS = all-recursive check-recursive dvi-recursive \
+ 	html-recursive info-recursive install-data-recursive \
+@@ -420,15 +423,18 @@ top_srcdir = @top_srcdir@
+ @TOOLKIT_COCOA_FALSE@	xp/libxp.la
+ 
+ @TOOLKIT_COCOA_FALSE@command_la_LDFLAGS = \
++@TOOLKIT_COCOA_FALSE@	$(DEPS_LIBS) \
+ @TOOLKIT_COCOA_FALSE@	$(COMMAND_LIBS) \
+ @TOOLKIT_COCOA_FALSE@	-avoid-version \
+ @TOOLKIT_COCOA_FALSE@	-module \
+ @TOOLKIT_COCOA_FALSE@	-no-undefined
+ 
+ @TOOLKIT_COCOA_FALSE@command_la_SOURCES = 
++@TOOLKIT_COCOA_FALSE@nodist_EXTRA_command_la_SOURCES = dummy.cpp
+ all: all-recursive
+ 
+ .SUFFIXES:
++.SUFFIXES: .cpp .lo .o .obj
+ $(srcdir)/Makefile.in: @MAINTAINER_MODE_TRUE@ $(srcdir)/Makefile.am  $(am__configure_deps)
+ 	@for dep in $?; do \
+ 	  case '$(am__configure_deps)' in \
+@@ -499,6 +505,29 @@ mostlyclean-compile:
+ distclean-compile:
+ 	-rm -f *.tab.c
+ 
++@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dummy.Plo@am__quote@
++
++.cpp.o:
++@am__fastdepCXX_TRUE@	$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
++@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
++@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
++@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
++@am__fastdepCXX_FALSE@	$(CXXCOMPILE) -c -o $@ $<
++
++.cpp.obj:
++@am__fastdepCXX_TRUE@	$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ `$(CYGPATH_W) '$<'`
++@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
++@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
++@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
++@am__fastdepCXX_FALSE@	$(CXXCOMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
++
++.cpp.lo:
++@am__fastdepCXX_TRUE@	$(LTCXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
++@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Plo
++@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$<' object='$@' libtool=yes @AMDEPBACKSLASH@
++@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
++@am__fastdepCXX_FALSE@	$(LTCXXCOMPILE) -c -o $@ $<
++
+ mostlyclean-libtool:
+ 	-rm -f *.lo
+ 
+@@ -737,6 +766,7 @@ clean-am: clean-generic clean-libtool clean-pluginLTLIBRARIES \
+ 	mostlyclean-am
+ 
+ distclean: distclean-recursive
++	-rm -rf ./$(DEPDIR)
+ 	-rm -f Makefile
+ distclean-am: clean-am distclean-compile distclean-generic \
+ 	distclean-tags
+@@ -782,6 +812,7 @@ install-ps-am:
+ installcheck-am:
+ 
+ maintainer-clean: maintainer-clean-recursive
++	-rm -rf ./$(DEPDIR)
+ 	-rm -f Makefile
+ maintainer-clean-am: distclean-am maintainer-clean-generic
+ 
+diff --git a/plugins/docbook/Makefile.in b/plugins/docbook/Makefile.in
+index 803f03a..4ca7c27 100644
+--- a/plugins/docbook/Makefile.in
++++ b/plugins/docbook/Makefile.in
+@@ -425,6 +425,7 @@ docbook_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ docbook_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(DOCBOOK_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/eml/Makefile.in b/plugins/eml/Makefile.in
+index 9acdd2b..daf678b 100644
+--- a/plugins/eml/Makefile.in
++++ b/plugins/eml/Makefile.in
+@@ -425,6 +425,7 @@ eml_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ eml_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(EML_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/freetranslation/Makefile.in b/plugins/freetranslation/Makefile.in
+index dfa04ed..d108c68 100644
+--- a/plugins/freetranslation/Makefile.in
++++ b/plugins/freetranslation/Makefile.in
+@@ -427,6 +427,7 @@ freetranslation_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ freetranslation_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(FREETRANSLATION_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/garble/Makefile.in b/plugins/garble/Makefile.in
+index d45c35c..a258372 100644
+--- a/plugins/garble/Makefile.in
++++ b/plugins/garble/Makefile.in
+@@ -427,6 +427,7 @@ top_srcdir = @top_srcdir@
+ @TOOLKIT_COCOA_FALSE@	$(GARBLE_LIBS) $(PNG_LIBS) -ljpeg
+ 
+ @TOOLKIT_COCOA_FALSE@garble_la_LDFLAGS = \
++@TOOLKIT_COCOA_FALSE@	$(DEPS_LIBS) \
+ @TOOLKIT_COCOA_FALSE@	$(GARBLE_LIBS) \
+ @TOOLKIT_COCOA_FALSE@	-avoid-version \
+ @TOOLKIT_COCOA_FALSE@	-module \
+diff --git a/plugins/gda/Makefile.in b/plugins/gda/Makefile.in
+index 1315c8d..69cb347 100644
+--- a/plugins/gda/Makefile.in
++++ b/plugins/gda/Makefile.in
+@@ -77,17 +77,20 @@ LTLIBRARIES = $(plugin_LTLIBRARIES)
+ gda_la_DEPENDENCIES = unix/libunix.la
+ am_gda_la_OBJECTS =
+ gda_la_OBJECTS = $(am_gda_la_OBJECTS)
+-gda_la_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
+-	--mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(gda_la_LDFLAGS) \
+-	$(LDFLAGS) -o $@
++gda_la_LINK = $(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
++	--mode=link $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) \
++	$(gda_la_LDFLAGS) $(LDFLAGS) -o $@
+ DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
+-COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
+-	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
+-CCLD = $(CC)
+-LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
+-	--mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
++depcomp = $(SHELL) $(top_srcdir)/depcomp
++am__depfiles_maybe = depfiles
++am__mv = mv -f
++CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
++	$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS)
++CXXLD = $(CXX)
++CXXLINK = $(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
++	--mode=link $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(AM_LDFLAGS) \
+ 	$(LDFLAGS) -o $@
+-SOURCES = $(gda_la_SOURCES)
++SOURCES = $(gda_la_SOURCES) $(nodist_EXTRA_gda_la_SOURCES)
+ DIST_SOURCES = $(gda_la_SOURCES)
+ RECURSIVE_TARGETS = all-recursive check-recursive dvi-recursive \
+ 	html-recursive info-recursive install-data-recursive \
+@@ -419,18 +422,21 @@ gda_la_LIBADD = \
+ 	unix/libunix.la
+ 
+ gda_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(GDA_LIBS) \
+ 	-avoid-version \
+ 	-module \
+ 	-no-undefined
+ 
+ gda_la_SOURCES = 
++nodist_EXTRA_gda_la_SOURCES = dummy.cpp
+ EXTRA_DIST = \
+ 	plugin.m4
+ 
+ all: all-recursive
+ 
+ .SUFFIXES:
++.SUFFIXES: .cpp .lo .o .obj
+ $(srcdir)/Makefile.in: @MAINTAINER_MODE_TRUE@ $(srcdir)/Makefile.am  $(am__configure_deps)
+ 	@for dep in $?; do \
+ 	  case '$(am__configure_deps)' in \
+@@ -501,6 +507,29 @@ mostlyclean-compile:
+ distclean-compile:
+ 	-rm -f *.tab.c
+ 
++@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dummy.Plo@am__quote@
++
++.cpp.o:
++@am__fastdepCXX_TRUE@	$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
++@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
++@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
++@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
++@am__fastdepCXX_FALSE@	$(CXXCOMPILE) -c -o $@ $<
++
++.cpp.obj:
++@am__fastdepCXX_TRUE@	$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ `$(CYGPATH_W) '$<'`
++@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
++@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
++@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
++@am__fastdepCXX_FALSE@	$(CXXCOMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
++
++.cpp.lo:
++@am__fastdepCXX_TRUE@	$(LTCXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
++@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Plo
++@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$<' object='$@' libtool=yes @AMDEPBACKSLASH@
++@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
++@am__fastdepCXX_FALSE@	$(LTCXXCOMPILE) -c -o $@ $<
++
+ mostlyclean-libtool:
+ 	-rm -f *.lo
+ 
+@@ -739,6 +768,7 @@ clean-am: clean-generic clean-libtool clean-pluginLTLIBRARIES \
+ 	mostlyclean-am
+ 
+ distclean: distclean-recursive
++	-rm -rf ./$(DEPDIR)
+ 	-rm -f Makefile
+ distclean-am: clean-am distclean-compile distclean-generic \
+ 	distclean-tags
+@@ -784,6 +814,7 @@ install-ps-am:
+ installcheck-am:
+ 
+ maintainer-clean: maintainer-clean-recursive
++	-rm -rf ./$(DEPDIR)
+ 	-rm -f Makefile
+ maintainer-clean-am: distclean-am maintainer-clean-generic
+ 
+diff --git a/plugins/gdict/Makefile.in b/plugins/gdict/Makefile.in
+index 0de219b..e197c30 100644
+--- a/plugins/gdict/Makefile.in
++++ b/plugins/gdict/Makefile.in
+@@ -77,20 +77,23 @@ LTLIBRARIES = $(noinst_LTLIBRARIES) $(plugin_LTLIBRARIES)
+ @TOOLKIT_GTK_TRUE@gdict_la_DEPENDENCIES = unix/libunix.la
+ am_gdict_la_OBJECTS =
+ gdict_la_OBJECTS = $(am_gdict_la_OBJECTS)
+-gdict_la_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
+-	--mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(gdict_la_LDFLAGS) \
+-	$(LDFLAGS) -o $@
++gdict_la_LINK = $(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) \
++	$(LIBTOOLFLAGS) --mode=link $(CXXLD) $(AM_CXXFLAGS) \
++	$(CXXFLAGS) $(gdict_la_LDFLAGS) $(LDFLAGS) -o $@
+ @GDICT_BUILTIN_FALSE@@TOOLKIT_GTK_TRUE@am_gdict_la_rpath = -rpath \
+ @GDICT_BUILTIN_FALSE@@TOOLKIT_GTK_TRUE@	$(plugindir)
+ @GDICT_BUILTIN_TRUE@@TOOLKIT_GTK_TRUE@am_gdict_la_rpath =
+ DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
+-COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
+-	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
+-CCLD = $(CC)
+-LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
+-	--mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
++depcomp = $(SHELL) $(top_srcdir)/depcomp
++am__depfiles_maybe = depfiles
++am__mv = mv -f
++CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
++	$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS)
++CXXLD = $(CXX)
++CXXLINK = $(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
++	--mode=link $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(AM_LDFLAGS) \
+ 	$(LDFLAGS) -o $@
+-SOURCES = $(gdict_la_SOURCES)
++SOURCES = $(gdict_la_SOURCES) $(nodist_EXTRA_gdict_la_SOURCES)
+ DIST_SOURCES = $(gdict_la_SOURCES)
+ RECURSIVE_TARGETS = all-recursive check-recursive dvi-recursive \
+ 	html-recursive info-recursive install-data-recursive \
+@@ -423,18 +426,21 @@ top_srcdir = @top_srcdir@
+ @TOOLKIT_GTK_TRUE@	unix/libunix.la
+ 
+ @TOOLKIT_GTK_TRUE@gdict_la_LDFLAGS = \
++@TOOLKIT_GTK_TRUE@	$(DEPS_LIBS) \
+ @TOOLKIT_GTK_TRUE@	$(GDICT_LIBS) \
+ @TOOLKIT_GTK_TRUE@	-avoid-version \
+ @TOOLKIT_GTK_TRUE@	-module \
+ @TOOLKIT_GTK_TRUE@	-no-undefined
+ 
+ @TOOLKIT_GTK_TRUE@gdict_la_SOURCES = 
++@TOOLKIT_GTK_TRUE@nodist_EXTRA_gdict_la_SOURCES = dummy.cpp
+ @TOOLKIT_GTK_TRUE@EXTRA_DIST = \
+ @TOOLKIT_GTK_TRUE@	plugin.m4
+ 
+ all: all-recursive
+ 
+ .SUFFIXES:
++.SUFFIXES: .cpp .lo .o .obj
+ $(srcdir)/Makefile.in: @MAINTAINER_MODE_TRUE@ $(srcdir)/Makefile.am  $(am__configure_deps)
+ 	@for dep in $?; do \
+ 	  case '$(am__configure_deps)' in \
+@@ -514,6 +520,29 @@ mostlyclean-compile:
+ distclean-compile:
+ 	-rm -f *.tab.c
+ 
++@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dummy.Plo@am__quote@
++
++.cpp.o:
++@am__fastdepCXX_TRUE@	$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
++@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
++@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
++@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
++@am__fastdepCXX_FALSE@	$(CXXCOMPILE) -c -o $@ $<
++
++.cpp.obj:
++@am__fastdepCXX_TRUE@	$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ `$(CYGPATH_W) '$<'`
++@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
++@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
++@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
++@am__fastdepCXX_FALSE@	$(CXXCOMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
++
++.cpp.lo:
++@am__fastdepCXX_TRUE@	$(LTCXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
++@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Plo
++@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$<' object='$@' libtool=yes @AMDEPBACKSLASH@
++@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
++@am__fastdepCXX_FALSE@	$(LTCXXCOMPILE) -c -o $@ $<
++
+ mostlyclean-libtool:
+ 	-rm -f *.lo
+ 
+@@ -752,6 +781,7 @@ clean-am: clean-generic clean-libtool clean-noinstLTLIBRARIES \
+ 	clean-pluginLTLIBRARIES mostlyclean-am
+ 
+ distclean: distclean-recursive
++	-rm -rf ./$(DEPDIR)
+ 	-rm -f Makefile
+ distclean-am: clean-am distclean-compile distclean-generic \
+ 	distclean-tags
+@@ -797,6 +827,7 @@ install-ps-am:
+ installcheck-am:
+ 
+ maintainer-clean: maintainer-clean-recursive
++	-rm -rf ./$(DEPDIR)
+ 	-rm -f Makefile
+ maintainer-clean-am: distclean-am maintainer-clean-generic
+ 
+diff --git a/plugins/gimp/Makefile.in b/plugins/gimp/Makefile.in
+index 4e044c8..2d1724a 100644
+--- a/plugins/gimp/Makefile.in
++++ b/plugins/gimp/Makefile.in
+@@ -425,6 +425,7 @@ gimp_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ gimp_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(GIMP_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/goffice/Makefile.in b/plugins/goffice/Makefile.in
+index 7bd19e6..2a4397a 100644
+--- a/plugins/goffice/Makefile.in
++++ b/plugins/goffice/Makefile.in
+@@ -77,17 +77,20 @@ LTLIBRARIES = $(plugin_LTLIBRARIES)
+ goffice_la_DEPENDENCIES = unix/libunix.la
+ am_goffice_la_OBJECTS =
+ goffice_la_OBJECTS = $(am_goffice_la_OBJECTS)
+-goffice_la_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
+-	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
+-	$(goffice_la_LDFLAGS) $(LDFLAGS) -o $@
++goffice_la_LINK = $(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) \
++	$(LIBTOOLFLAGS) --mode=link $(CXXLD) $(AM_CXXFLAGS) \
++	$(CXXFLAGS) $(goffice_la_LDFLAGS) $(LDFLAGS) -o $@
+ DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
+-COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
+-	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
+-CCLD = $(CC)
+-LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
+-	--mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
++depcomp = $(SHELL) $(top_srcdir)/depcomp
++am__depfiles_maybe = depfiles
++am__mv = mv -f
++CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
++	$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS)
++CXXLD = $(CXX)
++CXXLINK = $(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
++	--mode=link $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(AM_LDFLAGS) \
+ 	$(LDFLAGS) -o $@
+-SOURCES = $(goffice_la_SOURCES)
++SOURCES = $(goffice_la_SOURCES) $(nodist_EXTRA_goffice_la_SOURCES)
+ DIST_SOURCES = $(goffice_la_SOURCES)
+ RECURSIVE_TARGETS = all-recursive check-recursive dvi-recursive \
+ 	html-recursive info-recursive install-data-recursive \
+@@ -419,18 +422,21 @@ goffice_la_LIBADD = \
+ 	unix/libunix.la
+ 
+ goffice_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(GOFFICE_LIBS) \
+ 	-avoid-version \
+ 	-module \
+ 	-no-undefined
+ 
+ goffice_la_SOURCES = 
++nodist_EXTRA_goffice_la_SOURCES = dummy.cpp
+ EXTRA_DIST = \
+ 	plugin.m4
+ 
+ all: all-recursive
+ 
+ .SUFFIXES:
++.SUFFIXES: .cpp .lo .o .obj
+ $(srcdir)/Makefile.in: @MAINTAINER_MODE_TRUE@ $(srcdir)/Makefile.am  $(am__configure_deps)
+ 	@for dep in $?; do \
+ 	  case '$(am__configure_deps)' in \
+@@ -501,6 +507,29 @@ mostlyclean-compile:
+ distclean-compile:
+ 	-rm -f *.tab.c
+ 
++@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dummy.Plo@am__quote@
++
++.cpp.o:
++@am__fastdepCXX_TRUE@	$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
++@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
++@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
++@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
++@am__fastdepCXX_FALSE@	$(CXXCOMPILE) -c -o $@ $<
++
++.cpp.obj:
++@am__fastdepCXX_TRUE@	$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ `$(CYGPATH_W) '$<'`
++@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
++@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
++@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
++@am__fastdepCXX_FALSE@	$(CXXCOMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
++
++.cpp.lo:
++@am__fastdepCXX_TRUE@	$(LTCXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
++@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Plo
++@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$<' object='$@' libtool=yes @AMDEPBACKSLASH@
++@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
++@am__fastdepCXX_FALSE@	$(LTCXXCOMPILE) -c -o $@ $<
++
+ mostlyclean-libtool:
+ 	-rm -f *.lo
+ 
+@@ -739,6 +768,7 @@ clean-am: clean-generic clean-libtool clean-pluginLTLIBRARIES \
+ 	mostlyclean-am
+ 
+ distclean: distclean-recursive
++	-rm -rf ./$(DEPDIR)
+ 	-rm -f Makefile
+ distclean-am: clean-am distclean-compile distclean-generic \
+ 	distclean-tags
+@@ -784,6 +814,7 @@ install-ps-am:
+ installcheck-am:
+ 
+ maintainer-clean: maintainer-clean-recursive
++	-rm -rf ./$(DEPDIR)
+ 	-rm -f Makefile
+ maintainer-clean-am: distclean-am maintainer-clean-generic
+ 
+diff --git a/plugins/google/Makefile.in b/plugins/google/Makefile.in
+index 4b2d830..a47a7d8 100644
+--- a/plugins/google/Makefile.in
++++ b/plugins/google/Makefile.in
+@@ -425,6 +425,7 @@ google_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ google_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(GOOGLE_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/grammar/Makefile.in b/plugins/grammar/Makefile.in
+index d3a0a11..45116c4 100644
+--- a/plugins/grammar/Makefile.in
++++ b/plugins/grammar/Makefile.in
+@@ -424,6 +424,7 @@ grammar_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ grammar_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(GRAMMAR_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/hancom/Makefile.in b/plugins/hancom/Makefile.in
+index 973dfa8..bf4f19a 100644
+--- a/plugins/hancom/Makefile.in
++++ b/plugins/hancom/Makefile.in
+@@ -425,6 +425,7 @@ hancom_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ hancom_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(HANCOM_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/hrtext/Makefile.in b/plugins/hrtext/Makefile.in
+index efe6275..e08aae2 100644
+--- a/plugins/hrtext/Makefile.in
++++ b/plugins/hrtext/Makefile.in
+@@ -425,6 +425,7 @@ hrtext_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ hrtext_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(HRTEXT_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/iscii/Makefile.in b/plugins/iscii/Makefile.in
+index b58f378..9c87a6f 100644
+--- a/plugins/iscii/Makefile.in
++++ b/plugins/iscii/Makefile.in
+@@ -425,6 +425,7 @@ iscii_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ iscii_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(ISCII_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/kword/Makefile.in b/plugins/kword/Makefile.in
+index ede4a73..a6dab08 100644
+--- a/plugins/kword/Makefile.in
++++ b/plugins/kword/Makefile.in
+@@ -425,6 +425,7 @@ kword_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ kword_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(KWORD_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/latex/Makefile.in b/plugins/latex/Makefile.in
+index 6abef38..bc6ee9e 100644
+--- a/plugins/latex/Makefile.in
++++ b/plugins/latex/Makefile.in
+@@ -426,6 +426,7 @@ latex_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ latex_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(LATEX_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/loadbindings/Makefile.in b/plugins/loadbindings/Makefile.in
+index 277874c..e322c60 100644
+--- a/plugins/loadbindings/Makefile.in
++++ b/plugins/loadbindings/Makefile.in
+@@ -427,6 +427,7 @@ loadbindings_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ loadbindings_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(LOADBINDINGS_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/mathview/Makefile.in b/plugins/mathview/Makefile.in
+index 433932c..a06406a 100644
+--- a/plugins/mathview/Makefile.in
++++ b/plugins/mathview/Makefile.in
+@@ -423,6 +423,7 @@ mathview_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ mathview_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(MATHVIEW_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/mht/Makefile.in b/plugins/mht/Makefile.in
+index 84a5c99..10c51a6 100644
+--- a/plugins/mht/Makefile.in
++++ b/plugins/mht/Makefile.in
+@@ -422,6 +422,7 @@ mht_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ mht_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(MHT_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/mif/Makefile.in b/plugins/mif/Makefile.in
+index 0dbe6ba..c8e5711 100644
+--- a/plugins/mif/Makefile.in
++++ b/plugins/mif/Makefile.in
+@@ -425,6 +425,7 @@ mif_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ mif_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(MIF_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/mswrite/Makefile.in b/plugins/mswrite/Makefile.in
+index 0a1860e..fcbd4de 100644
+--- a/plugins/mswrite/Makefile.in
++++ b/plugins/mswrite/Makefile.in
+@@ -425,6 +425,7 @@ mswrite_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ mswrite_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(MSWRITE_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/opendocument/Makefile.in b/plugins/opendocument/Makefile.in
+index f9108ae..f75cbde 100644
+--- a/plugins/opendocument/Makefile.in
++++ b/plugins/opendocument/Makefile.in
+@@ -430,6 +430,7 @@ opendocument_la_LIBADD = \
+ 	imp/libimp.la
+ 
+ opendocument_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(OPENDOCUMENT_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/openwriter/Makefile.in b/plugins/openwriter/Makefile.in
+index 643c326..18ce762 100644
+--- a/plugins/openwriter/Makefile.in
++++ b/plugins/openwriter/Makefile.in
+@@ -426,6 +426,7 @@ openwriter_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ openwriter_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(OPENWRITER_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/openxml/Makefile.in b/plugins/openxml/Makefile.in
+index 17ed0c2..5054053 100644
+--- a/plugins/openxml/Makefile.in
++++ b/plugins/openxml/Makefile.in
+@@ -428,6 +428,7 @@ openxml_la_LIBADD = \
+ 	exp/libexp.la
+ 
+ openxml_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(OPENXML_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/opml/Makefile.in b/plugins/opml/Makefile.in
+index aad4e48..ef78675 100644
+--- a/plugins/opml/Makefile.in
++++ b/plugins/opml/Makefile.in
+@@ -425,6 +425,7 @@ opml_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ opml_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(OPML_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/ots/Makefile.in b/plugins/ots/Makefile.in
+index 46954df..91145f0 100644
+--- a/plugins/ots/Makefile.in
++++ b/plugins/ots/Makefile.in
+@@ -77,17 +77,20 @@ LTLIBRARIES = $(plugin_LTLIBRARIES)
+ ots_la_DEPENDENCIES = xp/libxp.la
+ am_ots_la_OBJECTS =
+ ots_la_OBJECTS = $(am_ots_la_OBJECTS)
+-ots_la_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
+-	--mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(ots_la_LDFLAGS) \
+-	$(LDFLAGS) -o $@
++ots_la_LINK = $(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
++	--mode=link $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) \
++	$(ots_la_LDFLAGS) $(LDFLAGS) -o $@
+ DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
+-COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
+-	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
+-CCLD = $(CC)
+-LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
+-	--mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
++depcomp = $(SHELL) $(top_srcdir)/depcomp
++am__depfiles_maybe = depfiles
++am__mv = mv -f
++CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
++	$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS)
++CXXLD = $(CXX)
++CXXLINK = $(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
++	--mode=link $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(AM_LDFLAGS) \
+ 	$(LDFLAGS) -o $@
+-SOURCES = $(ots_la_SOURCES)
++SOURCES = $(ots_la_SOURCES) $(nodist_EXTRA_ots_la_SOURCES)
+ DIST_SOURCES = $(ots_la_SOURCES)
+ RECURSIVE_TARGETS = all-recursive check-recursive dvi-recursive \
+ 	html-recursive info-recursive install-data-recursive \
+@@ -419,18 +422,21 @@ ots_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ ots_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(OTS_LIBS) \
+ 	-avoid-version \
+ 	-module \
+ 	-no-undefined
+ 
+ ots_la_SOURCES = 
++nodist_EXTRA_ots_la_SOURCES = dummy.cpp
+ EXTRA_DIST = \
+ 	plugin.m4
+ 
+ all: all-recursive
+ 
+ .SUFFIXES:
++.SUFFIXES: .cpp .lo .o .obj
+ $(srcdir)/Makefile.in: @MAINTAINER_MODE_TRUE@ $(srcdir)/Makefile.am  $(am__configure_deps)
+ 	@for dep in $?; do \
+ 	  case '$(am__configure_deps)' in \
+@@ -501,6 +507,29 @@ mostlyclean-compile:
+ distclean-compile:
+ 	-rm -f *.tab.c
+ 
++@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dummy.Plo@am__quote@
++
++.cpp.o:
++@am__fastdepCXX_TRUE@	$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
++@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
++@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
++@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
++@am__fastdepCXX_FALSE@	$(CXXCOMPILE) -c -o $@ $<
++
++.cpp.obj:
++@am__fastdepCXX_TRUE@	$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ `$(CYGPATH_W) '$<'`
++@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
++@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
++@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
++@am__fastdepCXX_FALSE@	$(CXXCOMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
++
++.cpp.lo:
++@am__fastdepCXX_TRUE@	$(LTCXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
++@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Plo
++@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$<' object='$@' libtool=yes @AMDEPBACKSLASH@
++@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
++@am__fastdepCXX_FALSE@	$(LTCXXCOMPILE) -c -o $@ $<
++
+ mostlyclean-libtool:
+ 	-rm -f *.lo
+ 
+@@ -739,6 +768,7 @@ clean-am: clean-generic clean-libtool clean-pluginLTLIBRARIES \
+ 	mostlyclean-am
+ 
+ distclean: distclean-recursive
++	-rm -rf ./$(DEPDIR)
+ 	-rm -f Makefile
+ distclean-am: clean-am distclean-compile distclean-generic \
+ 	distclean-tags
+@@ -784,6 +814,7 @@ install-ps-am:
+ installcheck-am:
+ 
+ maintainer-clean: maintainer-clean-recursive
++	-rm -rf ./$(DEPDIR)
+ 	-rm -f Makefile
+ maintainer-clean-am: distclean-am maintainer-clean-generic
+ 
+diff --git a/plugins/paint/Makefile.in b/plugins/paint/Makefile.in
+index 60af0cb..f18fced 100644
+--- a/plugins/paint/Makefile.in
++++ b/plugins/paint/Makefile.in
+@@ -426,6 +426,7 @@ paint_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ paint_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(PAINT_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/passepartout/Makefile.in b/plugins/passepartout/Makefile.in
+index fb7ca19..b5de4f9 100644
+--- a/plugins/passepartout/Makefile.in
++++ b/plugins/passepartout/Makefile.in
+@@ -427,6 +427,7 @@ passepartout_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ passepartout_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(PASSEPARTOUT_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/pdb/Makefile.in b/plugins/pdb/Makefile.in
+index 24069a3..7ec7e69 100644
+--- a/plugins/pdb/Makefile.in
++++ b/plugins/pdb/Makefile.in
+@@ -425,6 +425,7 @@ pdb_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ pdb_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(PDB_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/pdf/Makefile.in b/plugins/pdf/Makefile.in
+index 535494e..1b42c6f 100644
+--- a/plugins/pdf/Makefile.in
++++ b/plugins/pdf/Makefile.in
+@@ -425,6 +425,7 @@ pdf_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ pdf_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(PDF_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/presentation/Makefile.in b/plugins/presentation/Makefile.in
+index 3bc303a..44db96d 100644
+--- a/plugins/presentation/Makefile.in
++++ b/plugins/presentation/Makefile.in
+@@ -427,6 +427,7 @@ presentation_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ presentation_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(PRESENTATION_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/psion/Makefile.in b/plugins/psion/Makefile.in
+index 055677f..516761f 100644
+--- a/plugins/psion/Makefile.in
++++ b/plugins/psion/Makefile.in
+@@ -78,17 +78,20 @@ LTLIBRARIES = $(plugin_LTLIBRARIES)
+ psion_la_DEPENDENCIES = xp/libxp.la
+ am_psion_la_OBJECTS =
+ psion_la_OBJECTS = $(am_psion_la_OBJECTS)
+-psion_la_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
+-	--mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(psion_la_LDFLAGS) \
+-	$(LDFLAGS) -o $@
++psion_la_LINK = $(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) \
++	$(LIBTOOLFLAGS) --mode=link $(CXXLD) $(AM_CXXFLAGS) \
++	$(CXXFLAGS) $(psion_la_LDFLAGS) $(LDFLAGS) -o $@
+ DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
+-COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
+-	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
+-CCLD = $(CC)
+-LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
+-	--mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
++depcomp = $(SHELL) $(top_srcdir)/depcomp
++am__depfiles_maybe = depfiles
++am__mv = mv -f
++CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
++	$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS)
++CXXLD = $(CXX)
++CXXLINK = $(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
++	--mode=link $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(AM_LDFLAGS) \
+ 	$(LDFLAGS) -o $@
+-SOURCES = $(psion_la_SOURCES)
++SOURCES = $(psion_la_SOURCES) $(nodist_EXTRA_psion_la_SOURCES)
+ DIST_SOURCES = $(psion_la_SOURCES)
+ RECURSIVE_TARGETS = all-recursive check-recursive dvi-recursive \
+ 	html-recursive info-recursive install-data-recursive \
+@@ -421,12 +424,14 @@ psion_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ psion_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(PSION_LIBS) \
+ 	-avoid-version \
+ 	-module \
+ 	-no-undefined
+ 
+ psion_la_SOURCES = 
++nodist_EXTRA_psion_la_SOURCES = dummy.cpp
+ EXTRA_DIST = \
+ 	plugin.m4
+ 
+@@ -441,6 +446,7 @@ EXTRA_DIST = \
+ all: all-recursive
+ 
+ .SUFFIXES:
++.SUFFIXES: .cpp .lo .o .obj
+ $(srcdir)/Makefile.in: @MAINTAINER_MODE_TRUE@ $(srcdir)/Makefile.am  $(am__configure_deps)
+ 	@for dep in $?; do \
+ 	  case '$(am__configure_deps)' in \
+@@ -511,6 +517,29 @@ mostlyclean-compile:
+ distclean-compile:
+ 	-rm -f *.tab.c
+ 
++@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dummy.Plo@am__quote@
++
++.cpp.o:
++@am__fastdepCXX_TRUE@	$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
++@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
++@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
++@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
++@am__fastdepCXX_FALSE@	$(CXXCOMPILE) -c -o $@ $<
++
++.cpp.obj:
++@am__fastdepCXX_TRUE@	$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ `$(CYGPATH_W) '$<'`
++@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
++@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
++@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
++@am__fastdepCXX_FALSE@	$(CXXCOMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
++
++.cpp.lo:
++@am__fastdepCXX_TRUE@	$(LTCXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
++@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Plo
++@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$<' object='$@' libtool=yes @AMDEPBACKSLASH@
++@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
++@am__fastdepCXX_FALSE@	$(LTCXXCOMPILE) -c -o $@ $<
++
+ mostlyclean-libtool:
+ 	-rm -f *.lo
+ 
+@@ -770,6 +799,7 @@ clean-am: clean-generic clean-libtool clean-pluginLTLIBRARIES \
+ 	mostlyclean-am
+ 
+ distclean: distclean-recursive
++	-rm -rf ./$(DEPDIR)
+ 	-rm -f Makefile
+ distclean-am: clean-am distclean-compile distclean-generic \
+ 	distclean-tags
+@@ -815,6 +845,7 @@ install-ps-am:
+ installcheck-am:
+ 
+ maintainer-clean: maintainer-clean-recursive
++	-rm -rf ./$(DEPDIR)
+ 	-rm -f Makefile
+ maintainer-clean-am: distclean-am maintainer-clean-generic
+ 
+diff --git a/plugins/rsvg/Makefile.in b/plugins/rsvg/Makefile.in
+index 1a0589a..9d26924 100644
+--- a/plugins/rsvg/Makefile.in
++++ b/plugins/rsvg/Makefile.in
+@@ -425,6 +425,7 @@ rsvg_la_LIBADD = \
+ 	$(RSVG_LIBS) $(PNG_LIBS)
+ 
+ rsvg_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	-avoid-version \
+ 	-module \
+ 	-no-undefined
+diff --git a/plugins/s5/Makefile.in b/plugins/s5/Makefile.in
+index f1c69a2..9515df2 100644
+--- a/plugins/s5/Makefile.in
++++ b/plugins/s5/Makefile.in
+@@ -425,6 +425,7 @@ s5_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ s5_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(S5_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/sdw/Makefile.in b/plugins/sdw/Makefile.in
+index 01702b2..8ccda3e 100644
+--- a/plugins/sdw/Makefile.in
++++ b/plugins/sdw/Makefile.in
+@@ -425,6 +425,7 @@ sdw_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ sdw_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(SDW_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/t602/Makefile.in b/plugins/t602/Makefile.in
+index 310c78f..d62df56 100644
+--- a/plugins/t602/Makefile.in
++++ b/plugins/t602/Makefile.in
+@@ -425,6 +425,7 @@ t602_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ t602_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(T602_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/urldict/Makefile.in b/plugins/urldict/Makefile.in
+index 61f68ed..c37937f 100644
+--- a/plugins/urldict/Makefile.in
++++ b/plugins/urldict/Makefile.in
+@@ -425,6 +425,7 @@ urldict_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ urldict_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(URLDICT_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/wikipedia/Makefile.in b/plugins/wikipedia/Makefile.in
+index 5ed0d19..ce25b63 100644
+--- a/plugins/wikipedia/Makefile.in
++++ b/plugins/wikipedia/Makefile.in
+@@ -425,6 +425,7 @@ wikipedia_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ wikipedia_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(WIKIPEDIA_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/wmf/Makefile.in b/plugins/wmf/Makefile.in
+index 17f6f0e..93a5705 100644
+--- a/plugins/wmf/Makefile.in
++++ b/plugins/wmf/Makefile.in
+@@ -422,6 +422,7 @@ wmf_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ wmf_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(WMF_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/wml/Makefile.in b/plugins/wml/Makefile.in
+index 04e7c4c..0de2dd1 100644
+--- a/plugins/wml/Makefile.in
++++ b/plugins/wml/Makefile.in
+@@ -425,6 +425,7 @@ wml_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ wml_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(WML_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/wordperfect/Makefile.in b/plugins/wordperfect/Makefile.in
+index 9d00fad..9682afa 100644
+--- a/plugins/wordperfect/Makefile.in
++++ b/plugins/wordperfect/Makefile.in
+@@ -423,6 +423,7 @@ wordperfect_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ wordperfect_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(WORDPERFECT_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/wpg/Makefile.in b/plugins/wpg/Makefile.in
+index 8960c9a..2babb26 100644
+--- a/plugins/wpg/Makefile.in
++++ b/plugins/wpg/Makefile.in
+@@ -422,6 +422,7 @@ wpg_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ wpg_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(WPG_LIBS) \
+ 	-avoid-version \
+ 	-module \
+diff --git a/plugins/xslfo/Makefile.in b/plugins/xslfo/Makefile.in
+index 41603d8..307a820 100644
+--- a/plugins/xslfo/Makefile.in
++++ b/plugins/xslfo/Makefile.in
+@@ -425,6 +425,7 @@ xslfo_la_LIBADD = \
+ 	xp/libxp.la
+ 
+ xslfo_la_LDFLAGS = \
++	$(DEPS_LIBS) \
+ 	$(XSLFO_LIBS) \
+ 	-avoid-version \
+ 	-module \
+-- 
+tg: (36f8b56..) debian/rerun-automake (depends on: fixes/link-plugins-with-cxx fixes/fully-link-plugins)

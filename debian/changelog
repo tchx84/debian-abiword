@@ -1,10 +1,124 @@
-abiword (2.6.8.0-1) UNRELEASED; urgency=low
+abiword (2.9.1-0.2) unstable; urgency=low
 
-  * Re-release of 2.6.8, repackaged to not use tarball-in-tarball.
-    Plugins, docs and extras are now in separate source packages.
-    Closes: bug#538559.
+  * Non-maintainer upload.
+  * Drop Build-Depends on obsolete libgucharmap2-dev. Closes: #648026
 
- -- Jonas Smedegaard <dr@jones.dk>  Tue, 31 Mar 2009 19:46:32 +0200
+ -- Michael Biebl <biebl@debian.org>  Tue, 08 Nov 2011 13:06:45 +0100
+
+abiword (2.9.1-0.1) unstable; urgency=low
+
+  [ Hector Oron ]
+  * New upstream release.
+  * Fix plugin license incompatibility introduced in NMU
+    abiword/2.8.6-0.1 (Closes: #602687).
+  * Merge diff for NMU version 2.8.6-0.3 (Closes: #613294).
+  * Build depend on libgsf-1-dev, librasqal3-dev, librdf0-dev.
+  * Fix bogus build depend on libwpd8-dev to libwpd-dev.
+  * Fix build with hardening flags (format-security).
+  * Refresh fix_no_undefined patch.
+
+  [ Patrik Fimml ]
+  * New upstream release (closes: #577733)                                                          
+  * Do not ship libtool .la file (Policy 10.2)                                                      
+  * Remove build-dependency on libaspell-dev (closes: #570647)                                      
+  * Switch to 3.0 (quilt) source package format                                                     
+
+ -- Hector Oron <zumbi@debian.org>  Thu, 20 Oct 2011 01:00:54 +0000
+
+abiword (2.8.6-0.4) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * Stop shipping .la files. Closes: #33314.
+  * Pass -Wl,--no-undefined instead of --no-undefined. Closes: #628267.
+
+ -- Regis Boudin <regis@debian.org>  Wed, 24 Aug 2011 20:50:05 +0100
+
+abiword (2.8.6-0.3) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * by request of the release team: disable psion plugin, as it blocks
+    this package 
+
+ -- Rene Engelhard <rene@debian.org>  Sun, 13 Feb 2011 22:26:18 +0100
+
+abiword (2.8.6-0.2) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * build against libwpd 0.9.0/libwpg 0.2.0/libwps 0.2.0 (closes: #604826)
+  * build-depend on libxcb-render-util0-dev 
+
+ -- Rene Engelhard <rene@debian.org>  Sun, 13 Feb 2011 14:14:51 +0100
+
+abiword (2.8.6-0.1) unstable; urgency=low
+
+  [ Jari Aalto ]
+  * Non-maintainer upload.
+  * New upstream release. Fixes:
+    - Can't open password protected ODT files (Closes: #577733).
+    - Scrolling with cursor keys is slow (important; Closes: #498285).
+    - Crash on occasions when importing OpenDocument files.
+    - Crash when trying to print (important; Closes: #580346).
+    - Crash on accessing Tools -> Thesaurus menu (normal; Closes: #569272).
+    - Crash on saving as PDF (normal; Closes: #520424).
+    - Crash on trying to access Help (normal: Closes: #586245).
+    - Crash on 3 MiB RTF file (normal; Closes: #552575);
+  * debian/control
+    - (Standards-Version): Update to 3.9.1.
+  * debian/patches
+    - (fixes/svn-backports.diff): Remove. Obsoleted by new release
+    - (fixes/mime-types.diff): Refresh. Move abiword.desktop changes to
+      separate diff.
+    - (fixes/mime-types-desktop.diff): New file.
+
+  [  Hideki Yamane (Debian-JP) <henrich@debian.or.jp> ]
+  * debian/rules
+    - (CC, CXX): Remove variables.
+    - (LDFLAGS): New variable. Move content from --as-needed from CC, CXX
+      variable. See bug #577871 for details.
+  * debian/control
+    - (Build-Depends): Add flex, bison.
+
+ -- Jari Aalto <jari.aalto@cante.net>  Wed, 20 Oct 2010 14:46:20 +0300
+
+abiword (2.8.2-2) unstable; urgency=low
+
+  * Move from libgoffice-0-8-dev to libgoffice-0.8-dev (see #570351,
+    closes: #573653, #572043)
+
+ -- Patrik Fimml <patrik@fimml.at>  Sat, 13 Mar 2010 13:31:40 +0100
+
+abiword (2.8.2-1) unstable; urgency=low
+
+  * New upstream release
+  * Build-depend on libaspell-dev (closes: 569373)
+  * Move from latex-xft-fonts to ttf-lyx (closes: 539529)
+
+ -- Patrik Fimml <patrik@fimml.at>  Sat, 13 Feb 2010 17:56:03 +0100
+
+abiword (2.8.1-2) unstable; urgency=low
+
+  * Ship abiword.pc (closes: #557021)
+  * Tighten libasio-dev build-dependency (closes: #557037)
+  * Fix goffice interface function signature mismatch (closes: #560475)
+  * Build without gucharmap (buggy, dropped in trunk; closes: #556746)
+  * Rewrite manpage (closes: #537988)
+  * Do not build abiword-plugin-goffice
+
+ -- Patrik Fimml <patrik@fimml.at>  Fri, 11 Dec 2009 19:11:17 +0100
+
+abiword (2.8.1-1) unstable; urgency=low
+
+  * New upstream release
+  * Make myself maintainer (closes: #548365)
+  * Documentation is now in abiword-docs, built from a separate source
+    package.
+  * Merge abiword-plugin-goffice into main package, as abiword requires
+    goffice in any case.
+  * Ship libabiword-2.8 (closes: #512777)
+  * Remove dependency on libreadline5-dev (closes: #553713)
+  * Drop build-dep on libgnomeprintui (closes: #542552)
+
+ -- Patrik Fimml <patrik@fimml.at>  Tue, 03 Nov 2009 22:00:58 +0100
 
 abiword (2.6.8-5) unstable; urgency=low
 

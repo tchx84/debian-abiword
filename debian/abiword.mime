@@ -11,8 +11,9 @@ application/vnd.wordperfect; abiword '%s' ; edit=abiword '%s' ; test=test "$DISP
 application/wordperfect5.1; abiword '%s' ; edit=abiword '%s' ; test=test "$DISPLAY" != "" ; description="Corel WordPerfect Document" ; priority=2
 application/wordperfect6; abiword '%s' ; edit=abiword '%s' ; test=test "$DISPLAY" != "" ; description="Corel WordPerfect Document" ; priority=2
 application/x-abiword; abiword '%s' ; edit=abiword '%s' ; test=test "$DISPLAY" != "" ; description="AbiWord Document" ; priority=2
-application/x-applix-word; abiword '%s' ; edit=abiword '%s' ; test=test "$DISPLAY" != "Applix Word Document" ; description="" ; priority=2
-application/x-palm-database; abiword '%s' ; edit=abiword '%s' ; test=test "$DISPLAY" != "Palm Database" ; description="" ; priority=2
+application/x-abicollab; abiword '%s' ; edit=abiword '%s' ; test=test "$DISPLAY" != "" ; description="AbiWord Collaborative Document" ; priority=2
+application/x-applix-word; abiword '%s' ; edit=abiword '%s' ; test=test "$DISPLAY" != "" ; description="Applix Word Document" ; priority=2
+application/x-palm-database; abiword '%s' ; edit=abiword '%s' ; test=test "$DISPLAY" != "" ; description="Palm Database" ; priority=2
 text/abiword; abiword '%s' ; edit=abiword '%s' ; test=test "$DISPLAY" != "" ; description="AbiWord Document" ; priority=2
 text/plain; abiword '%s' ; edit=abiword '%s' ; test=test "$DISPLAY" != "" ; description="Text file" ; priority=2
 text/richtext; abiword '%s' ; edit=abiword '%s' ; test=test "$DISPLAY" != "" ; description="Rich Text document" ; priority=2

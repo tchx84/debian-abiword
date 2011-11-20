@@ -4,6 +4,9 @@ include /usr/share/cdbs/1/rules/debhelper.mk
 include /usr/share/cdbs/1/rules/patchsys-quilt.mk
 include /usr/share/cdbs/1/class/gnome.mk
 
+DEB_DH_AUTORECONF_ARGS = --as-needed
+include /usr/share/cdbs/1/rules/autoreconf.mk
+
 # workaround for http://bugs.debian.org/526392
 QUILT_PATCH_DIR := debian/patches
 QUILT_STAMPFN := patch

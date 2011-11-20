@@ -1,3 +1,12 @@
+abiword (2.9.1-0.3) unstable; urgency=low
+
+  * New maintainer (Closes: #648341)
+  * Packaging updates
+    - dh-autoreconf instead of patches
+    - standards to recent versions
+
+ -- Dmitry Smirnov <onlyjob@member.fsf.org>  Mon, 21 Nov 2011 01:58:27 +1100
+
 abiword (2.9.1-0.2) unstable; urgency=low
 
   * Non-maintainer upload.
@@ -18,10 +27,10 @@ abiword (2.9.1-0.1) unstable; urgency=low
   * Refresh fix_no_undefined patch.
 
   [ Patrik Fimml ]
-  * New upstream release (closes: #577733)                                                          
-  * Do not ship libtool .la file (Policy 10.2)                                                      
-  * Remove build-dependency on libaspell-dev (closes: #570647)                                      
-  * Switch to 3.0 (quilt) source package format                                                     
+  * New upstream release (closes: #577733)
+  * Do not ship libtool .la file (Policy 10.2)
+  * Remove build-dependency on libaspell-dev (closes: #570647)
+  * Switch to 3.0 (quilt) source package format
 
  -- Hector Oron <zumbi@debian.org>  Thu, 20 Oct 2011 01:00:54 +0000
 
@@ -37,7 +46,7 @@ abiword (2.8.6-0.3) unstable; urgency=low
 
   * Non-maintainer upload.
   * by request of the release team: disable psion plugin, as it blocks
-    this package 
+    this package
 
  -- Rene Engelhard <rene@debian.org>  Sun, 13 Feb 2011 22:26:18 +0100
 
@@ -45,7 +54,7 @@ abiword (2.8.6-0.2) unstable; urgency=low
 
   * Non-maintainer upload.
   * build against libwpd 0.9.0/libwpg 0.2.0/libwps 0.2.0 (closes: #604826)
-  * build-depend on libxcb-render-util0-dev 
+  * build-depend on libxcb-render-util0-dev
 
  -- Rene Engelhard <rene@debian.org>  Sun, 13 Feb 2011 14:14:51 +0100
 
@@ -138,7 +147,7 @@ abiword (2.6.8-3) unstable; urgency=low
 
   * valgrind is available only on selected architectures, and not
     really required for building abiword.  Thus, I removed it from
-    Build-Depends - closes: #521030. 
+    Build-Depends - closes: #521030.
   * abiword-common: not depends on abiword anymore - closes: #495744
   * 04_comma_subscript.diff: seems I forgot to import this patch from
     the old package. Added.
@@ -152,7 +161,7 @@ abiword (2.6.8-2) unstable; urgency=low
     already installed (existing) abiword package.  To solve this
     chicken-or-egg question(especially for buildd), I rearranged the
     order of targets in debian/rules.  pbuilder is your friend
-    - closes: #521074 
+    - closes: #521074
 
  -- Masayuki Hatta (mhatta) <mhatta@debian.org>  Tue, 24 Mar 2009 22:41:32 +0900
 
@@ -165,7 +174,7 @@ abiword (2.6.8-1) unstable; urgency=low
   * Added debian/watch - closes: #494830
   * Added CREDITS.TXT - closes: #491237
   * debian/copyright: Cleaned it up.  Now the abiword tarballs don't
-    contain any source trees of external 3rd party libraries. 
+    contain any source trees of external 3rd party libraries.
 
  -- Masayuki Hatta (mhatta) <mhatta@debian.org>  Sun, 22 Mar 2009 18:42:01 +0900
 
@@ -210,19 +219,19 @@ abiword (2.6.4-1) unstable; urgency=medium
     closes: #473508, #488069
   * Using medium priority to try and beat the freeze given the NEW delay
     that this package will incur.
-  
+
   * Major changes:
     - Split out the abiword-plugins and abiword-plugins-gnome package into
       three individual plugin packages:
-      
+
       Recommended: abiword-plugin-mathview, abiword-plugin-grammar
       Suggested: abiword-plugin-goffice (due to GNOME dependencies)
-    
+
     - The old abiword-plugins and abiword-plugins-gnome packages have been
       obsoleted and abiword-plugins-gnome is now a Conflicts/Replaces in
       abiword. Because abiword-plugins has been split into two packages,
       though, there is a dummy abiword-plugins package to ease upgrades.
-    
+
     - There is no more abiword-gnome package. We only ship the GTK2 version,
       which does depend on GNOME-Print, but that does not rely on the usual
       large set of GNOME UI libraries.
@@ -236,7 +245,7 @@ abiword (2.6.4-1) unstable; urgency=medium
   * Minor changes:
     - Drop psiconv support overall to alleviate dependency bloat/package spam,
       at the risk of offending the one guy who still has a Psion 5.
-    - Upgrade to debhelper 7 and Policy 3.8.0. 
+    - Upgrade to debhelper 7 and Policy 3.8.0.
     - Drop one of Ryan's Ubuntu patches by building abiword-2.6.pc in the
       configure stage of debian/rules. Lose autoconf/automake build dep.
     - Upgrade boost build-dependency to 1.35 to quell some apt-get insanity
@@ -302,7 +311,7 @@ abiword (2.6.2-0ubuntu2+ppa1) hardy; urgency=low
     itself.
   * Add poppler-utils to recommends for PDF import.
   * Remove libgnome2-dev build-dep, not needed since GTK and GNOME
-    versions were merged. 
+    versions were merged.
 
  -- Ryan Pavlik <abiryan@ryand.net>  Tue, 22 Apr 2008 01:48:37 +0200
 
@@ -320,51 +329,51 @@ abiword (2.6.2-0ubuntu2) hardy; urgency=low
 
 abiword (2.6.2-0ubuntu1) hardy; urgency=low
 
-  * New upstream version and associated packaging changes.  
+  * New upstream version and associated packaging changes.
     (LP: #202174) (LP: #36807) (LP: #56694) (LP: #3197)
   * Updated build dependencies.
-  * Move all plugins without unreasonable dependencies into main  
+  * Move all plugins without unreasonable dependencies into main
     abiword package (LP: #24195)
   * Merge abiword[-gtk], abiword-gnome, abiword-common (LP: #58662)
-  * Use upstream build system to handle installation during package  
+  * Use upstream build system to handle installation during package
     creation.
-  * Eliminated duplicated "desktop" file and icon in debian/misc in 
+  * Eliminated duplicated "desktop" file and icon in debian/misc in
     favor of upstream.
-  * Copied manpage into debian/misc due to elimination from upstream  
+  * Copied manpage into debian/misc due to elimination from upstream
     source.
   * Ubuntu changes dropped:
-    - debian/patches/01_aaa_fix_plugins_m4.dpatch: not actually  
+    - debian/patches/01_aaa_fix_plugins_m4.dpatch: not actually
       applied in previous package, obsoleted by upstream build system.
-    - debian/patches/01_relibtoolize.dpatch: change obsoleted by   
+    - debian/patches/01_relibtoolize.dpatch: change obsoleted by
       improvements to upstream build system.
-    - debian/patches/02_no_pedantic_configure.dpatch: change obsoleted  
+    - debian/patches/02_no_pedantic_configure.dpatch: change obsoleted
       by improvements to upstream build system.
-    - debian/patches/09_bad_MANIFEST_omission.dpatch: change obsoleted  
+    - debian/patches/09_bad_MANIFEST_omission.dpatch: change obsoleted
       by improvements to upstream build system.
-    - debian/patches/13_base_strings.dpatch: upstream build system  
+    - debian/patches/13_base_strings.dpatch: upstream build system
       handles strings properly.
-    - debian/patches/15_pt_BR_string_fix.dpatch: obsoleted by upstream  
+    - debian/patches/15_pt_BR_string_fix.dpatch: obsoleted by upstream
       string updates.
-    - debian/patches/17_de_string_fix.dpatch: obsoleted by upstream  
+    - debian/patches/17_de_string_fix.dpatch: obsoleted by upstream
       string updates.
-    - debian/patches/03_workaround_for_ots.dpatch: obsoleted by  
+    - debian/patches/03_workaround_for_ots.dpatch: obsoleted by
       upstream.
-    - debian/patches/10_browser_handling.dpatch: a better, simpler fix  
+    - debian/patches/10_browser_handling.dpatch: a better, simpler fix
       is upstream.
-    - debian/patches/11_history_fullpath.dpatch: better, simpler fix  
+    - debian/patches/11_history_fullpath.dpatch: better, simpler fix
       is upstream.
-    - debian/patches/18_new_poppler.dpatch: patch no longer applies -   
+    - debian/patches/18_new_poppler.dpatch: patch no longer applies -
       plugin rewritten to use poppler binaries at runtime.
-    - debian/patches/poppler06-api.dpatch: patch no longer applies -   
+    - debian/patches/poppler06-api.dpatch: patch no longer applies -
       plugin rewritten to use poppler binaries at runtime.
   * Added patches:
-    - debian/patches02_add_mimetypes_to_desktop.dpatch: account for  
+    - debian/patches02_add_mimetypes_to_desktop.dpatch: account for
        import/export support included in the main package now.
-    - debian/patches/03_modify_extras_pkgconfig.dpatch: fix configure  
-      of abiword-extras source sub-package against a non-installed  
+    - debian/patches/03_modify_extras_pkgconfig.dpatch: fix configure
+      of abiword-extras source sub-package against a non-installed
       AbiWord
-  * Backported important (reliability/crasher) changes from SVN -  
-    patch should be removed from a 2.6.3 package. (Upstream  
+  * Backported important (reliability/crasher) changes from SVN -
+    patch should be removed from a 2.6.3 package. (Upstream
     revisions 23441, 23443, 23446, 23451, 23453, 23477, 23481, 23482, 23526)
     - debian/patches/50_backport_pre263.dpatch
 
@@ -380,11 +389,11 @@ abiword (2.4.6-5) unstable; urgency=low
 
 abiword (2.4.6-4) unstable; urgency=low
 
-  * Sorted out dpatch names.  
+  * Sorted out dpatch names.
      0- : Debian specific
      20-: Translation related
      30-: Temporary build fixes.
-  * Rebuilt with libpoppler2, thanks Dmitry E. Oboukhov for build fix! 
+  * Rebuilt with libpoppler2, thanks Dmitry E. Oboukhov for build fix!
      - closes: #452676
 
  -- Masayuki Hatta (mhatta) <mhatta@debian.org>  Tue, 04 Dec 2007 16:23:30 +0900
@@ -771,7 +780,7 @@ abiword (2.0.10-1) unstable; urgency=high
   * Linked abiword.1.gz <-> AbiWord-*2.0*.gz, really - closes: #259039
   * Moved AbiRSVG plugin to abiword-plugins-gnome - closes: #260648
   * [copyright] revised.  Not really fixes #258918, but close enough.
-  
+
  -- Masayuki Hatta (mhatta) <mhatta@debian.org>  Tue, 10 Aug 2004 19:31:14 +0900
 
 abiword (2.0.9-0.1) unstable; urgency=medium
@@ -900,10 +909,10 @@ abiword (2.0.0+cvs.2003.10.29-1) unstable; urgency=low
   * New package: abiword-help contains online help - closes: #166145, #204142, #207551
   * New package: abiword-plugins-gnome contains plugins which depend on GNOME libraries - closes: #211754
   * New package: xfonts-abi provides a dummy package for smooth upgrade - closes: #192056
-  * Built with libenchant1, and now spell checker does nothing when 
+  * Built with libenchant1, and now spell checker does nothing when
     dictionary for specified language is not available - closes: #204143, #204264
   * Now abiword-gnome depends on libgucharmap3 - closes: #212727
-  * This is actually 2.1.0+, but I'll package the stable 2.0.1 when it is 
+  * This is actually 2.1.0+, but I'll package the stable 2.0.1 when it is
     ready, thus stick with calling 2.0.0 for a while.
 
  -- Masayuki Hatta <mhatta@debian.org>  Wed, 29 Oct 2003 20:31:14 +0900
@@ -924,7 +933,7 @@ abiword (2.0.0+cvs.2003.09.25-1) unstable; urgency=low
   * Applied Matt Kraai's IA64 build fix patch again - closes: #211060
   * Built with the new libgucharmap3 - closes: #212635, #212385, #200910
   * Built with the sane g++-3.3, now Insert -> Table works
-	 - closes: #211196, #208579, #211624
+     - closes: #211196, #208579, #211624
 
  -- Masayuki Hatta <mhatta@debian.org>  Thu, 25 Sep 2003 09:44:50 +0900
 
@@ -978,19 +987,19 @@ abiword (1.99.5+cvs.2003.08.27-1) unstable; urgency=low
 abiword (1.99.2+cvs.2003.07.10-1) unstable; urgency=low
 
   * The "Sister Caroline" release.
-  * New upstream release (CVS snapshot). 
+  * New upstream release (CVS snapshot).
 
  -- Masayuki Hatta <mhatta@debian.org>  Thu, 10 Jul 2003 16:30:57 +0900
 
 abiword (1.99.1+cvs.2003.07.03-1) unstable; urgency=low
 
   * The "Selim" release.
-  * New upstream release (CVS snapshot). 
+  * New upstream release (CVS snapshot).
   * Now 'Insert Symbol' works - closes: #181289
   * Now buildable - closes: #198874
   * Rebuilt with proper libraries - closes: #198180, #196333
   * Now claims "Word Processor" prominently in menu - closes: #197376
-  
+
  -- Masayuki Hatta <mhatta@po.airs.net>  Thu,  3 Jul 2003 00:38:32 +0900
 
 abiword (1.9.0+cvs.2003.05.10-1) unstable; urgency=low
@@ -1104,7 +1113,7 @@ abiword (1.1.3+cvs.2003.02.04-1) unstable; urgency=low
   * Now abiword doesn't have any binary-all packages - closes: #167578
   * Now can read this doc file - closes: #176299
   * Added menu entries - closes: #179289, #179302
-  * Now Provides: abiword-gtk, abiword-gnome - closes: #179633 
+  * Now Provides: abiword-gtk, abiword-gnome - closes: #179633
   * Seems this bug has gone - closes: #157862
   * Not reproducible, if persists please reopen - closes: #163960, #172507, #172510, #172511
   * I don't think this is a bug - closes: #172509
@@ -1114,11 +1123,11 @@ abiword (1.1.3+cvs.2003.02.04-1) unstable; urgency=low
 abiword (1.1.3+cvs.2003.01.31-1) unstable; urgency=low
 
   * The "Transition" release.
-  * Now uses CVS HEAD(the development branch).  Well, it's still 
+  * Now uses CVS HEAD(the development branch).  Well, it's still
     somewhat shaky, but rapidly maturing.  Bug reports are welcome.
   * Before bitching me, think what "sid" is all about.
   * Now installable - closes: #177357, #177447, #178198, #178064, #176179
-  * Now uses fontconfig, so these bugs are gone 
+  * Now uses fontconfig, so these bugs are gone
       - closes: #134451, #139045, #145317, #145332, #147992, #150552, #153447, #160380, #175215, #162714, #165120, #172205, #142558, #160380, #168916, #171788, #144132, #163761
   * Now uses libxml2, so this bug is gone - closes: #143942
   * Now AbiWord uses new GNU aspell, so these bugs shold be gone - closes: #162302, #162534, #166361
@@ -1167,7 +1176,7 @@ abiword (1.0.2+cvs.2002.08.31-1) unstable; urgency=low
   * The "Blue Drag" release.
   * New upstream release (CVS).
   * Disabled Perl bindings.
-  
+
  -- Masayuki Hatta <mhatta@debian.org>  Sat, 31 Aug 2002 18:27:50 +0900
 
 abiword (1.0.2+cvs.2002.08.30-1) unstable; urgency=low
@@ -1205,9 +1214,9 @@ abiword (1.0.2+cvs.2002.07.30-1) unstable; urgency=low
   * New upstream release (CVS).
   * Now abiword-common pre-depends on defoma - closes: #153292
   * Added aspell-en to Depends - closes: #153264
-  * The priority of -gnome is now set to 35(and -gtk is set to 30), which 
+  * The priority of -gnome is now set to 35(and -gtk is set to 30), which
     means in case -gnome is installed, /usr/bin/AbiWord_d should be always
-    symlinked to /usr/bin/AbiWord_d.gnome unless you changed it explicitly 
+    symlinked to /usr/bin/AbiWord_d.gnome unless you changed it explicitly
     by using /usr/sbin/update-alternatives - closes: #151043
 
  -- Masayuki Hatta <mhatta@debian.org>  Tue, 30 Jul 2002 19:50:32 +0900
@@ -1247,7 +1256,7 @@ abiword (1.0.2+cvs.2002.06.12-1) unstable; urgency=low
   * The "Doin' The Thing" release.
   * New upstream release (CVS).
   * Added aiksaurus plugin.
-  
+
  -- Masayuki Hatta <mhatta@debian.org>  Wed, 12 Jun 2002 13:20:53 +0900
 
 abiword (1.0.2+cvs.2002.06.05-1) unstable; urgency=low
@@ -1296,7 +1305,7 @@ abiword (1.0.0+cvs.2002.04.28-2) unstable; urgency=high
   * Oops, defoma-app returns value 1 - closes: #144930
   * Removed american.hash - closes: #144886
   * This one really should go into woody *SIGH*
-  
+
  -- Masayuki Hatta <mhatta@debian.org>  Mon, 29 Apr 2002 10:23:32 +0900
 
 abiword (1.0.0+cvs.2002.04.28-1) unstable; urgency=high
@@ -1325,7 +1334,7 @@ abiword (0.99.5+cvs.2002.04.17-1) unstable; urgency=low
   * New upstream release (CVS).  This is actually RC1.
   * Sueggests: aspell-* - closes: #143078
   * Suppressed defoma messages - closes: #142933
-  * The upstream discarded the old help, so I don't need to include new one 
+  * The upstream discarded the old help, so I don't need to include new one
     to abiword-docs.  So abiword-doc/help is removed.
 
  -- Masayuki Hatta <mhatta@debian.org>  Tue, 16 Apr 2002 23:52:29 +0900
@@ -1365,7 +1374,7 @@ abiword (0.99.3+cvs.2002.04.01-1) unstable; urgency=low
   * Refined description - closes: #140607
   * Refined copyright - closes: #140636
   * BTW, the distribution of AbiWord by Debian is already acknowledged
-    by the upstream, so this is the "official" or at least "semi-official" 
+    by the upstream, so this is the "official" or at least "semi-official"
     product of AbiWord for Debian.  I think we can call it AbiWord anyway.
     Man, who cares ;-)
   * Added Brazilian Portuguese templates - closes: #140410
@@ -1415,7 +1424,7 @@ abiword (0.99.3+cvs.2002.03.24-3) unstable; urgency=low
 
 abiword (0.99.3+cvs.2002.03.24-2) unstable; urgency=low
 
-  * Oops, conflicting aspell-dictionary was actually a bad idea - 
+  * Oops, conflicting aspell-dictionary was actually a bad idea -
     removed and stated in README.Debian instead.
 
  -- Masayuki Hatta <mhatta@debian.org>  Sun, 24 Mar 2002 08:51:42 +0900
@@ -1427,7 +1436,7 @@ abiword (0.99.3+cvs.2002.03.24-1) unstable; urgency=low
   * Made a dirty workaround to cope with Autoconf 2.53 - closes: #139445
   * Not reproducible, seems fixed in the upstream? - closes: #117614
   * Weird...when aspell-en is installed, -gtk freezes as the submitter
-    reported.  Maybe the upstream pspell-related code bug, but I added 
+    reported.  Maybe the upstream pspell-related code bug, but I added
     Conflicts: aspell-dictionary for the time being - closes: #139367
 
  -- Masayuki Hatta <mhatta@debian.org>  Sun, 24 Mar 2002 00:27:58 +0900
@@ -1440,8 +1449,8 @@ abiword (0.99.3+cvs.2002.03.22-1) unstable; urgency=low
     updated from /usr/share/misc at build time.
   * Now Depends: libpspell-ispell1 | aspell-dictionary - closes: #139448
   * Debian's gnome-print uses libxml1 while libwmf0.2-2 uses libxml2.
-    This is where it all began.  Anywise, just removing 
-    --with-libwmf fixed this long-standing annoying 
+    This is where it all began.  Anywise, just removing
+    --with-libwmf fixed this long-standing annoying
     print-preview bug - closes: #135585, #137847, #138996
   * But this made HTML plugin unusable, so disabled.
 
@@ -1462,7 +1471,7 @@ abiword (0.99.3+cvs.2002.03.18-1) unstable; urgency=low
 
   * The "But Not For Me" release.
   * New upstream release (CVS).
-  * Made symlinks of fonts in /usr/X11R6/lib/X11/fonts/Type1 and 
+  * Made symlinks of fonts in /usr/X11R6/lib/X11/fonts/Type1 and
     generates fonts.{dir,scale} - closes: #138491
   * The change above should fix this one, too - closes: #138193
   * Added ABIWORD_BINARY feature(explained in README.Debian) - closes: #138277
@@ -1473,7 +1482,7 @@ abiword (0.99.3+cvs.2002.03.18-1) unstable; urgency=low
 abiword (0.99.2+cvs.2002.03.15-1) unstable; urgency=low
 
   * The "Well, You Needn't" release.
-  * New upstream release (CVS). 
+  * New upstream release (CVS).
   * Fixed in the upstream (Bug 2780) - closes: #137412
   * Now depends on libpspell-ispell1 to make sure at least en-US spell
     checker works - closes: #137413, #136883
@@ -1501,7 +1510,7 @@ abiword (0.99.2+cvs.2002.02.25-3) unstable; urgency=low
   * Fixed manpage problem - closes: #135783
   * Added Conflicts: abiword (<< 0.99.2) to xfonts-abi - closes: #135883
   * Changed abiword dummy's arch to any - closes: #135726
-  
+
  -- Masayuki Hatta <mhatta@debian.org>  Tue, 26 Feb 2002 23:21:44 +0900
 
 abiword (0.99.2+cvs.2002.02.25-2) unstable; urgency=low
@@ -1551,7 +1560,7 @@ abiword (0.99.1+cvs.2002.02.17-2) unstable; urgency=low
 
   * Added libpspell-ispell-dev to Build-Depends - closes: #134337
   * Now Recommends: libpspell-ispell1 | aspell-en.
-  
+
  -- Masayuki Hatta <mhatta@debian.org>  Sun, 17 Feb 2002 13:31:03 +0900
 
 abiword (0.99.1+cvs.2002.02.17-1) unstable; urgency=low
@@ -1560,10 +1569,10 @@ abiword (0.99.1+cvs.2002.02.17-1) unstable; urgency=low
   * Daily update of the fat stuff - sorry for downloaders!
   * Now I understand what "pspell support" really means...
   * What we need now is aspell-en, not ispell-dictionary - closes: #134334
-  * I think most of spell checker problem has gone since spell checking is now 
-    done via pspell. if not please reopen - closes: #108980, #111586 
+  * I think most of spell checker problem has gone since spell checking is now
+    done via pspell. if not please reopen - closes: #108980, #111586
   * If you want to check Espanol spelling, try aspell-es - closes: #123331
-  * When I tested examples/Unicode1.abw.gz today, seems unrecognized UTF8 
+  * When I tested examples/Unicode1.abw.gz today, seems unrecognized UTF8
     characters are mapped to "o".  I think this is a sane behavior - closes: #63321
   * Now abiword says "Error importing file foobar.doc" in such cases,
     that's also a sane behavior - closes: #134052
@@ -1591,7 +1600,7 @@ abiword (0.99.1+cvs.2002.02.16-1) unstable; urgency=low
  -- Masayuki Hatta <mhatta@debian.org>  Fri, 15 Feb 2002 09:29:38 +0900
 
 abiword (0.9.6.1-0.2) unstable; urgency=low
-  
+
   * NMU.
   * Added Build-Depends: libltdl3-dev - closes: #133856
   * This package doesn't make a symlink anymore - closes: #93271
@@ -1605,8 +1614,8 @@ abiword (0.9.6.1-0.1) unstable; urgency=low
   * New upstream release. - closes: #130392, #130209
   * Seems wv package doesn't provide files for development, so uses supplied
     one for now.
-  * Seems Perl scripting support and bi-directional support are broken 
-    and can not be built, so disabled for now. 
+  * Seems Perl scripting support and bi-directional support are broken
+    and can not be built, so disabled for now.
   * Seems it doesn't depend on libstdc++3 anyway, even if Build-Conflicts is
     removed(fixed at libgtk1.2?).
   * Rewrote and cleaned up debian/rules.
@@ -1620,7 +1629,7 @@ abiword (0.9.6.1-0.1) unstable; urgency=low
   * Assume these are fixed...if not please reopen - closes: #121307, #128240, #131713
   * Seems fixed - closes: #119985
   * Included ttftool and ttfadmin.sh - closes: #122341
-  * Install mime entry - closes: #133535 
+  * Install mime entry - closes: #133535
   * This version of abiword can handle it - closes: #129610
   * "Recommends: ispell-dictionary" must have fixed it - closes: #113461
   * Get'em defomized! - closes: #114513
@@ -1768,28 +1777,28 @@ abiword (0.7.8-1) unstable; urgency=low
 
   * New upstream version
   * Upstream changes: (no upstream changelog)
-    - User Interface 
-      + True WYSIWYG support (BruceP@wn.com.au) 
-      + No more character dirt (BruceP@wn.com.au) 
-      + Overline (msevior@mccubbin.ph.unimelb.edu.au) 
-      + Fixed minor display glitches 
-      + Insert Date and Time dialog (megabyte@salesexplosion.com) 
-      + Page-level navigation 
-    - Localizations 
-      + Better support for non-English content (henrik@lansen.se) 
-      + Swedish (henrik@lansen.se) 
-      + Indonesian (tim@proximity.com.au, made@nakula.rvs.uni-bielefeld.de) 
-      + Updates for Danish, Finnish, French, Italian, Norwegian, and Spanish 
-    - File Formats 
-      + LaTeX exporter (cuenca@ie2.u-psud.fr) 
-      + Various Word import improvements 
-      + Fix for RTF import POW (malcolm@mpeacock.demon.co.uk) 
-      + Minor .abw file format change 
-    - Other 
-      + Error propagation to fix (sytobinh@uchicago.edu) 
-      + Mouse wheel support for Windows (BruceP@wn.com.au) 
-      + Unix no longer requires libstdc++ 
-      + Misc PostScript fixes (bob@sbst.com) 
+    - User Interface
+      + True WYSIWYG support (BruceP@wn.com.au)
+      + No more character dirt (BruceP@wn.com.au)
+      + Overline (msevior@mccubbin.ph.unimelb.edu.au)
+      + Fixed minor display glitches
+      + Insert Date and Time dialog (megabyte@salesexplosion.com)
+      + Page-level navigation
+    - Localizations
+      + Better support for non-English content (henrik@lansen.se)
+      + Swedish (henrik@lansen.se)
+      + Indonesian (tim@proximity.com.au, made@nakula.rvs.uni-bielefeld.de)
+      + Updates for Danish, Finnish, French, Italian, Norwegian, and Spanish
+    - File Formats
+      + LaTeX exporter (cuenca@ie2.u-psud.fr)
+      + Various Word import improvements
+      + Fix for RTF import POW (malcolm@mpeacock.demon.co.uk)
+      + Minor .abw file format change
+    - Other
+      + Error propagation to fix (sytobinh@uchicago.edu)
+      + Mouse wheel support for Windows (BruceP@wn.com.au)
+      + Unix no longer requires libstdc++
+      + Misc PostScript fixes (bob@sbst.com)
   * Verified call path for menu entry (closes #50506)
   * Upstream changes: (no upstream changelog)
     + Speed up of spelling checks
@@ -1799,9 +1808,9 @@ abiword (0.7.8-1) unstable; urgency=low
     + View ruler.  Stephen Hack <shack@uiuc.edu> implemented this menu item
       so that you can hide or show the ruler on a per-window basis.
     + Compressed AbiWord files.  The AbiWord file format (*.abw) was
-      designed from the get-go to be a highly-readable form of XML.  
-      However, for those of you who care more about bloat than legibility, 
-      Richard Jefts <babs@cs.jhu.edu> added import/export logic for a 
+      designed from the get-go to be a highly-readable form of XML.
+      However, for those of you who care more about bloat than legibility,
+      Richard Jefts <babs@cs.jhu.edu> added import/export logic for a
       gzip-compressed variant (*.zabw).
     + The following translations have been added or updated:
       # Catalan -- Jordi Mas <jmas@softcatala.org>
@@ -1811,7 +1820,7 @@ abiword (0.7.8-1) unstable; urgency=low
       # Portuguese -- Rui Silva <rms@ssi.aaum.pt>
     + Word import improvements.
     + Options dialog started.
-   
+
  -- Darren Benham <gecko@debian.org>  Wed, 22 Mar 2000 09:36:26 -0800
 
 abiword (0.7.6-2) unstable; urgency=low
@@ -1825,13 +1834,13 @@ abiword (0.7.6-1) unstable; urgency=low
   * New upstream version
   * Added a recommends for ispell-dictionary (closes: #42218)
   * Upstream changes: (no upstream changelog)
-    + Spell checking improvements.  
-      # a spiffy Spelling dialog with the usual Ignore / Add / Change 
+    + Spell checking improvements.
+      # a spiffy Spelling dialog with the usual Ignore / Add / Change
         functionality, including suggestions and a custom dictionary.
       # a context menu to remove those pesky red squiggles.
     + Zoom and Paragraph dialogs.
     + Full paragraph justification
-    + Clipboard code has been streamlined to be much more efficient.  
+    + Clipboard code has been streamlined to be much more efficient.
     + Middle-mouse X selections should Just Work now
     + Word import improvements
 
@@ -1858,7 +1867,7 @@ abiword (0.7.4-1) unstable; urgency=low
   * Upstream changes: (no upstream changelog)
     + Snazzy new importer for Word 97, Word 95, and Word 6!
     + RTF improvements
-    + Clipboard now honors formatting 
+    + Clipboard now honors formatting
     + Italian localization
     + Various bug fixes (closes #41980)
   * Added a recommends on ispell (closes #42218)
@@ -1870,13 +1879,13 @@ abiword (0.7.3-1) unstable; urgency=low
 
   * New Upstream Version
   * Upstream changes: (no upstream changelog)
-    + French localization updates (duperron@mail.dotcom.fr) 
-    + German localization updates (cterboven@gmx.net) 
-    + Finnish localization updates (jarmo@dawn.joensuu.fi) 
-    + Now works on Alpha/NT (ayoung@teleport.com) 
+    + French localization updates (duperron@mail.dotcom.fr)
+    + German localization updates (cterboven@gmx.net)
+    + Finnish localization updates (jarmo@dawn.joensuu.fi)
+    + Now works on Alpha/NT (ayoung@teleport.com)
     + Various bug fixes
-    + Fixed annoying suffix bug number 464 
-    + Spell dictionaries are now endian-specific 
+    + Fixed annoying suffix bug number 464
+    + Spell dictionaries are now endian-specific
   * New build system.  Fonts included in deb at request of upstream authors
 
  -- Darren Benham <gecko@debian.org>  Fri, 22 Jul 1999 10:49:00 -0800
@@ -1885,13 +1894,13 @@ abiword (0.5.5-1) unstable; urgency=low
 
   * New Upstream Version
   * Upstream changes: (no upstream changelog)
-    + Improvements to localization support 
+    + Improvements to localization support
     + New dialog: Insert Break
-    + Several bug fixes in the editing portions of the code 
-    + Reworked command line parsing 
-    + Finnish localization (jarmo@dawn.joensuu.fi) 
-    + Patch to fix ispell hashfiles (gecko@benham.net) 
-    + More vi keybindings.  (stepp@mithril.res.cmu.edu)  
+    + Several bug fixes in the editing portions of the code
+    + Reworked command line parsing
+    + Finnish localization (jarmo@dawn.joensuu.fi)
+    + Patch to fix ispell hashfiles (gecko@benham.net)
+    + More vi keybindings.  (stepp@mithril.res.cmu.edu)
 
  -- Darren Benham <gecko@debian.org>  Sun,  2 May 1999 23:20:03 -0700
 
@@ -1914,21 +1923,21 @@ abiword (0.5.3-1) unstable; urgency=low
   * New Upstream Version
   * Upstream changes: (no upstream changelog)
     + Better support for GTK themes
-    + Hardcoded Style sets 
+    + Hardcoded Style sets
     + Very basic support for headers and footers. (Not yet editable)
     + Simple support for time, page number, and page count fields
       including page numbers
     + Improvements to GTK file dialog, font dialog, and popup menus
     + vi keybindings! :-) (rwerner@lx1.microbsys.com)
     + Start of a status bar
-    
+
 
  -- Darren Benham <gecko@debian.org>  Thu,  8 Apr 1999 22:24:48 -0700
 
 abiword (0.5.2-5) unstable; urgency=low
 
   * Removed Build dependency on uninstalled source package
-  *	Turned off debug flag to prevent some security issues
+  * Turned off debug flag to prevent some security issues
 
  -- Darren Benh   <gecko@debian.org>  Mon, 29 Mar 1999 18:32:40 -0800
 
@@ -1958,21 +1967,21 @@ abiword (0.5.2-1) unstable; urgency=low
 
   * New upstream version
   * Added two documents:
-		- one describes abword and fonts and how to add fonts
-		- one describes the format of abword documents (saved in abiword
-		  format)
+        - one describes abword and fonts and how to add fonts
+        - one describes the format of abword documents (saved in abiword
+          format)
   * Upstream changes: (no upstream changelog)
-	    - Complete set of menu items (stubs only)
-	    - Improvements to the Word97 importer
-	    - XP mechanism for user options
-	    - Improvements to Unix font chooser dialog
-	    - Emacs-style key bindings (optional)
-	    - Zoom
-	    - New dialog: More Windows
-	    - New dialog: About
-	    - More cleanup of Unix font handling
-		- MRU menu 
-		- Context menus
+        - Complete set of menu items (stubs only)
+        - Improvements to the Word97 importer
+        - XP mechanism for user options
+        - Improvements to Unix font chooser dialog
+        - Emacs-style key bindings (optional)
+        - Zoom
+        - New dialog: More Windows
+        - New dialog: About
+        - More cleanup of Unix font handling
+        - MRU menu
+        - Context menus
 
  -- Darren Benham <gecko@debian.org>  Sat, 20 Mar 1999 16:40:36 -0800
 

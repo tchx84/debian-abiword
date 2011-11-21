@@ -53,3 +53,6 @@ binary-install/abiword::
 	rm -f $(CURDIR)/debian/abiword/usr/lib/abiword-$(series)/plugins/mathview.*
 	install -m 644 $(CURDIR)/debian/misc/abiword.xpm $(CURDIR)/debian/abiword/usr/share/pixmaps
 
+# to clean .log files left by autoreconf for source package.
+clean::
+	$(RM) debian/*.log

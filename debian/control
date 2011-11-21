@@ -12,8 +12,8 @@ Build-Depends: cdbs, debhelper (>= 8), dh-autoreconf, quilt,
  libsoup2.4-dev, libdbus-glib-1-dev, libxslt1-dev, libgsf-1-dev, librasqal3-dev, librdf0-dev
 Standards-Version: 3.9.2
 Homepage: http://www.abisource.com/
-Vcs-Browser: http://git.debian.org/?p=users/patrikf-guest/abiword.git;a=summary
-Vcs-Git: git://git.debian.org/users/patrikf-guest/abiword.git
+Vcs-Browser: http://git.debian.org/?p=users/onlyjob-guest/abiword.git
+Vcs-Git: git://anonscm.debian.org/users/onlyjob-guest/abiword.git
 
 Package: abiword-common
 Section: editors

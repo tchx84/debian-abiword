@@ -1,8 +1,9 @@
 abiword (2.9.1-0.3) unstable; urgency=low
 
   * New maintainer (Closes: #648341)
+  * Added patch to disable smooth scrolling  (Closes: #624095)
   * Packaging updates
-    - dh-autoreconf instead of patches
+    - dh-autoreconf instead of patches for make files
     - standards to recent versions
 
  -- Dmitry Smirnov <onlyjob@member.fsf.org>  Mon, 21 Nov 2011 01:58:27 +1100

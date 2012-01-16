@@ -1,4 +1,4 @@
-Format: http://anonscm.debian.org/viewvc/dep/web/deps/dep5.mdwn?revision=174
+Format: http://dep.debian.net/deps/dep5
 Upstream-Name: abiword
 Source: http://www.abisource.com/download/
 Comment: This package was debianized by

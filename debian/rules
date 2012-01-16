@@ -55,6 +55,8 @@ override_dh_auto_configure:
 ## --with-goffice
 
 override_dh_makeshlibs:
+	$(RM) debian/abiword/usr/lib/abiword-$(series)/plugins/grammar.*
+	$(RM) debian/abiword/usr/lib/abiword-$(series)/plugins/mathview.*
 	dh_makeshlibs -V
 
 get-orig-source:

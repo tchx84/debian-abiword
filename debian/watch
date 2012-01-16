@@ -1,2 +1,15 @@
+# Run the "uscan" command
+# to check for upstream updates and more.
+# See uscan(1) for format
+
+# Compulsory line, this is a version 3 file
 version=3
+
+# this suppose to catch all versions, but it doesn't :(
 http://www.abisource.com/downloads/abiword/([\d\.]+)/source/abiword-([\d\.]+)\.tar\.gz
+
+# current version
+http://www.abisource.com/downloads/abiword/2.9.2/source/abiword-([\d\.]+)\.tar\.gz
+
+# latest version
+http://www.abisource.com/downloads/abiword/latest-dev/source/abiword-([\d\.]+)\.tar\.gz

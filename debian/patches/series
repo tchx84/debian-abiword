@@ -1,8 +1,0 @@
-debian/autosave.diff -p1
-fixes/ctrl-comma-subscript.diff -p1
-fixes/mime-types-desktop.diff -p1
-fixes/mime-types.diff -p1
-#libwpd-0.9.diff -p0
-##fix_no_undefined.diff
-fix-format-security.patch
-624095-disable_smooth_scrolling.patch

@@ -1,58 +1,61 @@
 #!/usr/bin/make -f
+# -*- makefile -*-
 
-include /usr/share/cdbs/1/rules/debhelper.mk
-include /usr/share/cdbs/1/rules/patchsys-quilt.mk
-include /usr/share/cdbs/1/class/gnome.mk
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
 
-DEB_DH_AUTORECONF_ARGS = --as-needed
-include /usr/share/cdbs/1/rules/autoreconf.mk
-
-# workaround for http://bugs.debian.org/526392
-QUILT_PATCH_DIR := debian/patches
-QUILT_STAMPFN := patch
--include /usr/share/topgit/tg2quilt.mk
+#: see http://lists.debian.org/debian-devel-announce/2011/09/msg00001.html
+#: Also it does hardening by default, see http://wiki.debian.org/Hardening
+DPKG_EXPORT_BUILDFLAGS = 1
+-include /usr/share/dpkg/default.mk
+#: disabling format hardening due to build problems in some plugins
+export DEB_BUILD_MAINT_OPTIONS=hardening=-format
 
 series := 2.9
-
 plugins := aiksaurus applix babelfish bmp clarisworks collab command docbook \
-	   eml freetranslation gdict gimp goffice google grammar hancom \
+	   eml freetranslation garble gdict gimp google grammar hancom \
 	   hrtext iscii kword latex loadbindings mathview mht mif mswrite \
 	   opendocument openwriter openxml opml ots paint passepartout pdb \
 	   pdf presentation s5 sdw t602 urldict wikipedia wmf wml \
-	   wordperfect wpg xslfo \
-	   garble
+	   wordperfect wpg xslfo
+# goffice 
 
-DEB_CONFIGURE_EXTRA_FLAGS := --enable-static --enable-dynamic \
-			     --enable-clipart --enable-templates \
-			     --enable-collab-backend-xmpp \
-			     --enable-collab-backend-tcp \
-			     --enable-collab-backend-service \
-			     --enable-shave \
-			     --enable-plugins="$(plugins)" --without-gnomevfs \
-			     --with-gio --with-goffice
-DEB_INSTALL_DOCS_ALL := $(CURDIR)/AUTHORS
-DEB_INSTALL_DOCS_abiword := $(CURDIR)/user/wp/readme.txt $(CURDIR)/user/wp/readme.abw
-DEB_DH_MAKESHLIBS_ARGS_libabiword-2.9 := -V "libabiword-2.9 (= $(DEB_VERSION))"
+%:
+	dh $@ --parallel --with autoreconf
 
-# --as-needed needs to be in front of all library flags. a small hack to
-# achieve this
-CC := gcc -Wl,--as-needed
-CXX := g++ -Wl,--as-needed
+override_dh_autoreconf:
+	dh_autoreconf -v --as-needed
 
-# handle DEB_BUILD_OPTIONS
-# noopt is handled by cdbs' langcore.mk
-# nostrip is handled by dh_strip
+override_dh_auto_clean:
+	cp debian/patches/series.in debian/patches/series
+	[ "$(DEB_HOST_ARCH_OS)" = "hurd" ] && echo "648153-fix_FTBFS4Hurd.patch" >>debian/patches/series || return 0
+	dh_auto_clean
 
-ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
-	NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
-	MAKEFLAGS += -j$(NUMJOBS)
-endif
+#: configure options reference: http://www.abisource.com/wiki/Compiling_AbiWord
+override_dh_auto_configure:
+	dh_auto_configure -- \
+		--without-gnomevfs \
+		--with-gio \
+		--enable-static \
+		--enable-dynamic \
+		--enable-clipart \
+		--enable-templates \
+		--enable-collab-backend-tcp \
+		--enable-collab-backend-xmpp \
+		--enable-collab-backend-service \
+		--enable-shave \
+		--enable-plugins="$(plugins)"
+## --with-goffice
+#		--prefix=/usr \
+#		--includedir="\${prefix}/include" \
+#		--mandir="\${prefix}/share/man" \
+#		--infodir="\${prefix}/share/info" \
+#		--sysconfdir=/etc \
+#		--localstatedir=/var \
+#		--libexecdir="\${prefix}/lib/abiword" \
+#		--srcdir=. \
+#		--disable-dependency-tracking \
+#		--disable-silent-rules \
 
-binary-install/abiword::
-	rm -f $(CURDIR)/debian/abiword/usr/lib/abiword-$(series)/plugins/grammar.*
-	rm -f $(CURDIR)/debian/abiword/usr/lib/abiword-$(series)/plugins/mathview.*
-	install -m 644 $(CURDIR)/debian/misc/abiword.xpm $(CURDIR)/debian/abiword/usr/share/pixmaps
-
-# to clean .log files left by autoreconf for source package.
-clean::
-	$(RM) debian/*.log
+get-orig-source:
+	uscan --noconf --force-download --repack --rename --download-current-version --verbose --destdir=.

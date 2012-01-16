@@ -48,5 +48,8 @@ override_dh_auto_configure:
 		--enable-plugins="$(plugins)"
 ## --with-goffice
 
+override_dh_makeshlibs:
+	dh_makeshlibs -V
+
 get-orig-source:
 	uscan --noconf --force-download --repack --rename --download-current-version --verbose --destdir=.

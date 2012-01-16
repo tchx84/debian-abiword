@@ -44,18 +44,9 @@ override_dh_auto_configure:
 		--enable-collab-backend-xmpp \
 		--enable-collab-backend-service \
 		--enable-shave \
+		--disable-silent-rules \
 		--enable-plugins="$(plugins)"
 ## --with-goffice
-#		--prefix=/usr \
-#		--includedir="\${prefix}/include" \
-#		--mandir="\${prefix}/share/man" \
-#		--infodir="\${prefix}/share/info" \
-#		--sysconfdir=/etc \
-#		--localstatedir=/var \
-#		--libexecdir="\${prefix}/lib/abiword" \
-#		--srcdir=. \
-#		--disable-dependency-tracking \
-#		--disable-silent-rules \
 
 get-orig-source:
 	uscan --noconf --force-download --repack --rename --download-current-version --verbose --destdir=.

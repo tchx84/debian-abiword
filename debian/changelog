@@ -10,12 +10,14 @@ abiword (2.9.2-1) unstable; urgency=low
     + use dpkg-provided build flags + hardening
     + build-depends update (Closes: #655308)
       - dropped libgoffice dependency (to package latest abiword 2.9.2)
+      + added note to README.Debian
     + debian/copyright to DEP-5 format
     + revised mime-types-desktop patch (Closes: #608164)
     + new patch to disable smooth scrolling (Closes: #624095)
     + new patch (only applied on Hurd) to fix GNU Hurd build problem
       (Closes: #648153) (Thanks to Svante Signell)
     + debian/watch is updated
+    - README.source is removed
 
  -- Dmitry Smirnov <onlyjob@member.fsf.org>  Mon, 21 Nov 2011 01:58:27 +1100
 

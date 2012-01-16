@@ -6,6 +6,7 @@ abiword (2.9.2-1) unstable; urgency=low
     + standards to recent versions
     - completely dropped CDBS, in favour of debhelper
     + parallel build
+    + --as-needed to minimize needless linking
     + dh-autoreconf replaced old patches for make files
     + use dpkg-provided build flags + hardening
     + build-depends update (Closes: #655308)

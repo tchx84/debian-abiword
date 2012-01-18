@@ -4,4 +4,3 @@ mime-types-desktop.diff -p1
 mime-types.diff -p1
 fix-format-security.patch
 624095-disable_smooth_scrolling.patch
-#648153-fix_FTBFS4Hurd.patch

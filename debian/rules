@@ -4,16 +4,17 @@
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
+# parallel build by default on linux
+ifeq ($(DEB_HOST_ARCH_OS),linux)
+	export DEB_BUILD_OPTIONS+=parallel=$(shell grep -c ^processor /proc/cpuinfo)
+endif
+
 #: see http://lists.debian.org/debian-devel-announce/2011/09/msg00001.html
 #: Also it does hardening by default, see http://wiki.debian.org/Hardening
 DPKG_EXPORT_BUILDFLAGS = 1
 -include /usr/share/dpkg/default.mk
 #: disabling format hardening due to build problems in some plugins
 export DEB_BUILD_MAINT_OPTIONS=hardening=-format
-
-ifeq ($(DEB_HOST_ARCH_OS),linux)
-	export DEB_BUILD_OPTIONS+=parallel=$(shell grep -c ^processor /proc/cpuinfo)
-endif
 
 LDFLAGS+= -Wl,--as-needed
 
@@ -33,9 +34,9 @@ override_dh_autoreconf:
 	dh_autoreconf -v --as-needed
 
 override_dh_auto_clean:
-	cp debian/patches/series.in debian/patches/series
-	[ "$(DEB_HOST_ARCH_OS)" = "hurd" ] && echo "648153-fix_FTBFS4Hurd.patch" >>debian/patches/series || return 0
 	dh_auto_clean
+	cat debian/patches/series.$(DEB_HOST_ARCH_OS) >> debian/patches/series || return 0
+	dh_quilt_patch
 
 #: configure options reference: http://www.abisource.com/wiki/Compiling_AbiWord
 override_dh_auto_configure:

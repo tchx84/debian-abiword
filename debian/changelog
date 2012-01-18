@@ -1,3 +1,12 @@
+abiword (2.9.2-2) unstable; urgency=low
+
+  * libabiword-2.9-dev Depends (Closes: #656252)
+  * fixed debian/patches/series
+  * fixed arch-dependent patching (Closes: #648153)
+  * safer parallel build
+
+ -- Dmitry Smirnov <onlyjob@member.fsf.org>  Thu, 19 Jan 2012 03:13:36 +1100
+
 abiword (2.9.2-1) unstable; urgency=low
 
   * New Upstream Release (2011-11-14)

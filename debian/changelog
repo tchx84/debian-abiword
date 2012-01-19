@@ -2,6 +2,7 @@ abiword (2.9.2-3) unstable; urgency=low
 
   * debian/abiword.mime: added missing end-of-line
     (Closes: #623136) Thanks to Kalle Olavi Niemitalo <kon@iki.fi>
+  * VCS links to point to collab-maint
 
  -- Dmitry Smirnov <onlyjob@member.fsf.org>  Thu, 19 Jan 2012 19:31:11 +1100
 

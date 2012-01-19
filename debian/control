@@ -12,8 +12,8 @@ Build-Depends: debhelper (>= 8), dh-autoreconf, quilt, libjpeg8-dev,
  libsoup2.4-dev, libdbus-glib-1-dev, libxslt1-dev, libgsf-1-dev, librasqal3-dev, librdf0-dev
 Standards-Version: 3.9.2
 Homepage: http://www.abisource.com/
-Vcs-Browser: http://git.debian.org/?p=users/onlyjob-guest/abiword.git
-Vcs-Git: git://anonscm.debian.org/users/onlyjob-guest/abiword.git
+VCS-Browser: http://anonscm.debian.org/gitweb/?p=collab-maint/abiword.git
+VCS-Git: git://anonscm.debian.org/collab-maint/abiword.git
 
 Package: abiword-common
 Section: editors

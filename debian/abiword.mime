@@ -6,7 +6,8 @@ application/vnd.palm; abiword '%s' ; edit=abiword '%s' ; test=test "$DISPLAY" !=
 application/vnd.plain; abiword '%s' ; edit=abiword '%s' ; test=test "$DISPLAY" != "" ; description="Plain text" ; priority=2
 application/vnd.stardivision.writer;  abiword '%s' ; edit=abiword '%s' ; test=test "$DISPLAY" != "" ; description="StarOffice Writer document" ; priority=2
 application/vnd.sun.xml.writer;   abiword '%s' ; edit=abiword '%s' ; test=test "$DISPLAY" != "" ; description="OpenOffice.org Text document" ; priority=2
-application/vnd.ms-word; abiword '%s' ; edit=abiword '%s' ; test=test "$DISPLAY" != "" ; nametemplate=%s.doc ; description="Microsoft Word Document" ; priority=2application/wordperfect; abiword '%s' ; edit=abiword '%s' ; test=test "$DISPLAY" != "" ; nametemplate=%s.wpd ; description="Corel WordPerfect Document"
+application/vnd.ms-word; abiword '%s' ; edit=abiword '%s' ; test=test "$DISPLAY" != "" ; nametemplate=%s.doc ; description="Microsoft Word Document" ; priority=2
+application/wordperfect; abiword '%s' ; edit=abiword '%s' ; test=test "$DISPLAY" != "" ; nametemplate=%s.wpd ; description="Corel WordPerfect Document"
 application/vnd.wordperfect; abiword '%s' ; edit=abiword '%s' ; test=test "$DISPLAY" != "" ; nametemplate=%s.wpd ; description="Corel WordPerfect Document"
 application/wordperfect5.1; abiword '%s' ; edit=abiword '%s' ; test=test "$DISPLAY" != "" ; description="Corel WordPerfect Document" ; priority=2
 application/wordperfect6; abiword '%s' ; edit=abiword '%s' ; test=test "$DISPLAY" != "" ; description="Corel WordPerfect Document" ; priority=2

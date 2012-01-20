@@ -20,12 +20,14 @@ LDFLAGS+= -Wl,--as-needed
 
 series := 2.9
 plugins := aiksaurus applix babelfish bmp clarisworks collab command docbook \
-	   eml freetranslation garble gdict gimp google grammar hancom \
+	   eml epub freetranslation garble gdict gimp google grammar hancom \
 	   hrtext iscii kword latex loadbindings mathview mht mif mswrite \
 	   opendocument openwriter openxml opml ots paint passepartout pdb \
 	   pdf presentation s5 sdw t602 urldict wikipedia wmf wml \
 	   wordperfect wpg xslfo
-# goffice 
+# goffice
+# plugin 'rsvg' deliberately not used due to build problems. Is it deprecated?
+
 
 %:
 	dh $@ --parallel --with autoreconf
@@ -43,17 +45,18 @@ override_dh_auto_configure:
 	dh_auto_configure -- \
 		--without-gnomevfs \
 		--with-gio \
-		--enable-static \
-		--enable-dynamic \
+		--with-libtidy \
+		--enable-shared \
 		--enable-clipart \
 		--enable-templates \
 		--enable-collab-backend-tcp \
 		--enable-collab-backend-xmpp \
 		--enable-collab-backend-service \
-		--enable-shave \
-		--disable-silent-rules \
+		--enable-silent-rules \
 		--enable-plugins="$(plugins)"
 ## --with-goffice
+#	--enable-debug
+#	--enable-static \
 
 override_dh_makeshlibs:
 	$(RM) debian/abiword/usr/lib/abiword-$(series)/plugins/grammar.*

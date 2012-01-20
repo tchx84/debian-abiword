@@ -58,12 +58,14 @@ override_dh_auto_configure:
 		--enable-dependency-tracking \
 		--enable-plugins="$(plugins)"
 ## --with-goffice
-#	--enable-debug
 
 override_dh_makeshlibs:
 	$(RM) debian/abiword/usr/lib/abiword-$(series)/plugins/grammar.*
 	$(RM) debian/abiword/usr/lib/abiword-$(series)/plugins/mathview.*
 	dh_makeshlibs -V
+
+override_dh_strip:
+	dh_strip --dbg-package=abiword-dbg
 
 get-orig-source:
 	uscan --noconf --force-download --repack --rename --download-current-version --verbose --destdir=.

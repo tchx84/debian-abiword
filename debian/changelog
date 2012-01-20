@@ -12,6 +12,7 @@ abiword (2.9.2-3) unstable; urgency=low
     - removed --enable-shave (use --enable-silent-rules instead)
     + added --enable-silent-rules
     + added --enable-dependency-tracking (speed up build)
+  * new abiword-dbg package (Closes: #562733)
 
  -- Dmitry Smirnov <onlyjob@member.fsf.org>  Thu, 19 Jan 2012 19:31:11 +1100
 

@@ -52,6 +52,7 @@ override_dh_auto_configure:
 		--enable-collab-backend-tcp \
 		--enable-collab-backend-xmpp \
 		--enable-collab-backend-service \
+		--enable-collab-backend-telepathy \
 		--enable-silent-rules \
 		--enable-plugins="$(plugins)"
 ## --with-goffice

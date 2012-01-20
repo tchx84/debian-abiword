@@ -2,7 +2,7 @@ Source: abiword
 Section: gnome
 Priority: optional
 Maintainer: Dmitry Smirnov <onlyjob@member.fsf.org>
-Build-Depends: debhelper (>= 8), dh-autoreconf, quilt, libjpeg8-dev, 
+Build-Depends: debhelper (>= 8), dh-autoreconf, quilt, libjpeg8-dev, libtelepathy-glib-dev,
  libaiksaurus-1.2-dev (>= 1.2.1+dev-0.12-1.1), libaiksaurusgtk-1.2-dev (>= 1.2.1+dev-0.12-1.1),
  libasio-dev (>= 1.4.1), libenchant-dev (>= 1.2.0), libfreetype6-dev, libfribidi-dev, libglade2-dev,
  libglib2.0-dev, libgsf-1-dev (>= 1.13.2), libgtk2.0-dev, libgtkmathview-dev (>= 0.7.5),

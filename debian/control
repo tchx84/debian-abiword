@@ -101,7 +101,7 @@ Package: abiword-dbg
 Section: debug
 Priority: extra
 Architecture: any
-Depends: abiword (= ${binary:Version}), ${misc:Depends}, ${shlibs:Depends}
+Depends: abiword (= ${binary:Version}), ${misc:Depends}
 Description: debugging symbols for abiword word processor
  AbiWord is a full-featured, efficient word processing application.
  It is suitable for a wide variety of word processing tasks, and

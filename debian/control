@@ -10,7 +10,7 @@ Build-Depends: debhelper (>= 8), dh-autoreconf, quilt, libjpeg8-dev, libtelepath
  libreadline-dev, libwmf-dev, libwpd-dev, libwpg-dev (>= 0.1.0), libwps-dev, libwv-dev (>= 1.2),
  libgtk-3-dev, libpsiconv-dev (>= 0.9.4), librsvg2-dev (>= 2.16.0), libboost-regex-dev,
  libsoup2.4-dev, libdbus-glib-1-dev, libxslt1-dev, libgsf-1-dev, librasqal3-dev, librdf0-dev
- ,libtidy-dev
+ ,libtidy-dev ,bison
 Standards-Version: 3.9.2
 Homepage: http://www.abisource.com/
 VCS-Browser: http://anonscm.debian.org/gitweb/?p=collab-maint/abiword.git
@@ -88,7 +88,7 @@ Section: libdevel
 Architecture: any
 Depends: ${misc:Depends}, libabiword-2.9 (= ${binary:Version})
  ,libfribidi-dev ,libglib2.0-dev ,libgsf-1-dev ,libwv-dev ,libenchant-dev ,librdf0-dev
- ,librasqal2-dev | librasqal3-dev ,libcairo2-dev ,libpango1.0-dev ,libgtk-3-dev ,librsvg2-dev
+ ,librasqal3-dev ,libcairo2-dev ,libpango1.0-dev ,libgtk-3-dev ,librsvg2-dev
 Description: efficient, featureful word processor with collaboration -- development files
  AbiWord is a full-featured, efficient word processing application.
  It is suitable for a wide variety of word processing tasks, and

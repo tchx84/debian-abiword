@@ -1,0 +1,2 @@
+# Remove the following binary file to force its regeneration
+plugins/mathview/itex2mml/lex.yy.c

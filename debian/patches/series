@@ -1,3 +1,4 @@
+make-clean.patch
 656335-telepathy.patch
 autosave.diff -p1
 ctrl-comma-subscript.diff -p1

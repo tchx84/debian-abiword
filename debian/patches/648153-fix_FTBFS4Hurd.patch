@@ -1,7 +1,7 @@
 From: Svante Signell <svante.signell@telia.com>
 Origin: other, http://bugs.debian.org/648153
 Bugs-Debian: http://bugs.debian.org/648153
-Last-Update: 2011-11-09
+Last-Update: 2012-01-21
 Forwarded: no
 Description: fix FTBFS problems of abiword on GNU/Hurd
  Solves the FTBFS problems of abiword on GNU/Hurd.
@@ -9,9 +9,8 @@ Description: fix FTBFS problems of abiword on GNU/Hurd
  check if TOOLKIT_GTK is defined. The second part use dynamic memory
  allocation to avoid the absence of a PATH_MAX definition for GNU/Hurd.
 
-diff -ur abiword-2.9.1/src/af/util/xp/ut_path.h abiword-2.9.1.modified/src/af/util/xp/ut_path.h
---- abiword-2.9.1/src/af/util/xp/ut_path.h	2009-12-13 10:45:47.000000000 +0100
-+++ abiword-2.9.1.modified/src/af/util/xp/ut_path.h	2011-11-09 09:26:11.000000000 +0100
+--- a/src/af/util/xp/ut_path.h
++++ b/src/af/util/xp/ut_path.h
 @@ -29,6 +29,8 @@
  #include <limits.h>
  #endif
@@ -21,10 +20,9 @@ diff -ur abiword-2.9.1/src/af/util/xp/ut_path.h abiword-2.9.1.modified/src/af/ut
  /* GTK build supports platforms without PATH_MAX; we leave the warning in for
   * other platforms to avoid headaches
   */
-diff -ur abiword-2.9.1/src/af/xap/gtk/xap_UnixApp.cpp abiword-2.9.1.modified/src/af/xap/gtk/xap_UnixApp.cpp
---- abiword-2.9.1/src/af/xap/gtk/xap_UnixApp.cpp	2011-05-09 09:32:28.000000000 +0200
-+++ abiword-2.9.1.modified/src/af/xap/gtk/xap_UnixApp.cpp	2011-11-09 15:58:06.000000000 +0100
-@@ -271,12 +271,13 @@
+--- a/src/af/xap/gtk/xap_UnixApp.cpp
++++ b/src/af/xap/gtk/xap_UnixApp.cpp
+@@ -258,15 +258,16 @@
  {
  	// FIXME: this code sucks hard
  
@@ -35,11 +33,15 @@ diff -ur abiword-2.9.1/src/af/xap/gtk/xap_UnixApp.cpp abiword-2.9.1.modified/src
  	const char * sz = getenv("ABIWORD_DATADIR");
  	if (sz && *sz)
  	{
-+		buf = (gchar *)g_malloc(strlen(sz)+1);
++		int len = strlen(sz);
++		buf = (gchar *)g_malloc(len+1);
  		strcpy(buf,sz);
  		char * p = buf;
- 		int len = strlen(p);
-@@ -290,6 +291,7 @@
+-		int len = strlen(p);
+ 		if ( (p[0]=='"') && (p[len-1]=='"') )
+ 		{
+ 			// trim leading and trailing DQUOTES
+@@ -277,6 +278,7 @@
  		if (p[len-1]=='/')				// trim trailing slash
  			p[len-1] = 0;
  		XAP_App::_setAbiSuiteLibDir(p);

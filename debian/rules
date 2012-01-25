@@ -28,7 +28,6 @@ plugins := aiksaurus applix babelfish bmp clarisworks collab command docbook \
 # goffice
 # plugin 'rsvg' deliberately not used due to build problems. Is it deprecated?
 
-
 %:
 	dh $@ --parallel --with autoreconf
 
@@ -38,6 +37,8 @@ override_dh_autoreconf:
 #: Build instructions http://www.abisource.com/~fjf/BUILD.phtml
 #: configure options reference: http://www.abisource.com/wiki/Compiling_AbiWord
 override_dh_auto_configure:
+	# clean file only if possible to regenerate
+	[ ! -x "$(which flex)" ] || $(RM) plugins/mathview/itex2mml/lex.yy.c
 	# arch-dependent patching
 	cat debian/patches/series.$(DEB_HOST_ARCH_OS) >> debian/patches/series \
 	&& $(RM) debian/patches/series.$(DEB_HOST_ARCH_OS) \

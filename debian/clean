@@ -1,4 +1,3 @@
-# Remove the following files to force their regeneration
-plugins/mathview/itex2mml/lex.yy.c
+# Remove the following files to force their regeneration with bison
 plugins/mathview/itex2mml/y.tab.c 
 plugins/mathview/itex2mml/y.tab.h

@@ -1,6 +1,8 @@
 abiword (2.9.2-5) unstable; urgency=low
 
   * debian/control: removed unnecessary build-deps
+  * debian/rules: check if flex is available to regenerate
+    plugins/mathview/itex2mml/lex.yy.c
 
  -- Dmitry Smirnov <onlyjob@member.fsf.org>  Wed, 25 Jan 2012 16:21:31 +1100
 

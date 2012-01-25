@@ -2,15 +2,13 @@ Source: abiword
 Section: gnome
 Priority: optional
 Maintainer: Dmitry Smirnov <onlyjob@member.fsf.org>
-Build-Depends: debhelper (>= 8), dh-autoreconf, quilt, libjpeg8-dev, libtelepathy-glib-dev,
- libaiksaurus-1.2-dev (>= 1.2.1+dev-0.12-1.1), libaiksaurusgtk-1.2-dev (>= 1.2.1+dev-0.12-1.1),
- libasio-dev (>= 1.4.1), libenchant-dev (>= 1.2.0), libfreetype6-dev, libfribidi-dev, libglade2-dev,
- libglib2.0-dev, libgsf-1-dev (>= 1.13.2), libgtk2.0-dev, libgtkmathview-dev (>= 0.7.5),
- liblink-grammar4-dev (>= 4.6.7), libloudmouth1-dev, libots-dev, libpng12-dev, libpopt-dev,
- libreadline-dev, libwmf-dev, libwpd-dev, libwpg-dev (>= 0.1.0), libwps-dev, libwv-dev (>= 1.2),
- libgtk-3-dev, libpsiconv-dev (>= 0.9.4), librsvg2-dev (>= 2.16.0), libboost-regex-dev,
- libsoup2.4-dev, libdbus-glib-1-dev, libxslt1-dev, libgsf-1-dev, librasqal3-dev, librdf0-dev
- ,libtidy-dev ,bison
+Build-Depends: debhelper (>= 8), dh-autoreconf, quilt,
+ bison, libaiksaurus-1.2-dev, libaiksaurusgtk-1.2-dev, libasio-dev, libenchant-dev,
+ libfribidi-dev, libgtk2.0-dev, libglib2.0-dev, libgtk-3-dev, libgtkmathview-dev,
+ libjpeg8-dev, liblink-grammar4-dev, libloudmouth1-dev, libots-dev, libpng12-dev,
+ libreadline-dev, librsvg2-dev, libsoup2.4-dev, libtelepathy-glib-dev,
+ libtidy-dev, libwmf-dev, libwpg-dev, libwps-dev, libwv-dev, libxslt1-dev
+# flex (optional);
 Standards-Version: 3.9.2
 Homepage: http://www.abisource.com/
 VCS-Browser: http://anonscm.debian.org/gitweb/?p=collab-maint/abiword.git

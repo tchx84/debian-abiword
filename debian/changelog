@@ -3,6 +3,7 @@ abiword (2.9.2-6) unstable; urgency=low
   * Recommend fonts-liberation instead of ttf-liberation
   * Removed aspell-dictionary from Recommends
   * flex added to Build-Depends to force regeneration of lex.yy.c
+  * --with-redland
 
  -- Dmitry Smirnov <onlyjob@member.fsf.org>  Fri, 27 Jan 2012 19:21:11 +1100
 

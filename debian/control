@@ -6,7 +6,7 @@ Build-Depends: debhelper (>= 8), dh-autoreconf, quilt,
  bison, flex, libaiksaurus-1.2-dev, libaiksaurusgtk-1.2-dev, libasio-dev, libenchant-dev,
  libfribidi-dev, libgtk2.0-dev, libglib2.0-dev, libgtk-3-dev, libgtkmathview-dev,
  libjpeg8-dev, liblink-grammar4-dev, libloudmouth1-dev, libots-dev, libpng12-dev,
- libreadline-dev, librsvg2-dev, libsoup2.4-dev, libtelepathy-glib-dev,
+ librdf0-dev, libreadline-dev, librsvg2-dev, libsoup2.4-dev, libtelepathy-glib-dev,
  libtidy-dev, libwmf-dev, libwpg-dev, libwps-dev, libwv-dev, libxslt1-dev
 Standards-Version: 3.9.2
 Homepage: http://www.abisource.com/

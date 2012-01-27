@@ -46,6 +46,7 @@ override_dh_auto_configure:
 	dh_auto_configure -- \
 		--without-gnomevfs \
 		--with-gio \
+		--with-redland \
 		--with-libtidy \
 		--enable-shared \
 		--enable-clipart \

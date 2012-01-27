@@ -30,7 +30,7 @@ Package: abiword
 Section: editors
 Architecture: any
 Depends: ${misc:Depends}, ${shlibs:Depends}, abiword-common (>= ${source:Version}), gsfonts
-Recommends: abiword-plugin-grammar, abiword-plugin-mathview, aspell-en | aspell-dictionary, poppler-utils, fonts-liberation
+Recommends: abiword-plugin-grammar, abiword-plugin-mathview, aspell-en, poppler-utils, fonts-liberation
 Description: efficient, featureful word processor with collaboration
  AbiWord is a full-featured, efficient word processing application.
  It is suitable for a wide variety of word processing tasks, and

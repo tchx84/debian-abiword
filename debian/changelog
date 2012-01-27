@@ -1,3 +1,9 @@
+abiword (2.9.2-6) unstable; urgency=low
+
+  * Recommend fonts-liberation instead of ttf-liberation
+
+ -- Dmitry Smirnov <onlyjob@member.fsf.org>  Fri, 27 Jan 2012 19:21:11 +1100
+
 abiword (2.9.2-5) unstable; urgency=low
 
   * debian/control: removed unnecessary build-deps

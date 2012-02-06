@@ -5,8 +5,6 @@
 #export DH_VERBOSE=1
 
 PACKAGE := abiword
-VER := $(shell dpkg-parsechangelog | perl -ne 'print $$1 if m/Version:\s*([\d\.+svn]+)/')
-UREV := $(shell echo $(VER) | perl -ne 'print $$1 if m/\+svn(\d+)/')
 
 # parallel build by default on linux
 ifeq ($(DEB_HOST_ARCH_OS),linux)
@@ -84,15 +82,20 @@ override_dh_makeshlibs:
 override_dh_strip:
 	dh_strip --dbg-package=abiword-dbg
 
-get-orig-source:
-	@echo " Upstream version: $(UREV)\n Version: $(VER)"
-	svn checkout -r {$(UREV)} http://svn.abisource.com/abiword/trunk/ $(PACKAGE)-$(VER) \
-	&& echo "Generating ChangeLog..." \
-	&& cd "$(PACKAGE)-$(VER)" \
+## get-orig-source
+VER := $(shell dpkg-parsechangelog | perl -ne 'print $$1 if m/Version:\s*([\d\.+svn]+)/')
+get-orig-source: $(PACKAGE)-$(VER)/ChangeLog
+	@echo "Packing..."
+	tar cJvf "$(PACKAGE)_$(VER).orig.tar.xz" "$(PACKAGE)-$(VER)" \
+	&& $(RM) -r "$(PACKAGE)-$(VER)"
+
+$(PACKAGE)-$(VER)/ChangeLog: $(PACKAGE)-$(VER)
+	@echo "Generating ChangeLog..."
+	cd "$(PACKAGE)-$(VER)" \
 	&& svn2cl --break-before-msg --include-rev \
 	&& perl -0pi -e 's{(\d+\])[^:]+?:\s+}{$$1 }sgm' ChangeLog \
 	&& find . -depth -name ".svn" -exec $(RM) -r '{}' \;
-	@echo "Packing..." \
-	&& GZIP="-9" tar czvf "$(PACKAGE)_$(VER).orig.tar.gz" "$(PACKAGE)-$(VER)" \
-	&& $(RM) -r "$(PACKAGE)-$(VER)"
 
+$(PACKAGE)-$(VER):
+	svn checkout -r {$$(echo $(VER) | perl -ne 'print $$1 if m/\+svn(\d+)/')} \
+		http://svn.abisource.com/abiword/trunk/ $(PACKAGE)-$(VER)

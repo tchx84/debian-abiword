@@ -1,0 +1,28 @@
+Author: Dmitry Smirnov <onlyjob@member.fsf.org>
+Last-Update: 2012-02-06
+Forwarded: no
+Description: correct libgoffice-0.10 version requirements
+
+
+--- a/configure.in
++++ b/configure.in
+@@ -95,7 +95,7 @@
+ # optional deps
+ enchant_req='enchant >= 1.2.0'
+ gio_req='gio-2.0'
+-goffice_req='libgoffice-0.10 >= 0.10.0'
++goffice_req='libgoffice-0.10 >= 0.9.1'
+ 
+ hildon_pkgs='hildon-1 hildon-fm-2 dbus-1 libosso'
+ dnl libosso-gsf-1'
+--- a/plugins/goffice/plugin.m4
++++ b/plugins/goffice/plugin.m4
+@@ -11,7 +11,7 @@
+   goffice_req=libgoffice-0.10
+ fi
+ 
+-goffice_pkgs="$goffice_req >= 0.10.0"
++goffice_pkgs="$goffice_req >= 0.9.1"
+ goffice_deps="no"
+ 
+ if test "$enable_goffice" != ""; then

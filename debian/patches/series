@@ -1,4 +1,4 @@
-#goffice-ver.patch
+#goffice-0.10-ver.patch
 make-clean.patch
 autosave.diff -p1
 ctrl-comma-subscript.diff -p1

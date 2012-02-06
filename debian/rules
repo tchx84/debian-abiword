@@ -4,10 +4,17 @@
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
+PACKAGE := abiword
+VER := $(shell dpkg-parsechangelog | perl -ne 'print $$1 if m/Version:\s*([\d\.+svn]+)/')
+UREV := $(shell echo $(VER) | perl -ne 'print $$1 if m/\+svn(\d+)/')
+
 # parallel build by default on linux
 ifeq ($(DEB_HOST_ARCH_OS),linux)
-	export DEB_BUILD_OPTIONS+=parallel=$(shell grep -c ^processor /proc/cpuinfo)
+	ifeq ($(findstring parallel=,$(DEB_BUILD_OPTIONS)),)
+		export DEB_BUILD_OPTIONS+=parallel=$(shell grep -c ^processor /proc/cpuinfo)
+	endif
 endif
+$(info Info: DEB_BUILD_OPTIONS=$(DEB_BUILD_OPTIONS))
 
 #: see http://lists.debian.org/debian-devel-announce/2011/09/msg00001.html
 #: Also it does hardening by default, see http://wiki.debian.org/Hardening
@@ -31,7 +38,12 @@ plugins := aiksaurus applix babelfish bmp clarisworks collab command docbook \
 %:
 	dh $@ --parallel --with autoreconf
 
+override_dh_auto_clean:
+	dh_auto_clean
+
 override_dh_autoreconf:
+	# make plugins configuration if building from trunk
+	[ ! -x "./autogen-common.sh" ] || ./autogen-common.sh
 	dh_autoreconf -v --as-needed
 
 #: Build instructions http://www.abisource.com/~fjf/BUILD.phtml
@@ -53,12 +65,18 @@ override_dh_auto_configure:
 		--enable-templates \
 		--enable-collab-backend-tcp \
 		--enable-collab-backend-xmpp \
+		--enable-collab-backend-sugar \
 		--enable-collab-backend-service \
 		--enable-collab-backend-telepathy \
 		--enable-silent-rules \
 		--enable-dependency-tracking \
 		--enable-plugins="$(plugins)"
-## --with-goffice
+##		--with-goffice
+#		--with-gtk2 \
+
+override_dh_auto_test:
+	# do not stop if test(s) failed
+	dh_auto_test || return 0
 
 override_dh_makeshlibs:
 	$(RM) debian/abiword/usr/lib/abiword-$(series)/plugins/grammar.*
@@ -69,4 +87,14 @@ override_dh_strip:
 	dh_strip --dbg-package=abiword-dbg
 
 get-orig-source:
-	uscan --noconf --force-download --repack --rename --download-current-version --verbose --destdir=.
+	@echo " Upstream version: $(UREV)\n Version: $(VER)"
+	svn checkout -r {$(UREV)} http://svn.abisource.com/abiword/trunk/ $(PACKAGE)-$(VER) \
+	&& echo "Generating ChangeLog..." \
+	&& cd "$(PACKAGE)-$(VER)" \
+	&& svn2cl --break-before-msg --include-rev \
+	&& perl -0pi -e 's{(\d+\])[^:]+?:\s+}{$$1 }sgm' ChangeLog \
+	&& find . -depth -name ".svn" -exec $(RM) -r '{}' \;
+	@echo "Packing..." \
+	&& GZIP="-9" tar czvf "$(PACKAGE)_$(VER).orig.tar.gz" "$(PACKAGE)-$(VER)" \
+	&& $(RM) -r "$(PACKAGE)-$(VER)"
+

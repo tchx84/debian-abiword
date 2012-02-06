@@ -1,8 +1,9 @@
-make-clean.patch
-656335-telepathy.patch
+#goffice-ver.patch
+#make-clean.patch
 autosave.diff -p1
 ctrl-comma-subscript.diff -p1
 mime-types-desktop.diff -p1
 mime-types.diff -p1
-fix-format-security.patch
+#fix-format-security.patch
 624095-disable_smooth_scrolling.patch
+gnomeoffice-url.patch

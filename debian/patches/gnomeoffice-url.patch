@@ -1,0 +1,18 @@
+Author: Dmitry Smirnov <onlyjob@member.fsf.org>
+Bug-Debian: http://bugs.debian.org/657909
+Last-Update: 2012-01-31
+Forwarded: 2012-02-05
+Description: Update GNOME Office URL
+
+
+--- a/src/wp/ap/xp/ap_EditMethods.cpp
++++ b/src/wp/ap/xp/ap_EditMethods.cpp
+@@ -3557,7 +3557,7 @@
+ 
+ Defun0(helpAboutGnomeOffice)
+ {
+-	return _openURL("http://www.gnome.org/gnome-office/");
++	return _openURL("http://live.gnome.org/GnomeOffice");
+ }
+ 
+ Defun1(cycleWindows)

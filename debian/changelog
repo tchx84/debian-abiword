@@ -1,3 +1,16 @@
+abiword (2.9.2+svn20120123-2) unstable; urgency=low
+
+  * compat & debhelper to version 9
+  * updates for multi-arch
+  * regenerate .xpm icon with imagemagick
+  * make-clean patch is updated to prevent breakage in trunk source tree
+  * arch-dependent patching redone in GNU Make style
+  * get-orig-source splitted in GNU Make style
+  * orig.source compression to xz
+  * added some information print-out
+
+ -- Dmitry Smirnov <onlyjob@member.fsf.org>  Mon, 06 Feb 2012 19:40:51 +1100
+
 abiword (2.9.2+svn20120123-1) unstable; urgency=low
 
   * New Upstream Release, based on 'trunk' version as of 2012-01-23

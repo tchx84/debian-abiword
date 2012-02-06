@@ -6,6 +6,11 @@
 
 PACKAGE := abiword
 
+# arch-dependent patching
+archpatch=$(wildcard debian/patches/series.$(DEB_HOST_ARCH_OS))
+$(info $(if $(archpatch), $(shell cat $(archpatch) >> debian/patches/series \
+&& $(RM) $(archpatch) && dh_quilt_patch)))
+
 # parallel build by default on linux
 ifeq ($(DEB_HOST_ARCH_OS),linux)
 	ifeq ($(findstring parallel=,$(DEB_BUILD_OPTIONS)),)
@@ -47,10 +52,6 @@ override_dh_auto_configure:
 	convert abiword_48.png -resize 32x32 debian/abiword.xpm
 	# clean file only if possible to regenerate
 	[ ! -x "$(which flex)" ] || $(RM) plugins/mathview/itex2mml/lex.yy.c
-	# arch-dependent patching
-	cat debian/patches/series.$(DEB_HOST_ARCH_OS) >> debian/patches/series \
-	&& $(RM) debian/patches/series.$(DEB_HOST_ARCH_OS) \
-	&& dh_quilt_patch || return 0
 	dh_auto_configure -- \
 		--without-gnomevfs \
 		--with-gio \

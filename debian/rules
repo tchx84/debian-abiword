@@ -16,10 +16,6 @@ ifeq ($(DEB_HOST_ARCH_OS),linux)
 endif
 $(info Info: DEB_BUILD_OPTIONS=$(DEB_BUILD_OPTIONS))
 
-#: see http://lists.debian.org/debian-devel-announce/2011/09/msg00001.html
-#: Also it does hardening by default, see http://wiki.debian.org/Hardening
-DPKG_EXPORT_BUILDFLAGS = 1
--include /usr/share/dpkg/default.mk
 #: disabling format hardening due to build problems in some plugins
 export DEB_BUILD_MAINT_OPTIONS=hardening=-format
 
@@ -79,8 +75,8 @@ override_dh_auto_test:
 	dh_auto_test || return 0
 
 override_dh_makeshlibs:
-	$(RM) debian/abiword/usr/lib/abiword-$(series)/plugins/grammar.*
-	$(RM) debian/abiword/usr/lib/abiword-$(series)/plugins/mathview.*
+	$(RM) debian/abiword/usr/lib/$(DEB_HOST_MULTIARCH)/abiword-$(series)/plugins/grammar.*
+	$(RM) debian/abiword/usr/lib/$(DEB_HOST_MULTIARCH)/abiword-$(series)/plugins/mathview.*
 	dh_makeshlibs -V
 
 override_dh_strip:

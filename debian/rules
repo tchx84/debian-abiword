@@ -19,9 +19,11 @@ ifeq ($(DEB_HOST_ARCH_OS),linux)
 endif
 $(info Info: DEB_BUILD_OPTIONS:$(origin DEB_BUILD_OPTIONS)=$(DEB_BUILD_OPTIONS))
 
-#: disabling format hardening due to build problems in some plugins
-export DEB_BUILD_MAINT_OPTIONS+=hardening=-format
-$(info Info: DEB_BUILD_MAINT_OPTIONS:$(origin DEB_BUILD_MAINT_OPTIONS)=$(DEB_BUILD_MAINT_OPTIONS))
+#: Disabling format hardening might help for error:
+#: "format not a string literal and "no format arguments [-Werror=format-security]"
+#: if hardening-format.patch no longer work.
+#export DEB_BUILD_MAINT_OPTIONS+=hardening=-format
+#$(info Info: DEB_BUILD_MAINT_OPTIONS:$(origin DEB_BUILD_MAINT_OPTIONS)=$(DEB_BUILD_MAINT_OPTIONS))
 
 LDFLAGS+= -Wl,--as-needed
 

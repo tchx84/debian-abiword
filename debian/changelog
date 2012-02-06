@@ -4,8 +4,9 @@ abiword (2.9.2+svn20120123-2) unstable; urgency=low
   * updates for multi-arch
   * regenerate .xpm icon with imagemagick
   * make-clean patch is updated to prevent breakage in trunk source tree
+  * enabled format hardening thanks to new format hardening patch
   * arch-dependent patching redone in GNU Make style
-  * get-orig-source splitted in GNU Make style
+  * get-orig-source split in GNU Make style
   * orig.source compression to xz
   * added some information print-out
 

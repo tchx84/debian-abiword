@@ -1,0 +1,305 @@
+Author: Dmitry Smirnov <onlyjob@member.fsf.org>
+Last-Update: 2012-02-07
+Forwarded: no
+Description: fixes FTBFS with format hardening
+ Workaround for error: "format not a string literal and
+ "no format arguments [-Werror=format-security]"
+
+
+--- a/src/af/xap/gtk/xap_UnixDialogHelper.cpp
++++ b/src/af/xap/gtk/xap_UnixDialogHelper.cpp
+@@ -833,7 +833,7 @@
+ 						   GTK_DIALOG_MODAL,
+ 						   GTK_MESSAGE_INFO,
+ 						   GTK_BUTTONS_OK,
+-						   message ) ;
++						   "%s", message ) ;
+ 
+ 	gtk_window_set_title(GTK_WINDOW(msg), "AbiWord");
+ 	gtk_window_set_role(GTK_WINDOW(msg), "message dialog");
+--- a/src/af/xap/gtk/xap_UnixDlg_Image.cpp
++++ b/src/af/xap/gtk/xap_UnixDlg_Image.cpp
+@@ -534,7 +534,7 @@
+ 	
+     std::string s;
+ 	pSS->getValueUTF8(XAP_STRING_ID_DLG_Image_Title,s);
+-	abiDialogSetTitle(mMainWindow, s.c_str());
++	abiDialogSetTitle(mMainWindow, "%s", s.c_str());
+ 
+     localizeLabel(GTK_WIDGET(gtk_builder_get_object(builder, "lbDescTab")), pSS, XAP_STRING_ID_DLG_Image_DescTabLabel);
+     localizeLabel(GTK_WIDGET(gtk_builder_get_object(builder, "lbWrapTab")), pSS, XAP_STRING_ID_DLG_Image_WrapTabLabel);
+--- a/src/af/xap/gtk/xap_UnixDlg_Zoom.cpp
++++ b/src/af/xap/gtk/xap_UnixDlg_Zoom.cpp
+@@ -225,7 +225,7 @@
+ 	// set the dialog title
+ 	UT_UTF8String s;
+ 	pSS->getValueUTF8(XAP_STRING_ID_DLG_Zoom_ZoomTitle,s);
+-	abiDialogSetTitle(window, s.utf8_str());
++	abiDialogSetTitle(window, "%s", s.utf8_str());
+ 
+ 	// localize the strings in our dialog, and set tags for some widgets
+ 	
+--- a/src/af/xap/xp/xap_Prefs.cpp
++++ b/src/af/xap/xp/xap_Prefs.cpp
+@@ -1298,37 +1298,37 @@
+ 	if (XAP_App::s_szBuild_ID && XAP_App::s_szBuild_ID[0])
+ 	{
+ 		fprintf(fp,"<!--         Build_ID          = ");
+-		fprintf(fp,XAP_App::s_szBuild_ID);
++		fprintf(fp,"%s",XAP_App::s_szBuild_ID);
+ 		fprintf(fp," -->\n");
+ 	}
+ 	if (XAP_App::s_szBuild_Version && XAP_App::s_szBuild_Version[0])
+ 	{
+ 		fprintf(fp,"<!--         Build_Version     = ");
+-		fprintf(fp,XAP_App::s_szBuild_Version);
++		fprintf(fp,"%s",XAP_App::s_szBuild_Version);
+ 		fprintf(fp," -->\n");
+ 	}
+ 	if (XAP_App::s_szBuild_Options && XAP_App::s_szBuild_Options[0])
+ 	{
+ 		fprintf(fp,"<!--         Build_Options     = ");
+-		fprintf(fp,XAP_App::s_szBuild_Options);
++		fprintf(fp,"%s",XAP_App::s_szBuild_Options);
+ 		fprintf(fp," -->\n");
+ 	}
+ 	if (XAP_App::s_szBuild_Target && XAP_App::s_szBuild_Target[0])
+ 	{
+ 		fprintf(fp,"<!--         Build_Target      = ");
+-		fprintf(fp,XAP_App::s_szBuild_Target);
++		fprintf(fp,"%s",XAP_App::s_szBuild_Target);
+ 		fprintf(fp," -->\n");
+ 	}
+ 	if (XAP_App::s_szBuild_CompileTime && XAP_App::s_szBuild_CompileTime[0])
+ 	{
+ 		fprintf(fp,"<!--         Build_CompileTime = ");
+-		fprintf(fp,XAP_App::s_szBuild_CompileTime);
++		fprintf(fp,"%s",XAP_App::s_szBuild_CompileTime);
+ 		fprintf(fp," -->\n");
+ 	}
+ 	if (XAP_App::s_szBuild_CompileDate && XAP_App::s_szBuild_CompileDate[0])
+ 	{
+ 		fprintf(fp,"<!--         Build_CompileDate = ");
+-		fprintf(fp,XAP_App::s_szBuild_CompileDate);
++		fprintf(fp,"%s",XAP_App::s_szBuild_CompileDate);
+ 		fprintf(fp," -->\n");
+ 	}
+ #endif
+--- a/src/wp/ap/gtk/ap_UnixDialog_Annotation.cpp
++++ b/src/wp/ap/gtk/ap_UnixDialog_Annotation.cpp
+@@ -165,7 +165,7 @@
+ 	// set the dialog title
+ 	std::string s;
+ 	pSS->getValueUTF8(AP_STRING_ID_DLG_Annotation_Title,s);
+-	abiDialogSetTitle(window, s.c_str());	
++	abiDialogSetTitle(window, "%s", s.c_str());
+ 	
+ 	// localize the strings in our dialog, and set some userdata for some widgets
+ 	localizeLabel(GTK_WIDGET(gtk_builder_get_object(builder, "lbTitle")), pSS, AP_STRING_ID_DLG_Annotation_Title_LBL);
+--- a/src/wp/ap/gtk/ap_UnixDialog_Border_Shading.cpp
++++ b/src/wp/ap/gtk/ap_UnixDialog_Border_Shading.cpp
+@@ -541,7 +541,7 @@
+ 	
+ 	// set the dialog title
+ 	ConstructWindowName();
+-	abiDialogSetTitle(window, m_WindowName);
++	abiDialogSetTitle(window, "%s", m_WindowName);
+ 	
+ 	// disable double buffering on our preview
+ 	gtk_widget_set_double_buffered(m_wPreviewArea, FALSE); 	
+--- a/src/wp/ap/gtk/ap_UnixDialog_Break.cpp
++++ b/src/wp/ap/gtk/ap_UnixDialog_Break.cpp
+@@ -113,7 +113,7 @@
+ 	// set the dialog title
+ 	UT_UTF8String s;
+ 	pSS->getValueUTF8(AP_STRING_ID_DLG_Break_BreakTitle_Capital,s);
+-	abiDialogSetTitle(window, s.utf8_str());
++	abiDialogSetTitle(window, "%s", s.utf8_str());
+ 	
+ 	// localize the strings in our dialog, and set tags for some widgets
+ 	
+--- a/src/wp/ap/gtk/ap_UnixDialog_Field.cpp
++++ b/src/wp/ap/gtk/ap_UnixDialog_Field.cpp
+@@ -301,7 +301,7 @@
+ 	// set the dialog title
+ 	UT_UTF8String s;
+ 	pSS->getValueUTF8(AP_STRING_ID_DLG_Field_FieldTitle_Capital,s);
+-	abiDialogSetTitle(window, s.utf8_str());	
++	abiDialogSetTitle(window, "%s", s.utf8_str());
+ 	
+ 	// localize the strings in our dialog, and set some userdata for some widg
+ 
+--- a/src/wp/ap/gtk/ap_UnixDialog_FormatFootnotes.cpp
++++ b/src/wp/ap/gtk/ap_UnixDialog_FormatFootnotes.cpp
+@@ -376,7 +376,7 @@
+ 	// set the dialog title
+ 	std::string s;
+ 	pSS->getValueUTF8(AP_STRING_ID_DLG_FormatFootnotes_Title,s);
+-	abiDialogSetTitle(window, s.c_str());
++	abiDialogSetTitle(window, "%s", s.c_str());
+ 	
+ 	// localize the strings in our dialog, and set tags for some widgets
+ 	
+--- a/src/wp/ap/gtk/ap_UnixDialog_FormatFrame.cpp
++++ b/src/wp/ap/gtk/ap_UnixDialog_FormatFrame.cpp
+@@ -478,7 +478,7 @@
+ 	
+ 	// set the dialog title
+ 	ConstructWindowName();
+-	abiDialogSetTitle(window, m_WindowName);
++	abiDialogSetTitle(window, "%s", m_WindowName);
+ 	
+ 	// disable double buffering on our preview
+ 	gtk_widget_set_double_buffered(m_wPreviewArea, FALSE); 	
+--- a/src/wp/ap/gtk/ap_UnixDialog_FormatTOC.cpp
++++ b/src/wp/ap/gtk/ap_UnixDialog_FormatTOC.cpp
+@@ -365,7 +365,7 @@
+ 	// set the dialog title
+ 	UT_UTF8String s;
+ 	pSS->getValueUTF8(AP_STRING_ID_DLG_FormatTOC_Title,s);
+-	abiDialogSetTitle(m_windowMain, s.utf8_str());
++	abiDialogSetTitle(m_windowMain, "%s", s.utf8_str());
+ 
+ // localize notebook tabs
+ 	localizeLabel(_getWidget( "lbGeneral"), pSS, AP_STRING_ID_DLG_FormatTOC_General);
+--- a/src/wp/ap/gtk/ap_UnixDialog_FormatTable.cpp
++++ b/src/wp/ap/gtk/ap_UnixDialog_FormatTable.cpp
+@@ -439,7 +439,7 @@
+ 	
+ 	// set the dialog title
+ 	ConstructWindowName();
+-	abiDialogSetTitle(window, m_WindowName);
++	abiDialogSetTitle(window, "%s", m_WindowName);
+ 	
+ 	// disable double buffering on our preview
+ 	gtk_widget_set_double_buffered(m_wPreviewArea, FALSE); 	
+--- a/src/wp/ap/gtk/ap_UnixDialog_HdrFtr.cpp
++++ b/src/wp/ap/gtk/ap_UnixDialog_HdrFtr.cpp
+@@ -207,7 +207,7 @@
+ 	// set the dialog title
+ 	UT_UTF8String s;
+ 	pSS->getValueUTF8(AP_STRING_ID_DLG_HdrFtr_Title,s);
+-	abiDialogSetTitle(window, s.utf8_str());
++	abiDialogSetTitle(window, "%s", s.utf8_str());
+ 
+ 	// localize the strings in our dialog
+ 	
+--- a/src/wp/ap/gtk/ap_UnixDialog_Insert_DateTime.cpp
++++ b/src/wp/ap/gtk/ap_UnixDialog_Insert_DateTime.cpp
+@@ -149,7 +149,7 @@
+ 	// set the dialog title
+ 	UT_UTF8String s;
+ 	pSS->getValueUTF8(AP_STRING_ID_DLG_DateTime_DateTimeTitle,s);
+-	abiDialogSetTitle(window, s.utf8_str());
++	abiDialogSetTitle(window, "%s", s.utf8_str());
+ 	
+ 	// localize the strings in our dialog
+ 	
+--- a/src/wp/ap/gtk/ap_UnixDialog_InsertTable.cpp
++++ b/src/wp/ap/gtk/ap_UnixDialog_InsertTable.cpp
+@@ -131,7 +131,7 @@
+ 	// set the dialog title
+     std::string s;
+ 	pSS->getValueUTF8(AP_STRING_ID_DLG_InsertTable_TableTitle,s);
+-	abiDialogSetTitle(window, s.c_str());
++	abiDialogSetTitle(window, "%s", s.c_str());
+ 	// Units
+ 	gtk_label_set_text (GTK_LABEL (GTK_WIDGET(gtk_builder_get_object(builder, "lbInch"))), UT_dimensionName(m_dim));
+ 	double spinstep = getSpinIncr ();
+--- a/src/wp/ap/gtk/ap_UnixDialog_MailMerge.cpp
++++ b/src/wp/ap/gtk/ap_UnixDialog_MailMerge.cpp
+@@ -173,7 +173,7 @@
+ 	// set the dialog title
+ 	UT_UTF8String s;
+ 	pSS->getValueUTF8(AP_STRING_ID_DLG_MailMerge_MailMergeTitle,s);
+-	abiDialogSetTitle(m_windowMain, s.utf8_str());
++	abiDialogSetTitle(m_windowMain, "%s", s.utf8_str());
+ 	
+ 	// localize the strings in our dialog, and set tags for some widgets
+ 	
+--- a/src/wp/ap/gtk/ap_UnixDialog_MetaData.cpp
++++ b/src/wp/ap/gtk/ap_UnixDialog_MetaData.cpp
+@@ -155,7 +155,7 @@
+ 	// set the dialog title
+ 	UT_UTF8String s;
+ 	pSS->getValueUTF8(AP_STRING_ID_DLG_MetaData_Title,s);
+-	abiDialogSetTitle(window, s.utf8_str());	
++	abiDialogSetTitle(window, "%s", s.utf8_str());
+ 	
+ 	// localize the strings in our dialog, and set some userdata for some widgets
+ 	localizeLabel(GTK_WIDGET(gtk_builder_get_object(builder, "lbTitle")), pSS, AP_STRING_ID_DLG_MetaData_Title_LBL);
+--- a/src/wp/ap/gtk/ap_UnixDialog_Options.cpp
++++ b/src/wp/ap/gtk/ap_UnixDialog_Options.cpp
+@@ -212,7 +212,7 @@
+ 
+     dlg = WID ( "ap_UnixDialog_Options_ColorSel" );
+     pSS->getValueUTF8 ( AP_STRING_ID_DLG_Options_Label_ChooseForTransparent, s );
+-    abiDialogSetTitle ( dlg, s.utf8_str() );
++    abiDialogSetTitle ( dlg, "%s", s.utf8_str() );
+ 
+     colorsel = WID ( "csColorSel" );
+ 
+@@ -537,7 +537,7 @@
+     // set the dialog title
+     std::string s;
+     pSS->getValueUTF8(AP_STRING_ID_DLG_Options_OptionsTitle, s);
+-    abiDialogSetTitle(mainWindow, s.c_str());
++    abiDialogSetTitle(mainWindow, "%s", s.c_str());
+ 
+     // the control buttons
+     g_signal_connect ( G_OBJECT ( m_buttonDefaults ),
+--- a/src/wp/ap/gtk/ap_UnixDialog_PageNumbers.cpp
++++ b/src/wp/ap/gtk/ap_UnixDialog_PageNumbers.cpp
+@@ -182,7 +182,7 @@
+ 	// set the dialog title
+ 	UT_UTF8String s;
+ 	pSS->getValueUTF8(AP_STRING_ID_DLG_PageNumbers_Title,s);
+-	abiDialogSetTitle(window, s.utf8_str());
++	abiDialogSetTitle(window, "%s", s.utf8_str());
+ 
+ 	// disable double buffering on our preview
+ 	gtk_widget_set_double_buffered(m_previewArea, FALSE);  
+--- a/src/wp/ap/gtk/ap_UnixDialog_Stylist.cpp
++++ b/src/wp/ap/gtk/ap_UnixDialog_Stylist.cpp
+@@ -284,7 +284,7 @@
+ 	// set the dialog title
+ 	UT_UTF8String s;
+ 	pSS->getValueUTF8(AP_STRING_ID_DLG_Stylist_Title,s);
+-	abiDialogSetTitle(m_windowMain, s.utf8_str());
++	abiDialogSetTitle(m_windowMain, "%s", s.utf8_str());
+ 
+ 	g_object_unref(G_OBJECT(builder));
+ 	
+--- a/plugins/collab/backends/service/unix/ap_UnixDialog_GenericInput.cpp
++++ b/plugins/collab/backends/service/unix/ap_UnixDialog_GenericInput.cpp
+@@ -93,7 +93,7 @@
+ 	m_wInput = GTK_WIDGET(gtk_builder_get_object(builder, "edInput"));
+ 
+ 	// set the dialog title
+-	abiDialogSetTitle(window, getTitle().utf8_str());
++	abiDialogSetTitle(window, "%s", getTitle().utf8_str());
+ 	
+ 	// set the question
+ 	gtk_label_set_text(GTK_LABEL(GTK_WIDGET(gtk_builder_get_object(builder, "lbQuestion"))), getQuestion().utf8_str());
+--- a/plugins/collab/backends/service/unix/ap_UnixDialog_GenericProgress.cpp
++++ b/plugins/collab/backends/service/unix/ap_UnixDialog_GenericProgress.cpp
+@@ -99,7 +99,7 @@
+ 	m_wProgress = GTK_WIDGET(gtk_builder_get_object(builder, "pbProgress"));
+ 
+ 	// set the dialog title
+-	abiDialogSetTitle(window, getTitle().utf8_str());
++	abiDialogSetTitle(window, "%s", getTitle().utf8_str());
+ 	
+ 	// set the informative label
+ 	gtk_label_set_text(GTK_LABEL(GTK_WIDGET(gtk_builder_get_object(builder, "lbInformation"))), getInformation().utf8_str());
+--- a/plugins/mswrite/xp/ie_imp_MSWrite.cpp
++++ b/plugins/mswrite/xp/ie_imp_MSWrite.cpp
+@@ -1733,7 +1733,7 @@
+ 
+ 	if (write_pic) free_wri_struct(write_pic);
+ 
+-	if (msg) fprintf(stderr, msg);
++	if (msg) fprintf(stderr, "%s", msg);
+ 
+ 	return (msg ? false : true);
+ }

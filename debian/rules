@@ -87,7 +87,7 @@ override_dh_strip:
 VER := $(shell dpkg-parsechangelog | perl -ne 'print $$1 if m/Version:\s*([\d\.+svn]+)/')
 get-orig-source: $(PACKAGE)-$(VER)/ChangeLog
 	@echo "Packing..."
-	tar cJvf "$(PACKAGE)_$(VER).orig.tar.xz" "$(PACKAGE)-$(VER)" \
+	tar cJf "$(PACKAGE)_$(VER).orig.tar.xz" "$(PACKAGE)-$(VER)" \
 	&& $(RM) -r "$(PACKAGE)-$(VER)"
 
 $(PACKAGE)-$(VER)/ChangeLog: $(PACKAGE)-$(VER)
@@ -99,4 +99,5 @@ $(PACKAGE)-$(VER)/ChangeLog: $(PACKAGE)-$(VER)
 
 $(PACKAGE)-$(VER):
 	svn checkout -r {$$(echo $(VER) | perl -ne 'print $$1 if m/\+svn(\d+)/')} \
-		http://svn.abisource.com/abiword/trunk/ $(PACKAGE)-$(VER)
+		http://svn.abisource.com/abiword/trunk/ $(PACKAGE)-$(VER) \
+	|| $(RM) -r $(PACKAGE)-$(VER)

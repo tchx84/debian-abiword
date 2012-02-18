@@ -2,9 +2,9 @@ Author: Dmitry Smirnov <onlyjob@member.fsf.org>
 From: Thomas Richter <richter@rus.uni-stuttgart.de>
 Subject: Cannot disable smooth scrolling
 Origin: other, http://bugs.debian.org/624095
-Bugs-Debian: http://bugs.debian.org/624095
+Bug-Debian: http://bugs.debian.org/624095
 Last-Update: 2011-11-21
-Forwarded: no
+Forwarded: yes
 Description: Disable smooth scrolling
  Commenting code which is enabling smooth scrolling disregarding preferences
  to leave decision whenever use the smooth scrolling or not to user.

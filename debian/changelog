@@ -1,14 +1,23 @@
-abiword (2.9.2+svn20120123-2) unstable; urgency=low
+abiword (2.9.2+svn20120213-1) unstable; urgency=low
 
+  * New Upstream Release, based on 'trunk' version as of 2012-02-12
+    (Closes: #659658 "segfaults on powerpc")
+
+ -- Dmitry Smirnov <onlyjob@member.fsf.org>  Fri, 17 Feb 2012 21:11:38 +1100
+
+abiword (2.9.2+svn20120131-1) unstable; urgency=low
+
+  * New Upstream Release, based on 'trunk' version as of 2012-01-30
   * compat & debhelper to version 9
   * updates for multi-arch
-  * regenerate .xpm icon with imagemagick
+  * .xpm icon generated with imagemagick on build time
   * make-clean patch is updated to prevent breakage in trunk source tree
   * enabled format hardening thanks to new format hardening patch
+    (applied upstream)
   * arch-dependent patching redone in GNU Make style
   * get-orig-source split in GNU Make style
   * orig.source compression to xz
-  * added some information print-out
+  * added some build-time information print-out
 
  -- Dmitry Smirnov <onlyjob@member.fsf.org>  Mon, 06 Feb 2012 19:40:51 +1100
 

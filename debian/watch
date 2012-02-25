@@ -6,10 +6,13 @@
 version=3
 
 # this suppose to catch all versions, but it doesn't :(
+opts=dversionmangle=s/\+svn\d+// \
 http://www.abisource.com/downloads/abiword/([\d\.]+)/source/abiword-([\d\.]+)\.tar\.gz
 
 # current version
+opts=dversionmangle=s/\+svn\d+// \
 http://www.abisource.com/downloads/abiword/2.9.2/source/abiword-([\d\.]+)\.tar\.gz
 
 # latest version
+opts=dversionmangle=s/\+svn\d+// \
 http://www.abisource.com/downloads/abiword/latest-dev/source/abiword-([\d\.]+)\.tar\.gz

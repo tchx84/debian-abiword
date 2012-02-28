@@ -11,7 +11,7 @@ Build-Depends: debhelper (>= 9), dh-autoreconf, quilt, imagemagick,
  subversion, subversion-tools,
 # valgrind
 Build-Depends-Indep: flex
-Standards-Version: 3.9.2
+Standards-Version: 3.9.3
 Homepage: http://www.abisource.com/
 VCS-Browser: http://anonscm.debian.org/gitweb/?p=collab-maint/abiword.git
 VCS-Git: git://anonscm.debian.org/collab-maint/abiword.git

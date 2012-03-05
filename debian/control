@@ -9,7 +9,8 @@ Build-Depends: debhelper (>= 9), dh-autoreconf, quilt, imagemagick,
  librdf0-dev, libreadline-dev, librsvg2-dev, libsoup2.4-dev, libtelepathy-glib-dev,
  libtidy-dev, libwmf-dev, libwpg-dev, libwps-dev, libwv-dev, libxslt1-dev,
  subversion, subversion-tools,
-# valgrind
+# valgrind is only used in post-build tests, enable on available architectures
+ valgrind [amd64 armel armhf i386 powerpc],
 Standards-Version: 3.9.3
 Homepage: http://www.abisource.com/
 VCS-Browser: http://anonscm.debian.org/gitweb/?p=collab-maint/abiword.git

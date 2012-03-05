@@ -238,23 +238,57 @@ Files:
  src/af/xap/win/winezmouse.h
  src/af/util/xp/ut_rand.cpp
 Copyright:
- 2000, CodeWeavers
- 1983, Regents of the University of California
- 1991, 1996 Free Software Foundation, Inc
+         © 2000      CodeWeavers
+         © 1983      Regents of the University of California
+         © 1991,1996 Free Software Foundation, Inc
 License: LGPL-2.1+
- FIXME
+
 
 
 Files: plugins/latex/xsltml/README
 Copyright:
          © 2001-2003, Vasil Yaroshevich
 License: MIT/X11 (BSD like)
- FIXME
+ Permission is hereby granted, free of charge, to any person
+ obtaining a copy of this software and associated documentation
+ files (the ``Software''), to deal in the Software without
+ restriction, including without limitation the rights to use,
+ copy, modify, merge, publish, distribute, sublicense, and/or
+ sell copies of the Software, and to permit persons to whom the
+ Software is furnished to do so, subject to the following
+ conditions:
+ .
+ The above copyright notice and this permission notice shall be
+ included in all copies or substantial portions of the Software.
+ .
+ Except as contained in this notice, the names of individuals
+ credited with contribution to this software shall not be used in
+ advertising or otherwise to promote the sale, use or other
+ dealings in this Software without prior written authorization
+ from the individuals in question.
+ .
+ Any stylesheet derived from this Software that is publically
+ distributed will be identified with a different name and the
+ version strings in any derived Software will be changed so that
+ no possibility of confusion between the derived package and this
+ Software will exist.
+ .
+ Warranty
+ --------
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+ OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ NONINFRINGEMENT.  IN NO EVENT SHALL NORMAN WALSH OR ANY OTHER
+ CONTRIBUTOR BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+
 
 
 Files: plugins/collab/backends/service/cacert.pem
 Copyright: 1994-2000
 License: MPL-1.1 or GPL-2+
+
 
 
 Files: src/af/ev/gtk/ev_UnixKeysym2ucs.cpp
@@ -268,6 +302,23 @@ Files: src/wp/impexp/xp/MathSVGScript.h
 Copyright:
          © 2006 Sam Ruby
 License: MIT
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the 'Software'), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+ .
+ The above copyright notice and this permission notice shall be included in all
+ copies or substantial portions of the Software.
+ THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ SOFTWARE
+
 
 
 Files:
@@ -453,26 +504,6 @@ License: MPL-1.1
  Netscape Communications Corporation.  All Rights Reserved.
  .
  You may obtain a copy of the License at http://www.mozilla.org/MPL/
-
-
-
-License: MIT
- Permission is hereby granted, free of charge, to any person obtaining a copy
- of this software and associated documentation files (the 'Software'), to deal
- in the Software without restriction, including without limitation the rights
- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- copies of the Software, and to permit persons to whom the Software is
- furnished to do so, subject to the following conditions:
- .
- The above copyright notice and this permission notice shall be included in all
- copies or substantial portions of the Software.
- THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- SOFTWARE
 
 
 

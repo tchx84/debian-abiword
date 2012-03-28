@@ -1,3 +1,11 @@
+abiword (2.9.2+svn20120215-3) unstable; urgency=low
+
+  * d-rules: get correct number of CPUs for parallel build on Linux
+    (Closes: #665853 W:"Build process not is paralleled on some Linux
+     architectures")
+
+ -- Dmitry Smirnov <onlyjob@member.fsf.org>  Wed, 28 Mar 2012 23:06:00 +1100
+
 abiword (2.9.2+svn20120215-2) unstable; urgency=low
 
   * d-copyright:

@@ -14,7 +14,7 @@ $(info $(if $(archpatch), $(shell cat $(archpatch) >> debian/patches/series \
 # parallel build by default on linux
 ifeq ($(DEB_HOST_ARCH_OS),linux)
     ifeq ($(findstring parallel=,$(DEB_BUILD_OPTIONS)),)
-        export DEB_BUILD_OPTIONS+=parallel=$(shell ls /sys/devices/system/cpu/ | grep -c 'cpu[0-9]\+')
+        export DEB_BUILD_OPTIONS+=parallel=$(shell getconf _NPROCESSORS_ONLN)
     endif
 endif
 $(info DEB_BUILD_OPTIONS:$(origin DEB_BUILD_OPTIONS)=$(DEB_BUILD_OPTIONS))

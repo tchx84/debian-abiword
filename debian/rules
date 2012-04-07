@@ -86,7 +86,7 @@ override_dh_strip:
 .PHONY: licensecheck
 COPHINTS := debian/copyright.hints
 VER = $(shell dpkg-parsechangelog | perl -ne 'print $$1 if m/Version:\s*([\d\.+svn]+)/')
-get-orig-source: licensecheck $(PACKAGE)-$(VER)/ChangeLog
+get-orig-source: $(PACKAGE)-$(VER)/ChangeLog licensecheck
 	@echo "Packing..."
 	tar cJf "$(PACKAGE)_$(VER).orig.tar.xz" "$(PACKAGE)-$(VER)" \
 	&& $(RM) -r "$(PACKAGE)-$(VER)"
@@ -96,7 +96,7 @@ $(PACKAGE)-$(VER)/ChangeLog: $(PACKAGE)-$(VER)
 	cd "$(PACKAGE)-$(VER)" \
 	&& svn2cl --break-before-msg --include-rev \
 	&& perl -0pi -e 's{(\d+\])[^:]+?:\s+}{$$1 }sgm' ChangeLog \
-	&& find . -depth -name ".svn" -exec $(RM) -r '{}' \;
+	&& find . -depth -name ".svn" -exec $(RM) -rf '{}' \;
 
 licensecheck: $(PACKAGE)-$(VER)
 	@echo "License check..."

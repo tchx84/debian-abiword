@@ -30,6 +30,7 @@ License: GPL-3+
 
 Files: *
 Copyright:
+         © 2012                   AbiSource.com
          © 1998-2005,2010         AbiSource, Inc
          © 2008-2010              AbiSource Corporation B.V
          © 1999-2006,2008-2010    Free Software Foundation, Inc
@@ -53,7 +54,7 @@ Copyright:
          © 2006                 Fridrich Strba <fridrich.strba@bluewin.ch>
          © 2000-2001,2004       Frodo Looijaard <frodol@dds.nl>
          © 2002                 Gilles Saint-Denis
-         © 2000-2009,2011       Hubert Figuière <hfiguiere@teaser.fr>
+         © 2000-2009,2011-2012  Hubert Figuière <hfiguiere@teaser.fr>
          © 2001,2004,2009,2011  Hubert Figuiere <hub@figuiere.net>
          © 2005-2006            INdT
          © 2010-2011            Ingo Brueckl

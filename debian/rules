@@ -83,10 +83,8 @@ override_dh_strip:
 	dh_strip --dbg-package=abiword-dbg
 
 ## get-orig-source
-.PHONY: licensecheck
-COPHINTS := debian/copyright.hints
 VER = $(shell dpkg-parsechangelog | perl -ne 'print $$1 if m/Version:\s*([\d\.+svn]+)/')
-get-orig-source: $(PACKAGE)-$(VER)/ChangeLog licensecheck
+get-orig-source: $(PACKAGE)-$(VER)/ChangeLog
 	@echo "Packing..."
 	tar cJf "$(PACKAGE)_$(VER).orig.tar.xz" "$(PACKAGE)-$(VER)" \
 	&& $(RM) -r "$(PACKAGE)-$(VER)"
@@ -97,16 +95,6 @@ $(PACKAGE)-$(VER)/ChangeLog: $(PACKAGE)-$(VER)
 	&& svn2cl --break-before-msg --include-rev \
 	&& perl -0pi -e 's{(\d+\])[^:]+?:\s+}{$$1 }sgm' ChangeLog \
 	&& find . -depth -name ".svn" -exec $(RM) -rf '{}' \;
-
-licensecheck: $(PACKAGE)-$(VER)
-	@echo "License check..."
-	cd $(PACKAGE)-$(VER) \
-	&& licensecheck --recursive --copyright --check='.*' --lines="99999" \
-        --ignore='\.(po|png|hash|strings|lib|icns|doc|odt)\Z|^debian/' * \
-	| grep -v '\*No copyright\* UNKNOWN' > ../$(COPHINTS).new
-	DIF=$$(diff -U0 $(COPHINTS) $(COPHINTS).new) \
-	; [ "$$?" -eq 0 ] && $(RM) $(COPHINTS).new \
-	|| echo "$${DIF}" | tee $(COPHINTS).diff
 
 $(PACKAGE)-$(VER):
 	svn checkout -r {$$(echo $(VER) | perl -ne 'print $$1 if m/\+svn(\d+)/')} \

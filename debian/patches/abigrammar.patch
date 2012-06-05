@@ -1,6 +1,7 @@
 Author: Dmitry Smirnov <onlyjob@member.fsf.org>
 Last-Update: 2012-06-05
 Forwarded: 2012-06-05
+Bug-Abiword: http://bugzilla.abisource.com/show_bug.cgi?id=13364
 Description: prevent FTBFS for 'trunk' versions after 2012-05-01
  AbiGrammar.cpp: In member function 'virtual bool AbiGrammar::notify(AV_View*, AV_ChangeMask, void*)':
  AbiGrammar.cpp:106:18: warning: variable 'pText' set but not used [-Wunused-but-set-variable]

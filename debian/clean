@@ -1,7 +1,9 @@
 # Remove the following files to force their regeneration with bison
-plugins/mathview/itex2mml/y.tab.c 
+plugins/mathview/itex2mml/y.tab.c
 plugins/mathview/itex2mml/y.tab.h
 
-# Generated file:
+# Generated files:
 debian/abiword.xpm
 plugin*.m4
+src/wp/test/unix/tf-vgdump
+src/wp/ap/xp/ap_wp_sidebar.cpp

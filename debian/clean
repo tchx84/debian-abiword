@@ -4,3 +4,4 @@ plugins/mathview/itex2mml/y.tab.h
 
 # Generated file:
 debian/abiword.xpm
+plugin*.m4

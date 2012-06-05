@@ -1,6 +1,6 @@
 Author: Dmitry Smirnov <onlyjob@member.fsf.org>
-Last-Update: 2012-02-06
-Forwarded: no
+Last-Update: 2012-05-14
+Forwarded: not-needed
 Description: prevent breaking of source tree
  Without this patch abiword breaks its own source tree
  so the second build fail
@@ -8,17 +8,19 @@ Description: prevent breaking of source tree
 
 --- a/Makefile.am
 +++ b/Makefile.am
-@@ -54,10 +54,6 @@
+@@ -53,11 +53,7 @@
+ 	lt-compile-resource
  
  DISTCLEANFILES = \
- 	abiword-$(ABIWORD_SERIES).pc \
+-	abiword-$(ABIWORD_SERIES).pc \
 -	plugin-builtin.m4 \
 -	plugin-configure.m4 \
 -	plugin-list.m4 \
--	plugin-makefiles.m4 \
- 	doltcompile \
- 	doltlibtool
+-	plugin-makefiles.m4
++	abiword-$(ABIWORD_SERIES).pc
  
+ abiword-$(ABIWORD_SERIES).pc: libabiword.pc
+ 	cp $< $@
 --- a/src/wp/test/Makefile.am
 +++ b/src/wp/test/Makefile.am
 @@ -19,4 +19,4 @@

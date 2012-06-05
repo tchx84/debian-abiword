@@ -63,7 +63,7 @@ Description: grammar checking plugin for AbiWord
 Package: abiword-plugin-mathview
 Section: editors
 Architecture: any
-Depends: ${misc:Depends}, ${shlibs:Depends}, abiword (= ${binary:Version}), ttf-lyx
+Depends: ${misc:Depends}, ${shlibs:Depends}, abiword (= ${binary:Version}), fonts-lyx
 Description: equation editor plugin for AbiWord
  AbiWord is a full-featured, efficient word processing application.
  It is suitable for a wide variety of word processing tasks, and

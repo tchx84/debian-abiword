@@ -3,6 +3,9 @@ Last-Update: 2012-06-05
 Forwarded: 2012-06-05
 Bug-Abiword: http://bugzilla.abisource.com/show_bug.cgi?id=13364
 Description: prevent FTBFS for 'trunk' versions after 2012-05-01
+ by reverting change made in r30914.
+ .
+ FTBFS details:
  AbiGrammar.cpp: In member function 'virtual bool AbiGrammar::notify(AV_View*, AV_ChangeMask, void*)':
  AbiGrammar.cpp:106:18: warning: variable 'pText' set but not used [-Wunused-but-set-variable]
  AbiGrammar.cpp: In function 'int abi_plugin_register(XAP_ModuleInfo*)':
@@ -14,14 +17,25 @@ Description: prevent FTBFS for 'trunk' versions after 2012-05-01
  make[5] *** [AbiGrammar.lo] Error 1
 
 
---- a/plugins/grammar/xp/AbiGrammar.cpp
-+++ b/plugins/grammar/xp/AbiGrammar.cpp
-@@ -92,7 +92,7 @@
- 		  return false;
- 		}
- 
--virtual bool notify(AV_View * pAView, const AV_ChangeMask mask, void * pPrivateData)
-+virtual bool notifyWithArg(AV_View * pAView, const AV_ChangeMask mask, void * pPrivateData)
+--- a/src/af/xap/xp/xap_App.cpp
++++ b/src/af/xap/xp/xap_App.cpp
+@@ -490,7 +490,7 @@
+ 		else
  		{
- 		  if(mask != AV_CHG_BLOCKCHECK)
- 		  {
+ 		  AV_ListenerExtra * pExtra = static_cast<AV_ListenerExtra *>(pListener);
+-		  pExtra->notifyWithArg(pView,hint,pPrivateData);
++		  pExtra->notify(pView,hint,pPrivateData);
+ 		}
+ 	}
+ 
+--- a/src/af/xap/xp/xav_Listener.h
++++ b/src/af/xap/xp/xav_Listener.h
+@@ -107,7 +107,7 @@
+ class ABI_EXPORT AV_ListenerExtra : public AV_Listener
+ {
+ public:
+-	virtual bool		notifyWithArg(AV_View * pView, const AV_ChangeMask mask, void * pPrivateData =NULL) = 0;
++	virtual bool		notify(AV_View * pView, const AV_ChangeMask mask, void * pPrivateData =NULL) = 0;
+ 	virtual AV_ListenerType    getType(void) = 0;
+ };
+ 

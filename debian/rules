@@ -48,7 +48,7 @@ override_dh_autoreconf:
 #: configure options reference: http://www.abisource.com/wiki/Compiling_AbiWord
 override_dh_auto_configure:
 	# generate icon
-	convert abiword_48.png -resize 32x32 debian/abiword.xpm
+	convert abiword.png -resize 32x32 debian/abiword.xpm
 	# clean file only if possible to regenerate
 	[ ! -x "$(which flex)" ] || $(RM) plugins/mathview/itex2mml/lex.yy.c
 	dh_auto_configure -- \

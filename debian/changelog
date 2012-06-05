@@ -1,3 +1,20 @@
+abiword (2.9.2+svn20120603-1) unstable; urgency=low
+
+  * New upstream version based on 'trunk' r31326 as of 2012-06-02
+    + updated man page
+    + updated translations
+    + fixed crash on text selection (Closes: #672412)
+    + fixed crash with 'borders and shading' (Closes: #672148)
+  * depends on 'fonts-lyx' instead of transitional 'ttf-lyx'
+    (Closes: #674820)
+  * dropped debian/copyright.hints and its generation code
+  * new patch to avoid FTBFS in 'grammar' plugin
+  * minor make-clean.patch update
+  * Debian source compression to .xz
+  * DM-Upload-Allowed: yes! (Thanks to Aron Xu)
+
+ -- Dmitry Smirnov <onlyjob@member.fsf.org>  Wed, 06 Jun 2012 03:37:53 +1000
+
 abiword (2.9.2+svn20120406-1) unstable; urgency=low
 
   * New upstream version based on 'trunk' r30779 as of 2012-04-05
@@ -9,7 +26,7 @@ abiword (2.9.2+svn20120406-1) unstable; urgency=low
      architectures")
   * minor update to get-orig-source to produce cleaner ©.hints file
 
- -- Dmitry Smirnov <onlyjob@member.fsf.org>  Wed, 28 Mar 2012 23:06:00 +1100
+ -- Dmitry Smirnov <onlyjob@member.fsf.org>  Sat, 07 Apr 2012 14:40:54 +1000
 
 abiword (2.9.2+svn20120215-2) unstable; urgency=low
 

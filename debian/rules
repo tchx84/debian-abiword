@@ -64,7 +64,7 @@ override_dh_auto_configure:
 		--enable-collab-backend-sugar \
 		--enable-collab-backend-service \
 		--enable-collab-backend-telepathy \
-		--enable-silent-rules \
+		--disable-silent-rules \
 		--enable-dependency-tracking \
 		--enable-plugins="$(plugins)"
 ##		--with-goffice

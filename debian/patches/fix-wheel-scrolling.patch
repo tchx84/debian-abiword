@@ -1,6 +1,7 @@
 Author: Dmitry Smirnov <onlyjob@member.fsf.org>
 Last-Update: 2012-08-12
 Forwarded: not-needed
+Bug-Debian: http://bugs.debian.org/672149
 Description: backported patch to fix mouse wheel scrolling.
 
 --- a/src/wp/ap/gtk/ap_UnixFrameImpl.cpp

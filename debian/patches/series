@@ -7,3 +7,4 @@ mime-types-desktop.diff -p1
 mime-types.diff -p1
 624095-disable_smooth_scrolling.patch
 format-hardening.patch
+fix-wheel-scrolling.patch

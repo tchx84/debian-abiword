@@ -6,8 +6,8 @@ abiword (2.9.2+svn20120603-2) UNRELEASED; urgency=low
   * new patches:
     + format-hardening.patch to avoid FTBFS on --with-gtk2 build.
     + fix-wheel-scrolling.patch (Closes: #672149).
-    + reorderencoding.patch with partial fix for "Crash on unicode
-      character paste" #681060. Thanks Ying-Chun Liu (PaulLiu).
+    + fix-paste.patch (backported) with fix for
+      "Crash on unicode character paste" (Closes: #681060).
 
  -- Dmitry Smirnov <onlyjob@member.fsf.org>  Thu, 28 Jun 2012 22:11:41 +1000
 

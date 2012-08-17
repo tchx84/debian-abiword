@@ -8,4 +8,4 @@ mime-types.diff -p1
 624095-disable_smooth_scrolling.patch
 format-hardening.patch
 fix-wheel-scrolling.patch
-reorderencoding.patch
+fix-paste.patch

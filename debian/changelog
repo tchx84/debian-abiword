@@ -1,3 +1,10 @@
+abiword (2.9.2+svn20120603-3) unstable; urgency=low
+
+  * Replace no-dbl-buf.patch with backported fix-dbl-buff.patch
+    to fix 'Paste Unformatted' and re-enable double buffering.
+
+ -- Dmitry Smirnov <onlyjob@member.fsf.org>  Fri, 17 Aug 2012 20:16:51 +1000
+
 abiword (2.9.2+svn20120603-2) unstable; urgency=low
 
   * build verbosity increased with --disable-silent-rules

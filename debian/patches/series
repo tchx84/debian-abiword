@@ -9,4 +9,4 @@ mime-types.diff -p1
 format-hardening.patch
 fix-wheel-scrolling.patch
 fix-paste.patch
-no-dbl-buff.patch
+fix-dbl-buff.patch

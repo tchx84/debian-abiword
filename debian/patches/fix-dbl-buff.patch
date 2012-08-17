@@ -1,0 +1,19 @@
+Last-Update: 2012-08-17
+Author: Dmitry Smirnov <onlyjob@member.fsf.org>
+From: Jean Brefort <jean.brefort@normalesup.org>
+Forwarded: non-needed
+Description: backported fix (r31752) to avoid drawing in the draw event handler
+ when we are already painting from elsewhere. Seems to fix the unformated paste
+ issue in 13280 (crash on 'Paste Unformatted'), and might fix 13355 as well.
+
+--- a/src/af/xap/gtk/xap_UnixFrameImpl.cpp
++++ b/src/af/xap/gtk/xap_UnixFrameImpl.cpp
+@@ -1222,6 +1222,8 @@
+ 	{
+ 		GR_Graphics * pGr = pView->getGraphics ();
+ 		UT_Rect rClip;
++		if (pGr->getPaintCount () > 0)
++			return TRUE;
+ 		xxx_UT_DEBUGMSG(("Expose area: x %d y %d width %d  height %d \n",pExposeEvent->area.x,pExposeEvent->area.y,pExposeEvent->area.width,pExposeEvent->area.height));
+ 		rClip.left = pGr->tlu(pExposeEvent->area.x);
+ 		rClip.top = pGr->tlu(pExposeEvent->area.y);

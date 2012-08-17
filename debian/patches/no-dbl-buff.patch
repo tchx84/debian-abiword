@@ -1,0 +1,119 @@
+Last-Update: 2012-08-17
+Author: Dmitry Smirnov <onlyjob@member.fsf.org>
+Forwarded: non-needed
+Bug-Abiword: http://bugzilla.abisource.com/show_bug.cgi?id=13280
+Description: disable double buffering to prevent crash on 'Paste Unformatted'.
+ With cairo-1.10.2-7 and cairo-1.12.2-2 abiword crashes if
+ 'Paste Unformatted' activated using mouse on new document.
+ To reproduce copy some unicode characters from
+   http://en.wikipedia.org/wiki/Linear_B#Unicode
+ and paste to new document using right mouse button click --> Paste Unformatted
+ .
+ Upstream can't reproduce with older cairo-1.8.6 so it could be unidentified
+ regression in cairo. Crash dump below:
+ .
+    #0  0x00007ffff6e99475 in *__GI_raise (sig=<optimized out>) at
+    ../nptl/sysdeps/unix/sysv/linux/raise.c:64
+    #1  0x00007ffff6e9c6f0 in *__GI_abort () at abort.c:92
+    #2  0x00007ffff6e92621 in *__GI___assert_fail (assertion=0x7ffff28c7328
+    "((*&(&cr->ref_count)->ref_count) > 0)", file=<optimized out>, line=435,
+    function=0x7ffff28c734e "cairo_destroy") at assert.c:81
+    #3  0x00007ffff2810975 in cairo_destroy () from
+    /usr/lib/x86_64-linux-gnu/libcairo.so.2
+    #4  0x00007ffff79cdae9 in GR_UnixCairoGraphics::_endPaint (this=0xcafe00) at
+    gr_UnixCairoGraphics.cpp:532
+    #5  0x00007ffff79d7461 in GR_Painter::~GR_Painter (this=0xf10bf0,
+    __in_chrg=<optimized out>) at gr_Painter.cpp:45
+    #6  0x00007ffff77e23a6 in FV_ViewDoubleBuffering::endDoubleBuffering
+    (this=0x7fffffffcfa0) at fv_ViewDoubleBuffering.cpp:96
+    #7  0x00007ffff77b1532 in FV_View::cmdPaste (this=0xe7cff0,
+    bHonorFormatting=false) at fv_View_cmd.cpp:4761
+    #8  0x00007ffff78bc837 in pasteSpecial (pAV_View=0xe7cff0) at
+    ap_EditMethods.cpp:7412
+    #9  ap_EditMethods::pasteSpecial (pAV_View=0xe7cff0) at ap_EditMethods.cpp:7407
+    #10 0x00007ffff7a03926 in EV_Menu::invokeMenuMethod (this=<optimized out>,
+    pView=0xe7cff0, pEM=0x7ffff7dd7fb0, stScriptName=...) at ev_Menu.cpp:188
+    #11 0x00007ffff79fa66a in EV_UnixMenu::menuEvent (this=0x110b8c0, id=<optimized
+    out>) at ev_UnixMenu.cpp:337
+    #12 0x00007ffff2e02724 in g_closure_invoke () from
+    /usr/lib/x86_64-linux-gnu/libgobject-2.0.so.0
+    #13 0x00007ffff2e137b0 in ?? () from
+    /usr/lib/x86_64-linux-gnu/libgobject-2.0.so.0
+    #14 0x00007ffff2e1b72c in g_signal_emit_valist () from
+    /usr/lib/x86_64-linux-gnu/libgobject-2.0.so.0
+    #15 0x00007ffff2e1b8c2 in g_signal_emit () from
+    /usr/lib/x86_64-linux-gnu/libgobject-2.0.so.0
+    #16 0x00007ffff459780c in gtk_widget_activate () from
+    /usr/lib/x86_64-linux-gnu/libgtk-3.so.0
+    #17 0x00007ffff448b05e in gtk_menu_shell_activate_item () from
+    /usr/lib/x86_64-linux-gnu/libgtk-3.so.0
+    #18 0x00007ffff448b3fb in ?? () from /usr/lib/x86_64-linux-gnu/libgtk-3.so.0
+    #19 0x00007ffff447038f in ?? () from /usr/lib/x86_64-linux-gnu/libgtk-3.so.0
+    #20 0x00007ffff2e02a03 in ?? () from
+    /usr/lib/x86_64-linux-gnu/libgobject-2.0.so.0
+    #21 0x00007ffff2e1b076 in g_signal_emit_valist () from
+    /usr/lib/x86_64-linux-gnu/libgobject-2.0.so.0
+    #22 0x00007ffff2e1b8c2 in g_signal_emit () from
+    /usr/lib/x86_64-linux-gnu/libgobject-2.0.so.0
+    #23 0x00007ffff459840e in ?? () from /usr/lib/x86_64-linux-gnu/libgtk-3.so.0
+    #24 0x00007ffff446e2f5 in ?? () from /usr/lib/x86_64-linux-gnu/libgtk-3.so.0
+    #25 0x00007ffff446ff63 in gtk_main_do_event () from
+    /usr/lib/x86_64-linux-gnu/libgtk-3.so.0
+    #26 0x00007ffff40b9002 in ?? () from /usr/lib/x86_64-linux-gnu/libgdk-3.so.0
+    #27 0x00007ffff2b44205 in g_main_context_dispatch () from
+    /lib/x86_64-linux-gnu/libglib-2.0.so.0
+    #28 0x00007ffff2b44538 in ?? () from /lib/x86_64-linux-gnu/libglib-2.0.so.0
+    #29 0x00007ffff2b44932 in g_main_loop_run () from
+    /lib/x86_64-linux-gnu/libglib-2.0.so.0
+    #30 0x00007ffff446f2c5 in gtk_main () from
+    /usr/lib/x86_64-linux-gnu/libgtk-3.so.0
+    #31 0x00007ffff79a1cbd in XAP_UnixFrameImpl::_runModalContextMenu
+    (this=0x795420, szMenuName=<optimized out>) at xap_UnixFrameImpl.cpp:2101
+    #32 0x00007ffff78c4b21 in contextText (pCallData=0x7fffffffdcd0,
+    pAV_View=0xe7cff0) at ap_EditMethods.cpp:4840
+    #33 ap_EditMethods::contextText (pAV_View=0xe7cff0, pCallData=0x7fffffffdcd0)
+    at ap_EditMethods.cpp:4825
+    #34 0x00007ffff7a04c10 in EV_Mouse::invokeMouseMethod (this=<optimized out>,
+    pView=0xe7cff0, pEM=0x7ffff7dd5580, xPos=4110, yPos=1918) at ev_Mouse.cpp:83
+    #35 0x00007ffff79fcd2b in EV_UnixMouse::mouseClick (this=0x74d7b0,
+    pView=0xe7cff0, e=0xea83c0) at ev_UnixMouse.cpp:161
+    #36 0x00007ffff79a432b in XAP_UnixFrameImpl::_fe::button_press_event
+    (w=0xa54b40, e=0xea83c0) at xap_UnixFrameImpl.cpp:813
+    #37 0x00007ffff447038f in ?? () from /usr/lib/x86_64-linux-gnu/libgtk-3.so.0
+    #38 0x00007ffff2e02a03 in ?? () from
+    /usr/lib/x86_64-linux-gnu/libgobject-2.0.so.0
+    #39 0x00007ffff2e1b076 in g_signal_emit_valist () from
+    /usr/lib/x86_64-linux-gnu/libgobject-2.0.so.0
+    #40 0x00007ffff2e1b8c2 in g_signal_emit () from
+    /usr/lib/x86_64-linux-gnu/libgobject-2.0.so.0
+    #41 0x00007ffff459840e in ?? () from /usr/lib/x86_64-linux-gnu/libgtk-3.so.0
+    #42 0x00007ffff446e2f5 in ?? () from /usr/lib/x86_64-linux-gnu/libgtk-3.so.0
+    #43 0x00007ffff446ff63 in gtk_main_do_event () from
+    /usr/lib/x86_64-linux-gnu/libgtk-3.so.0
+    #44 0x00007ffff40b9002 in ?? () from /usr/lib/x86_64-linux-gnu/libgdk-3.so.0
+    #45 0x00007ffff2b44205 in g_main_context_dispatch () from
+    /lib/x86_64-linux-gnu/libglib-2.0.so.0
+    #46 0x00007ffff2b44538 in ?? () from /lib/x86_64-linux-gnu/libglib-2.0.so.0
+    #47 0x00007ffff2b44932 in g_main_loop_run () from
+    /lib/x86_64-linux-gnu/libglib-2.0.so.0
+    #48 0x00007ffff446f2c5 in gtk_main () from
+    /usr/lib/x86_64-linux-gnu/libgtk-3.so.0
+    #49 0x00007ffff771cfdb in AP_UnixApp::main (szAppName=<optimized out>, argc=1,
+    argv=0x7fffffffe5c8) at ap_UnixApp.cpp:1384
+    #50 0x00007ffff6e85ead in __libc_start_main (main=<optimized out>,
+    argc=<optimized out>, ubp_av=<optimized out>, init=<optimized out>,
+    fini=<optimized out>, rtld_fini=<optimized out>, stack_end=0x7fffffffe5b8) at
+    libc-start.c:228
+    #51 0x0000000000400619 in _start ()
+
+--- a/src/text/fmt/xp/fv_ViewDoubleBuffering.cpp
++++ b/src/text/fmt/xp/fv_ViewDoubleBuffering.cpp
+@@ -27,7 +27,7 @@
+ #include "ut_misc.h"
+ #include "ut_debugmsg.h"
+ 
+-//#define DEACTIVATE_FV_VIEW_DOUBLE_BUFFERING
++#define DEACTIVATE_FV_VIEW_DOUBLE_BUFFERING
+ 
+ FV_ViewDoubleBuffering::FV_ViewDoubleBuffering(FV_View *pView, bool suspendDirectDrawing, bool callDrawOnlyAtTheEnd)
+ 	: m_pView(pView),

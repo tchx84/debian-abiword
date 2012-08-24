@@ -1,8 +1,9 @@
-Last-Update: 2012-08-17
+Last-Update: 2012-08-24
 Author: Dmitry Smirnov <onlyjob@member.fsf.org>
 From: Jean Brefort <jean.brefort@normalesup.org>
 Forwarded: non-needed
-Description: backported fix (r31752) to avoid drawing in the draw event handler
+Description: backported fix (r31752)
+ avoid drawing in the draw event handler
  when we are already painting from elsewhere. Seems to fix the unformated paste
  issue in 13280 (crash on 'Paste Unformatted'), and might fix 13355 as well.
 

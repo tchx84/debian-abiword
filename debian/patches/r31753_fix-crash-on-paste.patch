@@ -1,9 +1,12 @@
 Last-Update: 2012-08-16
 From: Ingo Brückl <ib@wupperonline.de>
 Forwarded: non-needed
+Applied-Upstream: r31753
 Bug-Debian: http://bugs.debian.org/681060
 Bug-Abiword: http://bugzilla.abisource.com/show_bug.cgi?id=13280
 Description: backported fix for "crash on unicode character(s) paste".
+ Don't paste from buffer if character conversion has failed.
+ Otherwise a segmentation fault will occur.
 
 --- a/src/wp/ap/gtk/ap_UnixApp.cpp
 +++ b/src/wp/ap/gtk/ap_UnixApp.cpp

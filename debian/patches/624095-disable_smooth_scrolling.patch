@@ -11,8 +11,7 @@ Description: Disable smooth scrolling
 
 --- a/src/text/fmt/xp/fv_View.cpp
 +++ b/src/text/fmt/xp/fv_View.cpp
-@@ -13998,16 +13998,19 @@
- 	if(static_cast<UT_sint32>(m_iNumHorizPages) > m_pLayout->countPages())
+@@ -14387,6 +14387,8 @@
  	{
  		m_iNumHorizPages = m_pLayout->countPages();
  	}
@@ -21,8 +20,7 @@ Description: Disable smooth scrolling
  	if (m_iNumHorizPages > 1)
  	{
  		XAP_App::getApp()->setEnableSmoothScrolling(false);
- 	}
- 	else
+@@ -14395,6 +14397,7 @@
  	{
  		XAP_App::getApp()->setEnableSmoothScrolling(true);
  	}
@@ -30,4 +28,3 @@ Description: Disable smooth scrolling
  	if(iOldNo != static_cast<UT_sint32>(m_iNumHorizPages))
  	{
  		UT_uint32 iPrevYOffset = m_yScrollOffset;
- 		XAP_Frame * pFrame = static_cast<XAP_Frame*>(getParentData());

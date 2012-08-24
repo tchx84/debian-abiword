@@ -1,0 +1,21 @@
+Last-Update: 2012-08-24
+Author: Dmitry Smirnov <onlyjob@member.fsf.org>
+Forwarded: not-needed
+Description: backported patch (r31843)
+ Make sure m_pAlignment is not NULL (prevent crash)
+
+--- a/src/text/fmt/xp/fl_BlockLayout.cpp
++++ b/src/text/fmt/xp/fl_BlockLayout.cpp
+@@ -876,7 +876,11 @@
+ 		}
+ 		else
+ 		{
+-			UT_ASSERT(UT_SHOULD_NOT_HAPPEN);
++			UT_ASSERT_HARMLESS(UT_SHOULD_NOT_HAPPEN);
++			if (!m_pAlignment)
++			{
++				m_pAlignment = new fb_Alignment_left;
++			}
+ 		}
+ 	}
+ 

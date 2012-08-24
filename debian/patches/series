@@ -7,6 +7,17 @@ mime-types-desktop.diff -p1
 mime-types.diff -p1
 624095-disable_smooth_scrolling.patch
 format-hardening.patch
-fix-wheel-scrolling.patch
-fix-paste.patch
-fix-dbl-buff.patch
+r31355_fix-wheel-scrolling.patch
+r31490_fix-crash-if-inserting-a-footnote.patch
+r31566_rearrange-date-and-time-formats.patch
+r31576_remove-separator-from-insert-dialogs.patch
+r31748_fix-crash-with-copy-paste.patch
+r31749_fix-bug-with-copy-paste.patch
+r31752_fix-dbl-buff-crash.patch
+r31753_fix-crash-on-paste.patch
+r31755_fix-crash-with-create-and-modify-styles-dialog.patch
+r31767_fix-possible-crash.patch
+r31768_correct-horizontal-scroll-limit.patch
+r31842_fix-crash-13401.patch
+r31843_prevent-crash.patch
+r31847_fix-program-hanging-during-paste-unformatted.patch

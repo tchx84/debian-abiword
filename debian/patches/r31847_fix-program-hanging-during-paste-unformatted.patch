@@ -1,0 +1,107 @@
+Last-Update: 2012-08-24
+Author: Dmitry Smirnov <onlyjob@member.fsf.org>
+Forwarded: not-needed
+Description: backported patch
+ Bug 13401: fix program hanging during paste unformatted
+
+git-svn-id: http://svn.abisource.com/abiword/trunk@31847 bcba8976-2d24-0410-9c9c-aab3bd5fdfd6
+---
+ src/text/ptbl/xp/pd_Document.cpp |   17 +++++++++++++----
+ src/text/ptbl/xp/pd_Document.h   |    3 ++-
+ src/wp/impexp/xp/ie_imp.cpp      |    5 +++--
+ 3 files changed, 18 insertions(+), 7 deletions(-)
+
+--- a/src/text/ptbl/xp/pd_Document.cpp
++++ b/src/text/ptbl/xp/pd_Document.cpp
+@@ -1327,10 +1327,9 @@
+  * If pAttrProp is set to NULL, the text will be set to exactly
+  * the properties of the style of the current paragraph.
+  */
+-bool PD_Document::insertSpan(PT_DocPosition dpos,
+-							 const UT_UCSChar * pbuf,
+-							 UT_uint32 length,
+-							 PP_AttrProp *p_AttrProp)
++bool PD_Document::insertSpan(PT_DocPosition dpos, const UT_UCSChar * pbuf,
++							 UT_uint32 length, PP_AttrProp *p_AttrProp,
++							 UT_uint32 *insertedSpanLength)
+ {
+ 	if(isDoingTheDo())
+ 	{
+@@ -1366,6 +1365,7 @@
+ 	
+ 	bool result = true;
+ 	const UT_UCS4Char * pStart = pbuf;
++	UT_sint32 newLength = length;
+ 
+ 	for(const UT_UCS4Char * p = pbuf; p < pbuf + length; p++)
+ 	{
+@@ -1382,6 +1382,7 @@
+ 				result &= m_pPieceTable->insertFmtMark(PTC_AddFmt, cur_pos, &AP);
+ 				pStart = p + 1;
+ 				m_iLastDirMarker = *p;
++				newLength--;
+ 				break;
+ 				
+ 			case UCS_RLO:
+@@ -1395,6 +1396,7 @@
+ 				result &= m_pPieceTable->insertFmtMark(PTC_AddFmt, cur_pos, &AP);
+ 				pStart = p + 1;
+ 				m_iLastDirMarker = *p;
++				newLength--;
+ 				break;
+ 				
+ 			case UCS_PDF:
+@@ -1412,6 +1414,7 @@
+ 
+ 				pStart = p + 1;
+ 				m_iLastDirMarker = *p;
++				newLength--;
+ 				break;
+ 				
+ 			case UCS_LRE:
+@@ -1424,6 +1427,7 @@
+ 				
+ 				pStart = p + 1;
+ 				m_iLastDirMarker = *p;
++				newLength--;
+ 				break;
+ 		}
+ 	}
+@@ -1432,6 +1436,11 @@
+ 	// in the above switch comprises the entire span.
+ 	if((length - (pStart - pbuf)) > 0)
+ 		result &= m_pPieceTable->insertSpan(cur_pos, pStart, length - (pStart - pbuf));
++
++	if (insertedSpanLength)
++	{
++		*insertedSpanLength = (newLength >= 0) ? newLength:0;
++	}
+ 	return result;
+ }
+ 
+--- a/src/text/ptbl/xp/pd_Document.h
++++ b/src/text/ptbl/xp/pd_Document.h
+@@ -319,7 +319,8 @@
+ 	bool					insertSpan(PT_DocPosition dpos,
+ 									   const UT_UCSChar * p,
+ 									   UT_uint32 length,
+-									   PP_AttrProp *p_AttrProp = NULL);
++									   PP_AttrProp *p_AttrProp = NULL,
++									   UT_uint32 * insertedSpanLength = NULL);
+ 	bool					insertSpan(PT_DocPosition dpos,
+ 									   const std::string& s,
+ 									   PP_AttrProp *p_AttrProp = NULL);
+--- a/src/wp/impexp/xp/ie_imp.cpp
++++ b/src/wp/impexp/xp/ie_imp.cpp
+@@ -140,8 +140,9 @@
+ 		return m_pDocument->appendSpan(p, length);
+ 	else
+ 		{
+-			bool bRes = m_pDocument->insertSpan (m_dpos, p, length);
+-			m_dpos += length;
++			UT_uint32 fragLength = 0;
++			bool bRes = m_pDocument->insertSpan (m_dpos, p, length, NULL, &fragLength);
++			m_dpos += fragLength;
+ 			return bRes;
+ 		}
+ }

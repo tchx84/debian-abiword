@@ -1,0 +1,51 @@
+Last-Update: 2012-08-24
+Author: Dmitry Smirnov <onlyjob@member.fsf.org>
+Forwarded: not-needed
+Description: backported patch (r31755)
+ Fix crash with Create and Modify Styles dialog.
+ Don't use a pointer to store an iter value, copy the structs by value.
+ Convert the child iter to the sort iter before selecting.
+ This closes bugzilla bug 13393.
+ Additionally, scroll to newly selected entry in tree view to improve
+ usability.
+
+--- a/src/wp/ap/gtk/ap_UnixDialog_Styles.cpp
++++ b/src/wp/ap/gtk/ap_UnixDialog_Styles.cpp
+@@ -626,8 +626,8 @@
+ 		gtk_tree_view_append_column(GTK_TREE_VIEW(m_tvStyles), column);
+ 	}
+ 
+-	GtkTreeIter iter;
+-	GtkTreeIter *pHighlightIter = NULL;
++	GtkTreeIter iter, pHighlightIter;
++	bool highlight = false;
+ 	UT_GenericVector<PD_Style*> *pStyles = NULL;
+ 	getDoc()->enumStyles(pStyles);
+ 	for (UT_uint32 i = 0; i < nStyles; i++)
+@@ -649,17 +649,22 @@
+ 			gtk_list_store_set(m_listStyles, &iter, 0, name, -1);
+ 			
+ 			if (!strcmp(m_sNewStyleName.utf8_str(), name)) {
+-				pHighlightIter = gtk_tree_iter_copy(&iter);
++				pHighlightIter = iter;
++				highlight = true;
+ 			}
+ 		}
+ 	}
+ 	DELETEP(pStyles);
+ 
+ 	GtkTreeSelection *selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(m_tvStyles));
+-	if (pHighlightIter) {
++	if (highlight) {
+ 		// select new/modified
+-		gtk_tree_selection_select_iter(selection, pHighlightIter);
+-		gtk_tree_iter_free(pHighlightIter);
++		GtkTreeModel *sort = gtk_tree_view_get_model(GTK_TREE_VIEW(m_tvStyles));
++		gtk_tree_model_sort_convert_child_iter_to_iter(GTK_TREE_MODEL_SORT(sort), &iter, &pHighlightIter);
++		gtk_tree_selection_select_iter(selection, &iter);
++		GtkTreePath *path = gtk_tree_model_get_path(sort, &iter); 
++		gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(m_tvStyles), path, NULL, FALSE, 0, 0);
++		gtk_tree_path_free(path);
+ 	}
+ 	else {
+ 		// select first

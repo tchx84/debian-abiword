@@ -1,0 +1,64 @@
+Last-Update: 2012-08-24
+Author: Dmitry Smirnov <onlyjob@member.fsf.org>
+Forwarded: not-needed
+Description: backported patch (r31767)
+ Prevent crash (bug #13355/comment #17): only recalculate scrollbar
+ widgets when needed
+
+--- a/src/af/xap/xp/xap_Scrollbar_ViewListener.cpp
++++ b/src/af/xap/xp/xap_Scrollbar_ViewListener.cpp
+@@ -42,9 +42,12 @@
+ 	
+ 	if (mask & (AV_CHG_PAGECOUNT | AV_CHG_WINDOWSIZE))
+ 	{
+-		m_pFrame->setXScrollRange();
+ 		m_pFrame->setYScrollRange();
+ 	}
++	if (mask & AV_CHG_WINDOWSIZE)
++	{
++		m_pFrame->setXScrollRange();
++	}
+ 
+ 	return true;
+ }
+--- a/src/text/fmt/xp/fv_View.cpp
++++ b/src/text/fmt/xp/fv_View.cpp
+@@ -299,6 +299,7 @@
+ 		m_bAnnotationPreviewActive(false),
+ 		m_bAllowSmartQuoteReplacement(true),
+ 		m_bubbleBlockerCount(0),
++		m_iOldPageCount(-1),
+ 		m_pViewDoubleBufferingObject(NULL)
+ {
+ 	if(m_pDoc)
+@@ -2732,7 +2733,19 @@
+ 
+ 	if (mask & AV_CHG_PAGECOUNT)
+ 	{
+-		// NOTE: we don't attempt to filter this
++		// We keep track of the number of page in the document in order
++		// to recalculate the vertical scrollbar only when needed
++		// (this prevents bug #13355 (comment #17))
++
++		UT_sint32 iNbPages = getLayout()->countPages();
++		if (m_iOldPageCount == iNbPages)
++		{
++			mask ^= AV_CHG_PAGECOUNT;
++		}
++		else
++		{
++			m_iOldPageCount = iNbPages;
++		}
+ 	}
+ 
+ 	if (mask & AV_CHG_COLUMN)
+--- a/src/text/fmt/xp/fv_View.h
++++ b/src/text/fmt/xp/fv_View.h
+@@ -1159,6 +1159,7 @@
+ 	bool                m_bAllowSmartQuoteReplacement;  // Enable/disable replacing of quote with smart quote
+ 														// This allows temporarily disabling smart quotes to allow inserting ANSI quote.
+     int                 m_bubbleBlockerCount;
++	UT_sint32           m_iOldPageCount;
+ 
+ public:
+ 	bool registerDoubleBufferingObject(FV_ViewDoubleBuffering *obj);

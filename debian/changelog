@@ -1,8 +1,9 @@
-abiword (2.9.2+svn20120603-5) UNRELEASED; urgency=low
+abiword (2.9.2+svn20120603-5) unstable; urgency=low
 
   * xz compression for binary packages.
+  * new backported patch to fix gtk3 presentation (Closes: #682613).
 
- -- Dmitry Smirnov <onlyjob@member.fsf.org>  Fri, 24 Aug 2012 15:33:28 +1000
+ -- Dmitry Smirnov <onlyjob@member.fsf.org>  Thu, 30 Aug 2012 13:24:15 +1000
 
 abiword (2.9.2+svn20120603-4) unstable; urgency=low
 

@@ -1,3 +1,9 @@
+abiword (2.9.2+svn20120603-5) UNRELEASED; urgency=low
+
+  * xz compression for binary packages.
+
+ -- Dmitry Smirnov <onlyjob@member.fsf.org>  Fri, 24 Aug 2012 15:33:28 +1000
+
 abiword (2.9.2+svn20120603-4) unstable; urgency=low
 
   * new backported patches:

@@ -82,6 +82,9 @@ override_dh_makeshlibs:
 override_dh_strip:
 	dh_strip --dbg-package=abiword-dbg
 
+override_dh_builddeb:
+	dh_builddeb -- -Zxz
+
 ## get-orig-source
 VER = $(shell dpkg-parsechangelog | perl -ne 'print $$1 if m/Version:\s*([\d\.+svn]+)/')
 get-orig-source: $(PACKAGE)-$(VER)/ChangeLog

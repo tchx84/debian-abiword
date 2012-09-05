@@ -1,12 +1,11 @@
 Author: Dmitry Smirnov <onlyjob@member.fsf.org>
-Last-Update: 2012-02-06
+Last-Update: 2012-08-31
 Forwarded: no
 Description: correct libgoffice-0.10 version requirements
 
-
 --- a/configure.in
 +++ b/configure.in
-@@ -95,7 +95,7 @@
+@@ -93,7 +93,7 @@
  # optional deps
  enchant_req='enchant >= 1.2.0'
  gio_req='gio-2.0'

@@ -1,18 +1,15 @@
-# Run the "uscan" command
-# to check for upstream updates and more.
-# See uscan(1) for format
+# uscan(1) configuration file.
+# Use 'debian/rules get-orig-source' command to generate orig archive.
 
-# Compulsory line, this is a version 3 file
 version=3
 
-# this suppose to catch all versions, but it doesn't :(
-opts=dversionmangle=s/\+svn\d+// \
-http://www.abisource.com/downloads/abiword/([\d\.]+)/source/abiword-([\d\.]+)\.tar\.gz
+## all versions
+opts=\
+dversionmangle=s/\+svn\d+//,\
+downloadurlmangle=s/([0-9.]+)\//$1\/source\/abiword-$1\.tar\.gz/,\
+filenamemangle=s/.*/orig.tar.gz/,\
+ http://www.abisource.com/downloads/abiword/ ([0-9.]+)\/
 
-# current version
-opts=dversionmangle=s/\+svn\d+// \
-http://www.abisource.com/downloads/abiword/2.9.2/source/abiword-([\d\.]+)\.tar\.gz
-
-# latest version
+## latest-dev version
 opts=dversionmangle=s/\+svn\d+// \
 http://www.abisource.com/downloads/abiword/latest-dev/source/abiword-([\d\.]+)\.tar\.gz

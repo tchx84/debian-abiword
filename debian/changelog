@@ -1,3 +1,16 @@
+abiword (2.9.2+svn20120603-6) UNRELEASED; urgency=low
+
+  * debian/watch to find all available versions with fallback to latest-dev.
+  * new patches:
+    + to fix collab backend if built --with-gtk2 and fix FTBFS
+      without libgtk-3-dev.
+    + backported patch to fix FTBFS with --enable-collab-backend-fake.
+  * beautify list of Build-Depends.
+  * libchamplain-gtk-0.12-dev (optional build-dependency) is added to
+    Build-Depends.
+
+ -- Dmitry Smirnov <onlyjob@member.fsf.org>  Sat, 08 Sep 2012 13:46:14 +1000
+
 abiword (2.9.2+svn20120603-5) unstable; urgency=low
 
   * xz compression for binary packages.

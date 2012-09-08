@@ -7,6 +7,7 @@ mime-types-desktop.diff -p1
 mime-types.diff -p1
 624095-disable_smooth_scrolling.patch
 format-hardening.patch
+fix_gtk2-in-presence-of-gtk3.patch
 r31355_fix-wheel-scrolling.patch
 r31490_fix-crash-if-inserting-a-footnote.patch
 r31566_rearrange-date-and-time-formats.patch

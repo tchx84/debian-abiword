@@ -7,7 +7,7 @@ abiword (2.9.2+svn20120603-6) UNRELEASED; urgency=low
     + backported patch to fix FTBFS with --enable-collab-backend-fake.
   * beautify list of Build-Depends.
   * libchamplain-gtk-0.12-dev (optional build-dependency) is added to
-    Build-Depends.
+    Build-Depends (commented, to conform with freeze policy).
 
  -- Dmitry Smirnov <onlyjob@member.fsf.org>  Sat, 08 Sep 2012 13:46:14 +1000
 

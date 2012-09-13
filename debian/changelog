@@ -1,15 +1,19 @@
-abiword (2.9.2+svn20120603-6) UNRELEASED; urgency=low
+abiword (2.9.2+svn20120603-6) unstable; urgency=low
 
   * debian/watch to find all available versions with fallback to latest-dev.
-  * new patches:
-    + to fix collab backend if built --with-gtk2 and fix FTBFS
-      without libgtk-3-dev.
-    + backported patch to fix FTBFS with --enable-collab-backend-fake.
-  * beautify list of Build-Depends.
+  * new patch to fix collab backend if built --with-gtk2 and to fix FTBFS
+    without libgtk-3-dev (finally abiword can be built for GTK2).
+  * new backported patches:
+    + r31861_fix-FTBFS-with-fake-collab-backend.patch
+    + r31901_fix-crash-on-open-doc-with-table-in-header.patch
+    + r31909_fix-doc-corruption.patch
+    + r31910_fix-memory-leak-in-ABW-exporter.patch
+    + r31914_fix-clip-art-window.patch (Closes: #672150)
+  * beautified list of Build-Depends.
   * libchamplain-gtk-0.12-dev (optional build-dependency) is added to
     Build-Depends (commented, to conform with freeze policy).
 
- -- Dmitry Smirnov <onlyjob@member.fsf.org>  Sat, 08 Sep 2012 13:46:14 +1000
+ -- Dmitry Smirnov <onlyjob@member.fsf.org>  Thu, 13 Sep 2012 13:08:48 +1000
 
 abiword (2.9.2+svn20120603-5) unstable; urgency=low
 

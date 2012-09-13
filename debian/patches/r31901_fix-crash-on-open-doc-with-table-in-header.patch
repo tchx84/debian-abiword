@@ -1,0 +1,25 @@
+Author: Dmitry Smirnov <onlyjob@member.fsf.org>
+Last-Update: 2012-09-13
+Forwarded: not-needed
+Bug-Abiword: http://bugzilla.abisource.com/show_bug.cgi?id=12757
+Description: backported patch (r31901) to fix crash on
+ opening a document with a header containing a table
+
+
+--- a/src/text/fmt/xp/fl_TableLayout.cpp
++++ b/src/text/fmt/xp/fl_TableLayout.cpp
+@@ -2292,7 +2292,13 @@
+ 	
+ 	UT_sint32 iNewHeight = getFirstContainer()->getHeight();
+ 	fl_ContainerLayout * myL = myContainingLayout();
+-	if((myL->getContainerType() != FL_CONTAINER_SHADOW) &&
++	while (myL && (myL->getContainerType() != FL_CONTAINER_SHADOW &&
++				   myL->getContainerType() != FL_CONTAINER_HDRFTR &&
++				   myL->getContainerType() != FL_CONTAINER_DOCSECTION))
++	{
++		myL = myL->myContainingLayout();
++	}
++	if(myL && (myL->getContainerType() != FL_CONTAINER_SHADOW) &&
+ 	   (myL->getContainerType() != FL_CONTAINER_HDRFTR))
+ 	{
+ 		if(iNewHeight != iOldHeight)

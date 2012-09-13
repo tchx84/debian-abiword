@@ -1,0 +1,64 @@
+Author: Dmitry Smirnov <onlyjob@member.fsf.org>
+Last-Update: 2012-09-13
+Forwarded: not-needed
+Bug-Abiword: http://bugzilla.abisource.com/show_bug.cgi?id=13225
+Description: backported patch (r31909) to fix document corruption
+ Fix bug 13225 -- save file with a hyperlink directly following another one
+
+
+--- a/src/wp/impexp/xp/ie_exp_AbiWord_1.cpp
++++ b/src/wp/impexp/xp/ie_exp_AbiWord_1.cpp
+@@ -995,6 +995,7 @@
+    				{
+    					_closeSpan();
+    					_closeField();
++					_closeHyperlink();
+ 					const PP_AttrProp * pAP = NULL;
+ 					m_pDocument->getAttrProp(api,&pAP);
+ 					const gchar * pName;
+@@ -1008,27 +1009,22 @@
+ 						if(bFound)
+ 							break;
+ 					}
+-
++					
+ 					if(bFound)
+ 					{
+ 						//this is the start of the hyperlink
+    						_openTag("a", "",false, api,pcr->getXID(),true);
+    						m_bInHyperlink = true;
+    					}
+-   					else
+-   					{
+-   						_closeHyperlink();
+-   					}
+-
+ 
+    					return true;
+-
+    				}
+ 
+    			case PTO_Annotation:
+    				{
+    					_closeSpan();
+    					_closeField();
++					_closeAnnotation();
+ 					const PP_AttrProp * pAP = NULL;
+ 					m_pDocument->getAttrProp(api,&pAP);
+ 					const gchar * pName;
+@@ -1048,15 +1044,8 @@
+ 						UT_DEBUGMSG(("Doing open annotation object \n"));
+    						m_bInAnnotation = true;
+    					}
+-   					else
+-   					{
+-						UT_DEBUGMSG(("Doing close annotation object \n"));
+-   						_closeAnnotation();
+-   					}
+-
+ 					
+    					return true;
+-
+    				}
+ 
+    			case PTO_RDFAnchor:

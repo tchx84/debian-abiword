@@ -1,3 +1,15 @@
+abiword (2.9.2+svn20120603-7) unstable; urgency=low
+
+  * new backported patches:
+    + r31854_bug-13397-RTF-import-fix-missing-text.patch
+      to fix missing numbers in beginning of lines on RTF/DOC import
+      (Closes: #688552).
+    + r31855_gtk3-bug-13405.patch
+    + r31877_start-layout-only-after-document-is-fully-loaded.patch
+    - removed unused (duplicate) patch file.
+
+ -- Dmitry Smirnov <onlyjob@member.fsf.org>  Mon, 24 Sep 2012 11:10:44 +1000
+
 abiword (2.9.2+svn20120603-6) unstable; urgency=low
 
   * debian/watch to find all available versions with fallback to latest-dev.

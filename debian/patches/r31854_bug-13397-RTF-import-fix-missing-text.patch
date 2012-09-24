@@ -1,0 +1,43 @@
+Last-Update: 2012-09-24
+Author: Dmitry Smirnov <onlyjob@member.fsf.org>
+Forwarded: not-needed
+Origin: r31854
+Bug-Debian: http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=688552
+Bug-Abiword: http://bugzilla.abisource.com/show_bug.cgi?id=13397
+Description: backported patch to fix missing text on RTF/DOC import
+ fixes RTF importer: Use PopRTFState on a closing
+ backet if PushRTFState was called on the corresponding
+ opening bracket.
+
+--- a/src/wp/impexp/xp/ie_imp_RTF.cpp
++++ b/src/wp/impexp/xp/ie_imp_RTF.cpp
+@@ -2638,6 +2638,13 @@
+ 			UT_DEBUGMSG(("FlushStoredChars()\n"));
+ 		}
+ 	}
++
++	/* m_stateStack.getDepth() == 0 if the functions PushRTFState and PopRTFState
++	   have been called the same number of times. Each call to PushRTFState on an
++	   opening bracket ("{") should be followed by a call to PopRTFState on the
++	   corresponding closing bracket ("}").*/
++	UT_ASSERT(m_stateStack.getDepth() == 0);
++
+ //	UT_DEBUGMSG(("dumping document\n"));
+ //	getDoc()->__dump(stderr);
+ 	return ok ? UT_OK : UT_ERROR;
+@@ -8905,6 +8912,7 @@
+ 	PD_DocumentRDFMutationHandle m = rdf->createMutation();
+ 	/*UT_Error e = */loadRDFXML( m, rdfxml );
+ 	m->commit();
++	PopRTFState();
+ 	UT_DEBUGMSG(("rdf triples after read of rdf tag size:%ld\n", (long)rdf->size() ));
+ 	return true;
+ }
+@@ -12525,6 +12533,7 @@
+ 			break;
+ 		}
+ 	} while ((tokenType != RTF_TOKEN_CLOSE_BRACE) || (nested >= 0));
++	PopRTFState();
+ 	return true;
+ }
+ 

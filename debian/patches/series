@@ -23,7 +23,10 @@ r31842_fix-crash-13401.patch
 r31843_prevent-crash.patch
 r31844_fix-gtk3-presentation.patch
 r31847_fix-program-hanging-during-paste-unformatted.patch
+r31854_bug-13397-RTF-import-fix-missing-text.patch
+r31855_gtk3-bug-13405.patch
 r31861_fix-FTBFS-with-fake-collab-backend.patch
+r31877_start-layout-only-after-document-is-fully-loaded.patch
 r31901_fix-crash-on-open-doc-with-table-in-header.patch
 r31909_fix-doc-corruption.patch
 r31910_fix-memory-leak-in-ABW-exporter.patch

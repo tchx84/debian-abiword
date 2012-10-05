@@ -1,3 +1,9 @@
+abiword (2.9.2+svn20120603-8) unstable; urgency=medium
+
+  * new backported patch to fix yet another crash on open .DOC files.
+
+ -- Dmitry Smirnov <onlyjob@member.fsf.org>  Fri, 05 Oct 2012 10:54:53 +1000
+
 abiword (2.9.2+svn20120603-7) unstable; urgency=low
 
   * new backported patches:

@@ -31,3 +31,4 @@ r31901_fix-crash-on-open-doc-with-table-in-header.patch
 r31909_fix-doc-corruption.patch
 r31910_fix-memory-leak-in-ABW-exporter.patch
 r31914_fix-clip-art-window.patch
+r32048_fix-crash-bug-13417.patch

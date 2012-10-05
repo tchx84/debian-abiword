@@ -1,0 +1,25 @@
+Last-Update: 2012-10-05
+Forwarded: not-needed
+Author: Dmitry Smirnov <onlyjob@member.fsf.org>
+Origin: http://svn.abisource.com/abiword/trunk@32048
+Bug-Abiword: http://bugzilla.abisource.com/show_bug.cgi?id=13417
+Description: backported patch to fix crash on DOC open.
+
+--- a/src/text/fmt/xp/fl_BlockLayout.cpp
++++ b/src/text/fmt/xp/fl_BlockLayout.cpp
+@@ -2080,13 +2080,13 @@
+ 	{
+ 		fl_DocSectionLayout * pDSL = getDocSectionLayout();
+ 		if(!pDSL->isCollapsing())
+ 		{
+-			_removeLine(pLine,true,true);
++			_removeLine(pLine,true,false);
+ 		}
+ 		else
+ 		{
+-			_removeLine(pLine,false,true);
++			_removeLine(pLine,false,false);
+ 		}
+ 		pLine = static_cast<fp_Line *>(getFirstContainer());
+ 	}
+ 	xxx_UT_DEBUGMSG(("Block collapsed in collapsed %x \n",this));

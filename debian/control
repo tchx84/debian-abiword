@@ -37,8 +37,8 @@ Build-Depends: debhelper (>= 9), dh-autoreconf, quilt, imagemagick
  ,valgrind [amd64 armel armhf i386 powerpc]
 Standards-Version: 3.9.3
 Homepage: http://www.abisource.com/
-VCS-Browser: http://anonscm.debian.org/gitweb/?p=collab-maint/abiword.git
-VCS-Git: git://anonscm.debian.org/collab-maint/abiword.git
+Vcs-Browser: http://anonscm.debian.org/gitweb/?p=collab-maint/abiword.git
+Vcs-Git: git://anonscm.debian.org/collab-maint/abiword.git
 DM-Upload-Allowed: yes
 
 Package: abiword-common

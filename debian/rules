@@ -32,10 +32,23 @@ plugins := aiksaurus applix babelfish bmp clarisworks collab command docbook \
 # goffice
 # plugin 'rsvg' deliberately not used due to build problems. Is it deprecated?
 
+ifneq (,$(wildcard configure.*))
+    # API version
+    apiver:=$(shell perl -0ne 'print "$$1.$$2" if m{\[abi_version_major\],\s+\[(\d+)\].*?\[abi_version_minor\],\s+\[(\d+)\]}s' configure.*)
+endif
+# The base library name
+plib=lib$(PKG)-$(apiver)
+pdev=lib$(PKG)-$(apiver)-dev
+
 %:
 	dh $@ --parallel --with autoreconf
 
-override_dh_autoreconf:
+CHK_FILES=debian/$(plib).install debian/$(pdev).install
+$(CHK_FILES):
+	@echo "Error: Packaging files are not set up for base library name. Check if \"$@\" exist."
+	exit 1
+
+override_dh_autoreconf: $(CHK_FILES)
 	# make plugins configuration if building from trunk
 	[ ! -x "./autogen-common.sh" ] || ./autogen-common.sh
 	dh_autoreconf -v --as-needed

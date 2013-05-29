@@ -1,7 +1,7 @@
-usr/share/abiword-2.9/certs
-usr/share/abiword-2.9/clipart
-usr/share/abiword-2.9/strings
-usr/share/abiword-2.9/system.*
-usr/share/abiword-2.9/templates
-usr/share/abiword-2.9/ui
-usr/share/abiword-2.9/xsltml
+usr/share/abiword-*/certs
+usr/share/abiword-*/clipart
+usr/share/abiword-*/strings
+usr/share/abiword-*/system.*
+usr/share/abiword-*/templates
+usr/share/abiword-*/ui
+usr/share/abiword-*/xsltml

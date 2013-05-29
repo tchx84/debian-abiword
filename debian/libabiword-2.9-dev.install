@@ -1,2 +1,2 @@
 usr/include
-usr/lib/*/pkgconfig/abiword-2.9.pc
+usr/lib/*/pkgconfig/abiword-*.pc

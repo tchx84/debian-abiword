@@ -26,7 +26,6 @@ $(info DEB_BUILD_MAINT_OPTIONS:$(origin DEB_BUILD_MAINT_OPTIONS)=$(DEB_BUILD_MAI
 
 LDFLAGS+= -Wl,--as-needed
 
-series := 2.9
 plugins := aiksaurus applix babelfish bmp clarisworks collab command docbook \
 	   eml epub freetranslation garble gdict gimp google grammar hancom \
 	   hrtext iscii kword latex loadbindings mathview mht mif mswrite \
@@ -76,8 +75,8 @@ override_dh_auto_test:
 	-dh_auto_test
 
 override_dh_makeshlibs:
-	$(RM) debian/abiword/usr/lib/$(DEB_HOST_MULTIARCH)/abiword-$(series)/plugins/grammar.*
-	$(RM) debian/abiword/usr/lib/$(DEB_HOST_MULTIARCH)/abiword-$(series)/plugins/mathview.*
+	$(RM) -v debian/abiword/usr/lib/$(DEB_HOST_MULTIARCH)/abiword-*/plugins/grammar.*
+	$(RM) -v debian/abiword/usr/lib/$(DEB_HOST_MULTIARCH)/abiword-*/plugins/mathview.*
 	dh_makeshlibs -V
 
 override_dh_strip:

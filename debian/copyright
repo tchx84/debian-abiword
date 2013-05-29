@@ -5,7 +5,7 @@ Comment: This package was debianized by
  Masayuki Hatta (mhatta) <mhatta@debian.org> on Sun, 22 Mar 2009 18:42:01 +0900
 
 Files: debian/*
-Copyright: 2011-2012  Dmitry Smirnov <onlyjob@member.fsf.org>
+Copyright: 2011-2013  Dmitry Smirnov <onlyjob@debian.org>
            2001       Aaron Lehmann <aaronl@vitelus.com>
            2001       Anthony Fok <foka@debian.org>
            1999-2000  Darren Benham <gecko@debian.org>

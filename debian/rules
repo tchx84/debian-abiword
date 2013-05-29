@@ -3,9 +3,6 @@
 
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
-
-PACKAGE := abiword
-
 # arch-dependent patching
 archpatch=$(wildcard debian/patches/series.$(DEB_HOST_ARCH_OS))
 $(info $(if $(archpatch), $(shell cat $(archpatch) >> debian/patches/series \
@@ -49,7 +46,7 @@ override_dh_auto_configure:
 	# generate icon
 	convert abiword.png -resize 32x32 debian/abiword.xpm
 	# clean file only if possible to regenerate
-	[ ! -x "$(which flex)" ] || $(RM) plugins/mathview/itex2mml/lex.yy.c
+	[ ! -x "$(which flex)" ] || $(RM) -v plugins/mathview/itex2mml/lex.yy.c
 	dh_auto_configure -- \
 		--without-gnomevfs \
 		--with-gio \
@@ -85,21 +82,23 @@ override_dh_strip:
 override_dh_builddeb:
 	dh_builddeb -- -Zxz
 
-## get-orig-source
-VER = $(shell dpkg-parsechangelog | perl -ne 'print $$1 if m/Version:\s*([\d\.+svn]+)/')
-get-orig-source: $(PACKAGE)-$(VER)/ChangeLog
+.PHONY: get-orig-source
+PKD  = $(abspath $(dir $(MAKEFILE_LIST)))
+PKG  = $(word 2,$(shell dpkg-parsechangelog -l$(PKD)/changelog | grep ^Source))
+VER ?= $(shell dpkg-parsechangelog -l$(PKD)/changelog | perl -ne 'print $$1 if m/Version:\s*([\d\.~+svn]+)/')
+get-orig-source: $(PKG)-$(VER)/ChangeLog
 	@echo "Packing..."
-	tar cJf "$(PACKAGE)_$(VER).orig.tar.xz" "$(PACKAGE)-$(VER)" \
-	&& $(RM) -r "$(PACKAGE)-$(VER)"
+	XZ_OPT="-6v" tar -caf "$(PKG)_$(VER).orig.tar.xz" "$(PKG)-$(VER)" \
+        && $(RM) -r "$(PKG)-$(VER)"
 
-$(PACKAGE)-$(VER)/ChangeLog: $(PACKAGE)-$(VER)
+$(PKG)-$(VER)/ChangeLog: $(PKG)-$(VER)
 	@echo "Generating ChangeLog..."
-	cd "$(PACKAGE)-$(VER)" \
-	&& svn2cl --break-before-msg --include-rev \
-	&& perl -0pi -e 's{(\d+\])[^:]+?:\s+}{$$1 }sgm' ChangeLog \
-	&& find . -depth -name ".svn" -exec $(RM) -rf '{}' \;
+	cd "$(PKG)-$(VER)" \
+        && svn2cl --break-before-msg --include-rev \
+        && perl -0pi -e 's{(\d+\])[^:]+?:\s+}{$$1 }sgm' ChangeLog \
+        && find . -depth -name ".svn" -exec $(RM) -rf '{}' \;
 
-$(PACKAGE)-$(VER):
-	svn checkout -r {$$(echo $(VER) | perl -ne 'print $$1 if m/\+svn(\d+)/')} \
-		http://svn.abisource.com/abiword/trunk/ $(PACKAGE)-$(VER) \
-	|| $(RM) -r $(PACKAGE)-$(VER)
+$(PKG)-$(VER):
+	svn checkout -r {$$(echo $(VER) | perl -ne 'print $$1 if m/\Dsvn(\d+)/')} \
+            http://svn.abisource.com/abiword/branches/ABI-3-0-0-STABLE $(PKG)-$(VER) \
+        || $(RM) -r $(PKG)-$(VER)

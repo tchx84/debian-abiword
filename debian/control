@@ -39,7 +39,6 @@ Standards-Version: 3.9.3
 Homepage: http://www.abisource.com/
 Vcs-Browser: http://anonscm.debian.org/gitweb/?p=collab-maint/abiword.git
 Vcs-Git: git://anonscm.debian.org/collab-maint/abiword.git
-DM-Upload-Allowed: yes
 
 Package: abiword-common
 Section: editors

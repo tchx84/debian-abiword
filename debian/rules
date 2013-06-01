@@ -28,10 +28,11 @@ plugins := aiksaurus applix babelfish bmp clarisworks collab command docbook \
 	   hrtext iscii kword latex loadbindings mathview mht mif mswrite \
 	   opendocument openwriter openxml opml ots paint passepartout pdb \
 	   pdf presentation s5 sdw t602 urldict wikipedia wmf wml \
-	   wordperfect wpg xslfo
-# goffice
+	   wordperfect wpg xslfo goffice
 # plugin 'rsvg' deliberately not used due to build problems. Is it deprecated?
 
+PKD  = $(abspath $(dir $(MAKEFILE_LIST)))
+PKG  = $(word 2,$(shell dpkg-parsechangelog -l$(PKD)/changelog | grep ^Source))
 ifneq (,$(wildcard configure.*))
     # API version
     apiver:=$(shell perl -0ne 'print "$$1.$$2" if m{\[abi_version_major\],\s+\[(\d+)\].*?\[abi_version_minor\],\s+\[(\d+)\]}s' configure.*)
@@ -65,6 +66,7 @@ override_dh_auto_configure:
 		--with-gio \
 		--with-redland \
 		--with-libtidy \
+		--with-goffice \
 		--enable-shared \
 		--enable-clipart \
 		--enable-templates \
@@ -76,7 +78,6 @@ override_dh_auto_configure:
 		--disable-silent-rules \
 		--enable-dependency-tracking \
 		--enable-plugins="$(plugins)"
-##		--with-goffice
 #		--with-gtk2 \
 #		--enable-debug \
 
@@ -96,8 +97,6 @@ override_dh_builddeb:
 	dh_builddeb -- -Zxz
 
 .PHONY: get-orig-source
-PKD  = $(abspath $(dir $(MAKEFILE_LIST)))
-PKG  = $(word 2,$(shell dpkg-parsechangelog -l$(PKD)/changelog | grep ^Source))
 VER ?= $(shell dpkg-parsechangelog -l$(PKD)/changelog | perl -ne 'print $$1 if m/Version:\s*([\d\.~+svn]+)/')
 get-orig-source: $(PKG)-$(VER)/ChangeLog
 	@echo "Packing..."

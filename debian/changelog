@@ -1,3 +1,24 @@
+abiword (3.0.0~svn20130523-1) experimental; urgency=low
+
+  * New upstream pre-release [r33076].
+  * Dropped all backported patches.
+  * Dropped unused lintian-overrides.
+  * Removed obsolete "DM-Upload-Allowed" field.
+  * Build-Depends:
+    + libchamplain-gtk-0.12-dev
+    + libebook1.2-dev
+    + libecal1.2-dev
+    + libgoffice-0.10-dev (>= 0.10.2)
+  * Standards to version 3.9.4.
+  * Updated copyright, added translator's copyrights.
+  * Updated and improved rules and get-orig-source
+    + added pre-build check for library version.
+    + build "--with-goffice" and "goffice" plugin.
+  * Replaced "-2.9" with "-*" in install paths.
+  * Updated my email address; bumped copyright years.
+
+ -- Dmitry Smirnov <onlyjob@debian.org>  Sat, 01 Jun 2013 15:04:42 +1000
+
 abiword (2.9.2+svn20120603-8) unstable; urgency=medium
 
   * new backported patch to fix yet another crash on open .DOC files.

@@ -43,6 +43,7 @@ pdev=lib$(PKG)-$(apiver)-dev
 
 %:
 	dh $@ --parallel --with autoreconf
+#	dh $@ --parallel --with autoreconf,gir
 
 CHK_FILES=debian/$(plib).install debian/$(pdev).install
 $(CHK_FILES):
@@ -80,6 +81,7 @@ override_dh_auto_configure:
 		--enable-plugins="$(plugins)"
 #		--with-gtk2 \
 #		--enable-debug \
+#		--enable-introspection \
 
 override_dh_auto_test:
 	# do not stop on failed test(s)

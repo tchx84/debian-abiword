@@ -1,3 +1,15 @@
+abiword (3.0.0~svn20130523-2) experimental; urgency=low
+
+  * Re-build to facilitate "libcogl" transition (Closes: #721196).
+  * libabiword-3.0-dev: added missing Depends (Closes: #711088).
+  * (Build-)Depends:
+    + versioned depends only when required.
+    + sort and update.
+  * Added lintian-override for "library-not-linked-against-libc"
+    in plugins.
+
+ -- Dmitry Smirnov <onlyjob@debian.org>  Sun, 01 Sep 2013 03:55:10 +1000
+
 abiword (3.0.0~svn20130523-1) experimental; urgency=low
 
   * New upstream pre-release [r33076].

@@ -1,3 +1,23 @@
+abiword (3.0.0-1) experimental; urgency=low
+
+  * New upstream stable release [October 2013].
+  * Transition: evolution-data-server (Closes: #722030)
+    + new "evolution-data-server3.8.patch".
+    + versioned Build-Deps:
+      + libebook1.2-dev (>= 3.8.5)
+      + libecal1.2-dev (>= 3.8.5)
+    Thanks, Michael Biebl.
+  * "debian/watch": no longer check development releases.
+  * "debian/rules":
+    + better checking for library name
+    + adaptive dh-clean to facilitate build from source archive and from
+      repository checkout.
+    + export LDFLAGS using DEB_LDFLAGS_MAINT_APPEND.
+  * Removed libgoffice note from README.Debian as abiword is linked with
+    libgoffice again.
+
+ -- Dmitry Smirnov <onlyjob@debian.org>  Tue, 22 Oct 2013 15:38:08 +1100
+
 abiword (3.0.0~svn20130523-2) experimental; urgency=low
 
   * Re-build to facilitate "libcogl" transition (Closes: #721196).

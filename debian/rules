@@ -21,7 +21,8 @@ $(info DEB_BUILD_OPTIONS:$(origin DEB_BUILD_OPTIONS)=$(DEB_BUILD_OPTIONS))
 export DEB_BUILD_MAINT_OPTIONS=hardening=+bindnow
 $(info DEB_BUILD_MAINT_OPTIONS:$(origin DEB_BUILD_MAINT_OPTIONS)=$(DEB_BUILD_MAINT_OPTIONS))
 
-LDFLAGS+= -Wl,--as-needed
+# minimise needless linking
+export DEB_LDFLAGS_MAINT_APPEND= -Wl,--as-needed
 
 plugins := aiksaurus applix babelfish bmp clarisworks collab command docbook \
 	   eml epub freetranslation garble gdict gimp google grammar hancom \

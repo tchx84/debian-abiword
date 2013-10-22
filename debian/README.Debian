@@ -1,17 +1,6 @@
 abiword for Debian
 ------------------
 
-libgoffice dependency
-=====================
-
-In January 2012 in order to package latest abiword 2.9.2
-libgoffice dependency was dropped together with 'goffice' plugin.
-If build --with-goffice, Abiword 2.9.2 depends on unreleased libgoffice-0.10
-
-The implications of building without libgoffice are not clear as the
-package maintainer unable to notice any difference.
-
-
 GNOME dependencies
 ==================
 

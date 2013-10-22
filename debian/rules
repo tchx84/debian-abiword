@@ -45,11 +45,6 @@ pdev=lib$(PKG)-$(apiver)-dev
 	dh $@ --parallel --with autoreconf
 #	dh $@ --parallel --with autoreconf,gir
 
-CHK_FILES=debian/$(plib).install debian/$(pdev).install
-$(CHK_FILES):
-	@echo "Error: Packaging files are not set up for base library name. Check if \"$@\" exist."
-	exit 1
-
 override_dh_clean:
 	## adaptive cleaning meant to work for source archive or repository checkout.
 	## clean files only if possible to regenerate
@@ -58,7 +53,10 @@ override_dh_clean:
 	[ ! -x "./autogen-common.sh" ] || $(RM) -v plugin*.m4 po/*.strings
 	dh_clean
 
-override_dh_autoreconf: $(CHK_FILES)
+override_dh_autoreconf:
+	$(info I: library-name=$(plib))
+	$(if $(wildcard debian/$(plib).install),,$(error invalid package/library name.))
+	$(if $(wildcard debian/$(pdev).install),,$(error invalid dev package/library name.))
 	# make plugins configuration if building from trunk
 	[ ! -x "./autogen-common.sh" ] || ./autogen-common.sh
 	dh_autoreconf -v --as-needed

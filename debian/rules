@@ -50,6 +50,14 @@ $(CHK_FILES):
 	@echo "Error: Packaging files are not set up for base library name. Check if \"$@\" exist."
 	exit 1
 
+override_dh_clean:
+	## adaptive cleaning meant to work for source archive or repository checkout.
+	## clean files only if possible to regenerate
+	[ ! -x "$(which flex)" ] || $(RM) -v plugins/mathview/itex2mml/lex.yy.c
+	[ ! -x "tools/cdump/xp/cdump.pl" ] || $(RM) -v src/wp/ap/xp/ap_wp_sidebar.cpp
+	[ ! -x "./autogen-common.sh" ] || $(RM) -v plugin*.m4 po/*.strings
+	dh_clean
+
 override_dh_autoreconf: $(CHK_FILES)
 	# make plugins configuration if building from trunk
 	[ ! -x "./autogen-common.sh" ] || ./autogen-common.sh
@@ -60,8 +68,6 @@ override_dh_autoreconf: $(CHK_FILES)
 override_dh_auto_configure:
 	# generate icon
 	convert abiword.png -resize 32x32 debian/abiword.xpm
-	# clean file only if possible to regenerate
-	[ ! -x "$(which flex)" ] || $(RM) -v plugins/mathview/itex2mml/lex.yy.c
 	dh_auto_configure -- \
 		--without-gnomevfs \
 		--with-gio \

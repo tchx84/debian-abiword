@@ -39,7 +39,7 @@ Build-Depends: debhelper (>= 9), dh-autoreconf, quilt, imagemagick
 # subversion is used by get-orig-source
  ,subversion, svn2cl | subversion-tools (<< 1.7.5)
 # valgrind is only used in post-build tests, enable on available architectures
- ,valgrind [amd64 armel armhf i386 powerpc]
+ ,valgrind [amd64 armhf i386 powerpc]
 Standards-Version: 3.9.4
 Homepage: http://www.abisource.com/
 Vcs-Browser: http://anonscm.debian.org/gitweb/?p=collab-maint/abiword.git

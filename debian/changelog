@@ -1,3 +1,9 @@
+abiword (3.0.0-2) experimental; urgency=low
+
+  * No longer Build-Depends on "valgrind" on "armel" (Closes: #729137).
+
+ -- Dmitry Smirnov <onlyjob@debian.org>  Mon, 25 Nov 2013 08:11:33 +1100
+
 abiword (3.0.0-1) experimental; urgency=low
 
   * New upstream stable release [October 2013].

@@ -1,3 +1,10 @@
+abiword (3.0.0-3) unstable; urgency=medium
+
+  * Upload to unstable (Closes: #677402, #705145).
+  * New patch to fix FTBFS with bison v3 (Closes: #733391).
+
+ -- Dmitry Smirnov <onlyjob@debian.org>  Sun, 02 Feb 2014 20:49:49 +1100
+
 abiword (3.0.0-2) experimental; urgency=low
 
   * No longer Build-Depends on "valgrind" on "armel" (Closes: #729137).

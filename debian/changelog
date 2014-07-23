@@ -1,3 +1,11 @@
+abiword (3.0.0-5) unstable; urgency=medium
+
+  * Build-Depends: +libgcrypt20-dev.
+  * New patch to fix gnutls-related FTBFS (Closes: #754554);
+    Thanks, Andreas Metzler.
+
+ -- Dmitry Smirnov <onlyjob@debian.org>  Thu, 24 Jul 2014 03:13:18 +1000
+
 abiword (3.0.0-4) unstable; urgency=medium
 
   * New patch to fix FTBFS with libboost1.54 (Closes: #737551).

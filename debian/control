@@ -15,6 +15,7 @@ Build-Depends: debhelper (>= 9), dh-autoreconf, quilt, imagemagick
  ,libecal1.2-dev (>= 3.8.5)
  ,libenchant-dev
  ,libfribidi-dev
+ ,libgcrypt20-dev
  ,libgoffice-0.10-dev
  ,libgtk2.0-dev
  ,libglib2.0-dev

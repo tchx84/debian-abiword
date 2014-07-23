@@ -41,7 +41,7 @@ Build-Depends: debhelper (>= 9), dh-autoreconf, quilt, imagemagick
  ,subversion, svn2cl | subversion-tools (<< 1.7.5)
 # valgrind is only used in post-build tests, enable on available architectures
  ,valgrind [amd64 armhf i386 powerpc]
-Standards-Version: 3.9.4
+Standards-Version: 3.9.5
 Homepage: http://www.abisource.com/
 Vcs-Browser: http://anonscm.debian.org/gitweb/?p=collab-maint/abiword.git
 Vcs-Git: git://anonscm.debian.org/collab-maint/abiword.git

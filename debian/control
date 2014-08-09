@@ -28,13 +28,15 @@ Build-Depends: debhelper (>= 9), dh-autoreconf, quilt, imagemagick
  ,libpng-dev
  ,librdf0-dev
  ,libreadline-dev
+ ,librevenge-dev
  ,librsvg2-dev
  ,libsoup2.4-dev
  ,libtelepathy-glib-dev
  ,libtidy-dev
  ,libwmf-dev
- ,libwpg-dev
- ,libwps-dev
+ ,libwpd-dev (>= 0.10)
+ ,libwpg-dev (>= 0.3)
+ ,libwps-dev (>= 0.3)
  ,libwv-dev
  ,libxslt-dev | libxslt1-dev
 # subversion is used by get-orig-source

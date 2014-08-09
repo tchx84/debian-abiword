@@ -6,6 +6,10 @@ abiword (3.0.0-6) unstable; urgency=medium
     Add exta dh_autoreconf calls for plugins/wpg and plugins/wordperfect
     dirs so they get generated (and dh_autoreconf_clean).
 
+  [ Dmitry Smirnov ]
+  * Added "debian/gbp.conf".
+  * Standards-Version to 3.9.5.
+
  -- Dmitry Smirnov <onlyjob@debian.org>  Sat, 09 Aug 2014 11:14:12 +1000
 
 abiword (3.0.0-5) unstable; urgency=medium

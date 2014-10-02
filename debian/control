@@ -21,7 +21,7 @@ Build-Depends: debhelper (>= 9), dh-autoreconf, quilt, imagemagick
  ,libglib2.0-dev
  ,libgtk-3-dev
  ,libgtkmathview-dev
- ,libjpeg8-dev
+ ,libjpeg-dev
  ,liblink-grammar4-dev
  ,libloudmouth1-dev
  ,libots-dev

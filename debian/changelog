@@ -1,3 +1,12 @@
+abiword (3.0.0-7) unstable; urgency=medium
+
+  * Build-Depends: libjpeg8-dev --> libjpeg-dev (Closes: #763464).
+    Facilitates transition to "libjpeg-turbo". Thanks, Ondřej Surý.
+  * Standards-Version: 3.9.6.
+  * Orphaning package.
+
+ -- Dmitry Smirnov <onlyjob@debian.org>  Thu, 02 Oct 2014 19:57:42 +1000
+
 abiword (3.0.0-6) unstable; urgency=medium
 
   [ Rene Engelhard ]

@@ -1,3 +1,10 @@
+abiword (3.0.0-8) unstable; urgency=medium
+
+  * QA upload.
+  * Apply an upstream patch to fix format painter bug. (Closes: #766845).
+
+ -- Edward Betts <edward@4angle.com>  Thu, 04 Dec 2014 22:00:10 +0000
+
 abiword (3.0.0-7) unstable; urgency=medium
 
   * Build-Depends: libjpeg8-dev --> libjpeg-dev (Closes: #763464).

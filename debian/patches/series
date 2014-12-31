@@ -10,3 +10,4 @@ autosave.diff -p1
 ctrl-comma-subscript.diff -p1
 mime-types-desktop.diff -p1
 mime-types.diff -p1
+format-painter-fix.patch

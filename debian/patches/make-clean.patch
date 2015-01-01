@@ -8,7 +8,7 @@ Description: prevent breaking of source tree
 
 --- a/Makefile.am
 +++ b/Makefile.am
-@@ -59,13 +59,9 @@
+@@ -58,13 +58,9 @@
  	compile-resource \
  	lt-compile-resource
  

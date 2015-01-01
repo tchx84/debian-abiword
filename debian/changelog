@@ -1,3 +1,14 @@
+abiword (3.0.1-1) experimental; urgency=medium
+
+  * QA upload.
+  * New upstream release [December 2014].
+  * Dropped obsolete patches and lintian-overrides.
+  * Install missing files under "usr/share/abiword-3.0".
+  * Changed icon installation path.
+  * Updated "debian/copyright".
+
+ -- Dmitry Smirnov <onlyjob@debian.org>  Thu, 01 Jan 2015 11:03:35 +1100
+
 abiword (3.0.0-8) unstable; urgency=medium
 
   * QA upload.

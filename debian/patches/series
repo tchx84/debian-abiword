@@ -1,7 +1,3 @@
-evolution-data-server3.8.patch
-gnutls-no-libgcrypt.patch
-boost54.patch
-itex2MML.y.patch
 librevenge.patch
 
 624095-disable_smooth_scrolling.patch
@@ -10,4 +6,3 @@ autosave.diff -p1
 ctrl-comma-subscript.diff -p1
 mime-types-desktop.diff -p1
 mime-types.diff -p1
-format-painter-fix.patch

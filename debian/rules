@@ -3,10 +3,6 @@
 
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
-# arch-dependent patching
-archpatch=$(wildcard debian/patches/series.$(DEB_HOST_ARCH_OS))
-$(info $(if $(archpatch), $(shell cat $(archpatch) >> debian/patches/series \
-&& $(RM) $(archpatch) && dh_quilt_patch)))
 
 # parallel build by default on linux
 ifeq ($(DEB_HOST_ARCH_OS),linux)
@@ -60,7 +56,7 @@ override_dh_autoreconf:
 	$(if $(wildcard debian/$(pdev).install),,$(error invalid dev package/library name.))
 	# make plugins configuration if building from trunk
 	[ ! -x "./autogen-common.sh" ] || ./autogen-common.sh
-	dh_autoreconf -v --as-needed
+	dh_autoreconf --as-needed
 
 #: Build instructions http://www.abisource.com/~fjf/BUILD.phtml
 #: configure options reference: http://www.abisource.com/wiki/Compiling_AbiWord
@@ -99,25 +95,3 @@ override_dh_makeshlibs:
 
 override_dh_strip:
 	dh_strip --dbg-package=abiword-dbg
-
-override_dh_builddeb:
-	dh_builddeb -- -Zxz
-
-.PHONY: get-orig-source
-VER ?= $(shell dpkg-parsechangelog -l$(PKD)/changelog | perl -ne 'print $$1 if m/Version:\s*([\d\.~+svn]+)/')
-get-orig-source: $(PKG)-$(VER)/ChangeLog
-	@echo "Packing..."
-	XZ_OPT="-6v" tar -caf "$(PKG)_$(VER).orig.tar.xz" "$(PKG)-$(VER)" \
-        && $(RM) -r "$(PKG)-$(VER)"
-
-$(PKG)-$(VER)/ChangeLog: $(PKG)-$(VER)
-	@echo "Generating ChangeLog..."
-	cd "$(PKG)-$(VER)" \
-        && svn2cl --break-before-msg --include-rev \
-        && perl -0pi -e 's{(\d+\])[^:]+?:\s+}{$$1 }sgm' ChangeLog \
-        && find . -depth -name ".svn" -exec $(RM) -rf '{}' \;
-
-$(PKG)-$(VER):
-	svn checkout -r {$$(echo $(VER) | perl -ne 'print $$1 if m/\Dsvn(\d+)/')} \
-            http://svn.abisource.com/abiword/branches/ABI-3-0-0-STABLE $(PKG)-$(VER) \
-        || $(RM) -r $(PKG)-$(VER)

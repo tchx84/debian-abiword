@@ -39,8 +39,8 @@ plib=lib$(PKG)-$(apiver)
 pdev=lib$(PKG)-$(apiver)-dev
 
 %:
-	dh $@ --parallel --with autoreconf
-#	dh $@ --parallel --with autoreconf,gir
+#	dh $@ --parallel --with autoreconf
+	dh $@ --with autoreconf,gir
 
 override_dh_clean:
 	## adaptive cleaning meant to work for source archive or repository checkout.
@@ -79,10 +79,10 @@ override_dh_auto_configure:
 		--enable-collab-backend-telepathy \
 		--disable-silent-rules \
 		--enable-dependency-tracking \
-		--enable-plugins="$(plugins)"
+		--enable-plugins="$(plugins)" \
+		--enable-introspection
 #		--with-gtk2 \
 #		--enable-debug \
-#		--enable-introspection \
 
 override_dh_auto_test:
 	# do not stop on failed test(s)
